@@ -1,12 +1,12 @@
 /* ************************************************************************** */
 /*                                                                            */
 /*                                                        :::      ::::::::   */
-/*   parsing.c                                          :+:      :+:    :+:   */
+/*   creating_ast.c                                     :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
 /*   By: oloncle <oloncle@student.42.fr>            +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2025/01/27 14:43:00 by oloncle           #+#    #+#             */
-/*   Updated: 2025/01/31 11:11:54 by oloncle          ###   ########.fr       */
+/*   Updated: 2025/02/03 16:55:15 by oloncle          ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -38,6 +38,22 @@ t_lexer	*last_lex(t_lexer *head)
 	return (last);
 }
 
+void	creating_rl_cmd_nodes(t_pipe_node *current_p, t_lexer **current_lex)
+{
+	if (current_p->right == NULL)
+	{
+		printf("Creating right CMD node...\n");
+		current_p->right = create_cmd_node(*current_lex);
+		*current_lex = prev_lex(*current_lex);
+	}
+	if (current_p->left == NULL)
+	{
+		printf("Creating left CMD node...\n");
+		current_p->left = create_cmd_node(*current_lex);
+		*current_lex = prev_lex(*current_lex);
+	}
+}
+
 t_node	*creating_tree(t_lexer **head)
 {
 	int	nb_pipes;
@@ -59,18 +75,7 @@ t_node	*creating_tree(t_lexer **head)
 	current_p = top;
 	while (nb_pipes > 0)
 	{
-		if (current_p->right == NULL)
-		{
-			printf("Creating right CMD node...\n");
-			current_p->right = create_cmd_node(current_lex);
-			current_lex = prev_lex(current_lex);
-		}
-		if (current_p->left == NULL)
-		{
-			printf("Creating left CMD node...\n");
-			current_p->left = create_cmd_node(current_lex);
-			current_lex = prev_lex(current_lex);
-		}
+		creating_rl_cmd_nodes(current_p, &current_lex);
 		current_p = (t_pipe_node *)current_p->left;
 		nb_pipes--;
 	}
