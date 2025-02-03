@@ -6,7 +6,7 @@
 /*   By: oloncle <oloncle@student.42.fr>            +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/11/13 14:25:16 by oloncle           #+#    #+#             */
-/*   Updated: 2025/01/31 11:21:05 by oloncle          ###   ########.fr       */
+/*   Updated: 2025/02/03 15:50:32 by oloncle          ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -88,15 +88,16 @@ int	main(int argc, char *argv[], char *env[])
 {
 	char	*line;
 	t_lexer	**lex_lst;
-	t_node	*top_node;
+	t_data	*data;
 
+	data = malloc(sizeof(t_data));
 	(void)(argc);
 	(void)(argv);
 	(void)(env);
 	while (1)
 	{
 		lex_lst = NULL;
-		top_node = NULL;
+		data->head = NULL;
 		printf("\033[0;31m");
 		printf("minishell> ");
 		printf("\033[0m");
@@ -111,15 +112,15 @@ int	main(int argc, char *argv[], char *env[])
 			if (lex_lst)
 			{
 				//print_lexer_lst(lex_lst);
-				top_node = creating_tree(lex_lst);
-				print_ast(top_node);
+				data->head = creating_tree(lex_lst);
+				print_ast(data->head);
 			}
 			printf("EOL\n");
 		}
 		if (lex_lst)
 			free_lexer(lex_lst);
-		if (top_node)
-			free_ast(top_node);
+		if (data->head)
+			free_ast(data->head);
 		if (line && line[0] != 0)
 			free(line);
 	}

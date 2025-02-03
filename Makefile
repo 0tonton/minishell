@@ -6,7 +6,7 @@
 #    By: oloncle <oloncle@student.42.fr>            +#+  +:+       +#+         #
 #                                                 +#+#+#+#+#+   +#+            #
 #    Created: 2025/01/15 01:22:50 by oloncle           #+#    #+#              #
-#    Updated: 2025/01/31 11:22:30 by oloncle          ###   ########.fr        #
+#    Updated: 2025/02/03 15:51:19 by oloncle          ###   ########.fr        #
 #                                                                              #
 # **************************************************************************** #
 
@@ -27,6 +27,7 @@ PARS_SRCS = libft_utils.c\
 	    ft_split_mod.c\
 	    creating_cmd_nodes.c\
 	    creating_pipe_nodes.c\
+	    free_pars.c\
 
 SRC_FILES = main.c\
 

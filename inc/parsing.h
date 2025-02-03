@@ -6,7 +6,7 @@
 /*   By: oloncle <oloncle@student.42.fr>            +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2025/01/27 11:50:10 by oloncle           #+#    #+#             */
-/*   Updated: 2025/01/31 11:11:16 by oloncle          ###   ########.fr       */
+/*   Updated: 2025/02/03 15:51:52 by oloncle          ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -56,6 +56,7 @@ typedef	struct	s_data
 //FCTS
 
 t_node	*creating_tree(t_lexer **head);
+void	free_ast(t_node *top_node);
 
 //LIBFT utils
 char	**ft_split(char const *s, char *c);
