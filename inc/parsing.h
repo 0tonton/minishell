@@ -1,0 +1,70 @@
+/* ************************************************************************** */
+/*                                                                            */
+/*                                                        :::      ::::::::   */
+/*   parsing.h                                          :+:      :+:    :+:   */
+/*                                                    +:+ +:+         +:+     */
+/*   By: oloncle <oloncle@student.42.fr>            +#+  +:+       +#+        */
+/*                                                +#+#+#+#+#+   +#+           */
+/*   Created: 2025/01/27 11:50:10 by oloncle           #+#    #+#             */
+/*   Updated: 2025/01/31 11:11:16 by oloncle          ###   ########.fr       */
+/*                                                                            */
+/* ************************************************************************** */
+
+#ifndef PARSING_H
+# define PARSING_H
+
+#include "ms.h"
+#include "lexing.h"
+
+enum e_type
+{
+	CMD = 0,
+	PIPE = 1
+};
+
+typedef struct s_node
+{
+	enum e_type	type; //CMD or PIPE
+}	t_node;
+
+typedef	struct s_cmd_node
+{
+	enum e_type	type; // 0
+	char	**cmd_name; //liste du nom de la cmd avec ses arguments, fini par NULL
+
+	char	*input; //NULL if stdin, sinon nom du fichier
+	char	*output; //NULL si stdout, sinon nom du fichier
+	int	append_mode; //0 si pas d'append, et 1 si append au nom de fichier output
+	int	heredoc; //0 si pas here doc, 1 si here doc (nom du fichier en input)
+}	t_cmd_node;
+
+typedef struct s_pipe_node
+{
+	enum e_type	type; //1
+
+	t_node	*right; //soit pipe_node, soit cmd_node
+	t_node	*left; //soit pipe_node, soit cmd_node
+}	t_pipe_node;
+
+typedef	struct	s_data
+{
+	t_node	*head;
+	char	**env;
+	int	exit_status;
+}	t_data;
+
+//FCTS
+
+t_node	*creating_tree(t_lexer **head);
+
+//LIBFT utils
+char	**ft_split(char const *s, char *c);
+
+//cmd nodes
+t_node	*create_cmd_node(t_lexer *first_lex_node);
+
+//pipe nodes
+t_pipe_node	*creating_n_linked_pipe_nodes(int n);
+int	count_and_check_pipes(t_lexer **head);
+
+#endif
