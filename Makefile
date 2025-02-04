@@ -6,7 +6,7 @@
 #    By: oloncle <oloncle@student.42.fr>            +#+  +:+       +#+         #
 #                                                 +#+#+#+#+#+   +#+            #
 #    Created: 2025/01/15 01:22:50 by oloncle           #+#    #+#              #
-#    Updated: 2025/02/03 15:51:19 by oloncle          ###   ########.fr        #
+#    Updated: 2025/02/04 15:06:02 by oloncle          ###   ########.fr        #
 #                                                                              #
 # **************************************************************************** #
 
@@ -20,7 +20,11 @@ LEX_SRCS = lexer.c\
 	    handle_quotes_2.c\
 	    identifying_tok_1.c\
 	    identifying_tok_2.c\
+	    heredoc_handling.c\
+	    heredoc_utils_1.c\
+	    heredoc_utils_2.c\
 	    lexer_utils.c\
+	    ft_itoa.c\
 
 PARS_SRCS = libft_utils.c\
 	    creating_ast.c\

@@ -1,24 +1,16 @@
 /* ************************************************************************** */
 /*                                                                            */
 /*                                                        :::      ::::::::   */
-/*   handle_heredoc.c                                   :+:      :+:    :+:   */
+/*   heredoc_utils_1.c                                  :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
 /*   By: oloncle <oloncle@student.42.fr>            +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
-/*   Created: 2025/01/31 13:56:09 by oloncle           #+#    #+#             */
-/*   Updated: 2025/01/31 15:26:39 by oloncle          ###   ########.fr       */
+/*   Created: 2025/02/04 14:59:55 by oloncle           #+#    #+#             */
+/*   Updated: 2025/02/04 16:01:50 by oloncle          ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
 #include "../../../inc/lexing.h"
-
-void	del_node(t_lexer **head, t_lexer *del_node)
-{
-	if (del_node->prev)
-		del_node->prev->next = del_node->next;
-	if (del_node->next)
-		del_node->next->prev = del_node->prev;
-}
 
 int	check_dless(t_lexer *head)
 {
@@ -33,6 +25,7 @@ int	check_dless(t_lexer *head)
 	}
 	return (0);
 }
+
 int	check_delim_char(t_lexer *node)
 {
 	if (node->tok_type == T_SPACE || node->tok_type == T_GREAT \
@@ -49,6 +42,8 @@ int	len_delim(t_lexer *start_delim)
 	t_lexer	*current;
 
 	current = start_delim;
+	if (!current)
+		return (0);
 	len = ft_strlen(start_delim->str);
 	while (current->next && check_delim_char(current->next))
 	{
@@ -65,9 +60,10 @@ t_lexer	*dless_node(t_lexer *head)
 	current = head;
 	while (current)
 	{
-		if (current->tok_type == T_DLESS)
+		if ((current)->tok_type == T_DLESS)
 			return (current);
-		current =  current->next;
+		(current) =  (current)->next;
+		
 	}
 	return (NULL);
 }
@@ -78,22 +74,14 @@ char	*find_delim(t_lexer *head)
 	char	*delim;
 
 	start_delim_node = dless_node(head);
-	while (start_delim_node && start_delim_node->next \
-	&& start_delim_node->next->tok_type == T_SPACE)
+	start_delim_node = start_delim_node->next;
+	while (start_delim_node && start_delim_node->tok_type == T_SPACE)
 		start_delim_node = start_delim_node->next;
 	delim = ft_calloc(len_delim(start_delim_node) + 1, sizeof(char));
-	while (start_delim_node && start_delim_node->next && check_delim_char(start_delim_node->next))
+	while (start_delim_node && check_delim_char(start_delim_node))
 	{
-		ft_strlcat(delim, start_delim_node->str, ft_strlen(delim) + ft_strlen(start_delim_node) + 1);
+		ft_strlcat(delim, start_delim_node->str, ft_strlen(delim) + ft_strlen(start_delim_node->str) + 1);
 		start_delim_node = start_delim_node->next;
 	}
 	return (delim);
-}
-
-int	first_prompt_hd(t_lexer **head)
-{
-	char	*delim;
-
-	delim = find_delim(*head);
-	
 }

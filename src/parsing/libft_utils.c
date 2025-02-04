@@ -6,7 +6,7 @@
 /*   By: oloncle <oloncle@student.42.fr>            +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2025/01/15 10:14:27 by oloncle           #+#    #+#             */
-/*   Updated: 2025/01/30 13:06:05 by oloncle          ###   ########.fr       */
+/*   Updated: 2025/02/03 17:19:15 by oloncle          ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -90,5 +90,25 @@ void	*ft_calloc(size_t nmemb, size_t size)
 		i++;
 	}
 	return (result);
+}
+
+int	ft_strncmp(const char *s1, const char *s2, size_t n)
+{
+	int				diff;
+	size_t			i;
+
+	i = 0;
+	if (n == 0)
+		return (0);
+	if (!s2 || !s1)
+		return (-1);
+	n--;
+	while (((char *)s1)[i] != '\0' &&
+	((char *)s1)[i] == ((char *)s2)[i] && i < n)
+		i++;
+	diff = ((char *)s1)[i] - ((char *)s2)[i];
+	if (((char *)s1)[i] < 0 || ((char *)s2)[i] < 0)
+		diff = -diff;
+	return (diff);
 }
 

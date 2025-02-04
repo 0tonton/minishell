@@ -6,7 +6,7 @@
 /*   By: oloncle <oloncle@student.42.fr>            +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2025/01/28 11:32:26 by oloncle           #+#    #+#             */
-/*   Updated: 2025/01/31 14:03:17 by oloncle          ###   ########.fr       */
+/*   Updated: 2025/02/04 15:43:41 by oloncle          ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -63,16 +63,34 @@ int	if_chevron(t_lexer *current, t_cmd_node *cmd_node)
 	while (prev && prev->tok_type == T_SPACE)
 		prev = prev->prev;
 	if (prev->tok_type == T_GREAT)
+	{
+		if (cmd_node->output)
+			free(cmd_node->output);
 		cmd_node->output = ft_strdup(current->str);
+		cmd_node->append_mode = 0;
+	}
 	else if (prev->tok_type == T_DGREAT)
 	{
+		if (cmd_node->output)
+			free(cmd_node->output);
 		cmd_node->output = ft_strdup(current->str);
 		cmd_node->append_mode = 1;
 	}
 	else if (prev->tok_type == T_LESS)
+	{
+		if (cmd_node->heredoc)
+			unlink(cmd_node->input);
+		if (cmd_node->input)
+			free(cmd_node->input);
 		cmd_node->input = ft_strdup(current->str);
+		cmd_node->heredoc = 0;
+	}
 	else if (prev->tok_type == T_DLESS)
 	{
+		if (cmd_node->heredoc)
+			unlink(cmd_node->input);
+		if (cmd_node->input)
+			free(cmd_node->input);
 		cmd_node->input = ft_strdup(current->str);
 		cmd_node->heredoc = 1;
 		//heredoc

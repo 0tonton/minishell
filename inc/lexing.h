@@ -6,7 +6,7 @@
 /*   By: oloncle <oloncle@student.42.fr>            +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2025/01/14 16:33:26 by oloncle           #+#    #+#             */
-/*   Updated: 2025/01/30 16:56:00 by oloncle          ###   ########.fr       */
+/*   Updated: 2025/02/04 15:04:59 by oloncle          ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -59,10 +59,20 @@ void	if_operator(t_lexer *first_node, char *line, int *i);
 int	handle_quotes(t_lexer **first_node);
 void	create_and_add_new_node(t_lexer **first_node, t_lexer *first_quote);
 
+	//handle heredoc
+int	manage_hd(t_lexer **head);
+int	check_dless(t_lexer *head);
+	//heredoc utils
+char	*find_delim(t_lexer *head);
+int	check_delim_char(t_lexer *node);
+t_lexer	*dless_node(t_lexer *head);
+void	add_new_node_filename(t_lexer **head, int nb_hd);
+char	*create_filename(int nb_hd);
+
 	//utils
 int	ft_is_space(char c);
 int	is_special(char c);
-
+char	*ft_itoa(int n);
 
 void	print_lexer_lst(t_lexer **first_node);
 
