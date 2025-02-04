@@ -6,7 +6,7 @@
 /*   By: oloncle <oloncle@student.42.fr>            +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2025/01/14 16:33:26 by oloncle           #+#    #+#             */
-/*   Updated: 2025/02/04 15:04:59 by oloncle          ###   ########.fr       */
+/*   Updated: 2025/02/04 16:45:51 by oloncle          ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -62,6 +62,7 @@ void	create_and_add_new_node(t_lexer **first_node, t_lexer *first_quote);
 	//handle heredoc
 int	manage_hd(t_lexer **head);
 int	check_dless(t_lexer *head);
+
 	//heredoc utils
 char	*find_delim(t_lexer *head);
 int	check_delim_char(t_lexer *node);

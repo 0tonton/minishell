@@ -6,7 +6,7 @@
 /*   By: oloncle <oloncle@student.42.fr>            +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2025/01/28 11:32:26 by oloncle           #+#    #+#             */
-/*   Updated: 2025/02/04 15:43:41 by oloncle          ###   ########.fr       */
+/*   Updated: 2025/02/04 16:33:19 by oloncle          ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -93,7 +93,6 @@ int	if_chevron(t_lexer *current, t_cmd_node *cmd_node)
 			free(cmd_node->input);
 		cmd_node->input = ft_strdup(current->str);
 		cmd_node->heredoc = 1;
-		//heredoc
 	}
 	else
 		return (0);	

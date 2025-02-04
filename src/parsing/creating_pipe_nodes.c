@@ -6,7 +6,7 @@
 /*   By: oloncle <oloncle@student.42.fr>            +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2025/01/31 11:09:29 by oloncle           #+#    #+#             */
-/*   Updated: 2025/01/31 11:12:14 by oloncle          ###   ########.fr       */
+/*   Updated: 2025/02/04 17:00:49 by oloncle          ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -28,7 +28,7 @@ int	count_and_check_pipes(t_lexer **head)
 	if (current->tok_type == T_PIPE || (*head)->tok_type == T_PIPE)
 	{
 		free_lexer(head);
-		//message error
+		write(2, "ERROR: invalid PIPE\n", 20);
 		return (-1);
 	}
 	return (i);

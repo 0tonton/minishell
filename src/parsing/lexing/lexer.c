@@ -6,7 +6,7 @@
 /*   By: oloncle <oloncle@student.42.fr>            +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2025/01/15 08:52:57 by oloncle           #+#    #+#             */
-/*   Updated: 2025/02/04 16:00:26 by oloncle          ###   ########.fr       */
+/*   Updated: 2025/02/04 17:01:58 by oloncle          ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -92,7 +92,7 @@ t_lexer	**lexer_line(char *line)
 		if (!manage_hd(lexer_lst))
 		{
 			free_lexer(lexer_lst);
-			printf("ERROR: no DELIMETER given\n");
+			write(2, "ERROR: no DELIMETER given\n", 26);
 			return (NULL);
 		}
 	}
@@ -104,7 +104,7 @@ t_lexer	**lexer_line(char *line)
 	if (!handle_quotes(lexer_lst))
 	{
 		free_lexer(lexer_lst);
-		printf("ERROR: quotes unclosed\n");
+		write(2, "ERROR: quotes unclosed\n", 23);
 		return (NULL);
 	}
 	return (lexer_lst);

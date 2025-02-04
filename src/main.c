@@ -6,7 +6,7 @@
 /*   By: oloncle <oloncle@student.42.fr>            +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/11/13 14:25:16 by oloncle           #+#    #+#             */
-/*   Updated: 2025/02/04 15:59:08 by oloncle          ###   ########.fr       */
+/*   Updated: 2025/02/04 17:03:40 by oloncle          ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -106,9 +106,7 @@ int	main(int argc, char *argv[], char *env[])
 		printf("\033[0m");
 		line = readline(" ");
 		if (line == NULL || line[0] == 0)
-		{
-			printf("ERROR LINE\n");	
-		}
+			write(2, "ERROR: empty line\n", 18);
 		else
 		{
 			lex_lst = lexer_line(line);
@@ -116,7 +114,7 @@ int	main(int argc, char *argv[], char *env[])
 			{
 				//print_lexer_lst(lex_lst);
 				data->head = creating_tree(lex_lst);
-				print_ast(data->head);
+				//print_ast(data->head);
 			}
 			printf("EOL\n");
 		}
