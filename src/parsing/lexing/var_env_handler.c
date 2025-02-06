@@ -6,7 +6,7 @@
 /*   By: oloncle <oloncle@student.42.fr>            +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2025/02/05 15:40:57 by oloncle           #+#    #+#             */
-/*   Updated: 2025/02/06 11:49:30 by oloncle          ###   ########.fr       */
+/*   Updated: 2025/02/06 13:25:56 by oloncle          ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -33,16 +33,6 @@ char	*handling_exit_status(char *node_str, int *e_status)
 	free(node_str);
 	return (new_str);
 }
-
-// int	len_var(char *var)
-// {
-// 	int	i;
-
-// 	i = 0;
-// 	while (var[i] && var[i] != '=')
-// 		i++;
-// 	return (i);
-// }
 
 char	*ft_getenv(char *name, char **env)
 {
@@ -82,4 +72,4 @@ void	handle_env_var(t_lexer *start, t_lexer *end, int *e_status, char **env)
 		}
 		node = node->next;
 	}
-}
+}	
