@@ -6,7 +6,7 @@
 /*   By: oloncle <oloncle@student.42.fr>            +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2025/01/15 10:14:27 by oloncle           #+#    #+#             */
-/*   Updated: 2025/02/05 10:43:51 by oloncle          ###   ########.fr       */
+/*   Updated: 2025/02/06 11:04:28 by oloncle          ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -114,3 +114,30 @@ int	ft_strncmp(const char *s1, const char *s2, size_t n)
 	return (diff);
 }
 
+int	ft_atoi(const char *nptr)
+{
+	int	i;
+	int	nb;
+	int	minus;
+
+	i = 0;
+	nb = 0;
+	minus = 1;
+	while (((char *)nptr)[i] && ((((char *)nptr)[i] >= 9
+	&& ((char *)nptr)[i] <= 13) || ((char *)nptr)[i] == 32))
+		i++;
+	if (((char *)nptr)[i] && (((char *)nptr)[i] == '-'
+	|| ((char *)nptr)[i] == '+'))
+	{
+		if (((char *)nptr)[i] == '-')
+			minus = -minus;
+		i++;
+	}
+	while (((char *)nptr)[i] >= '0' && ((char *)nptr)[i] <= '9'
+	&& ((char *)nptr)[i])
+	{
+		nb = nb * 10 + (((char *)nptr)[i] - '0');
+		i++;
+	}
+	return (minus * nb);
+}

@@ -6,7 +6,7 @@
 /*   By: oloncle <oloncle@student.42.fr>            +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2025/01/15 08:52:57 by oloncle           #+#    #+#             */
-/*   Updated: 2025/02/06 10:10:36 by oloncle          ###   ########.fr       */
+/*   Updated: 2025/02/06 11:38:25 by oloncle          ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -73,7 +73,7 @@ void	identifying_token(t_lexer *lexer_lst, char *line, int *i)
 	if_sentence(lexer_lst, line, i);
 }
 
-t_lexer	**lexer_line(char *line, int *e_status)
+t_lexer	**lexer_line(char *line, int *e_status, char **env)
 {
 	int	i;
 	t_lexer	**lexer_lst;
@@ -103,13 +103,13 @@ t_lexer	**lexer_line(char *line, int *e_status)
 	//expander
 	//handle quote
 	//print_lexer_lst(lexer_lst);
-	if (!handle_quotes(lexer_lst, *e_status))
+	if (!handle_quotes(lexer_lst, *e_status, env))
 	{
 		free_lexer(lexer_lst);
 		*e_status = 2;
 		write(2, "ERROR: quotes unclosed\n", 23);
 		return (NULL);
 	}
-	handle_env_var(*lexer_lst, NULL, e_status);
+	handle_env_var(*lexer_lst, NULL, e_status, env);
 	return (lexer_lst);
 }

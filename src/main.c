@@ -6,7 +6,7 @@
 /*   By: oloncle <oloncle@student.42.fr>            +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/11/13 14:25:16 by oloncle           #+#    #+#             */
-/*   Updated: 2025/02/06 10:36:58 by oloncle          ###   ########.fr       */
+/*   Updated: 2025/02/06 11:45:48 by oloncle          ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -102,6 +102,17 @@ void	print_var_env(char **env)
 	}
 }
 
+void	free_data(t_data *data)
+{
+	if (data->env)
+	{
+		if (ft_getenv("SHLVL", data->env))
+			free(ft_getenv("SHLVL", data->env) - 5);
+		free(data->env);
+	}
+	free(data);
+}
+
 int	main(int argc, char *argv[], char *env[])
 {
 	char	*line;
@@ -113,6 +124,7 @@ int	main(int argc, char *argv[], char *env[])
 	data->env = tab_var_env(env);
 	(void)(argc);
 	(void)(argv);
+	print_var_env(data->env);
 	while (1) //not 'exit'
 	{
 		lex_lst = NULL;
@@ -126,7 +138,7 @@ int	main(int argc, char *argv[], char *env[])
 		else
 		{
 			printf("exit status: %d\n", data->exit_status);
-			lex_lst = lexer_line(line, &data->exit_status);
+			lex_lst = lexer_line(line, &data->exit_status, data->env);
 			if (lex_lst)
 			{
 				print_lexer_lst(lex_lst);
@@ -137,7 +149,5 @@ int	main(int argc, char *argv[], char *env[])
 		}
 		free_parsing(lex_lst, data, line);
 	}
-	if (data->env)
-		free(data->env);
-	free(data);
+	free_data(data);
 }

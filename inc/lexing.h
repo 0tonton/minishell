@@ -6,7 +6,7 @@
 /*   By: oloncle <oloncle@student.42.fr>            +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2025/01/14 16:33:26 by oloncle           #+#    #+#             */
-/*   Updated: 2025/02/06 10:10:30 by oloncle          ###   ########.fr       */
+/*   Updated: 2025/02/06 11:44:32 by oloncle          ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -44,7 +44,7 @@ typedef struct s_lexer
 
 //FCTS
 	//////LEXER//////
-t_lexer	**lexer_line(char *line, int *e_status);
+t_lexer	**lexer_line(char *line, int *e_status, char **env);
 void	add_lexer_node(t_lexer *first_node, char *value, t_token_type tok_type);
 void	free_lexer(t_lexer **first_node);
 
@@ -56,7 +56,7 @@ void	if_space(t_lexer *first_node, char *line, int *i);
 void	if_operator(t_lexer *first_node, char *line, int *i);
 
 	//handle quotes
-int	handle_quotes(t_lexer **first_node, int e_status);
+int	handle_quotes(t_lexer **first_node, int e_status, char **env);
 void	create_and_add_new_node(t_lexer **first_node, t_lexer *first_quote);
 
 	//handle heredoc
@@ -71,7 +71,8 @@ void	add_new_node_filename(t_lexer **head, int nb_hd);
 char	*create_filename(int nb_hd);
 
 	//handle env var
-void	handle_env_var(t_lexer *start, t_lexer *end, int *e_status);
+void	handle_env_var(t_lexer *start, t_lexer *end, int *e_status, char **env);
+char	*ft_getenv(char *name, char **env);
 
 	//utils
 int	ft_is_space(char c);

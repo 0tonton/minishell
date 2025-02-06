@@ -6,11 +6,12 @@
 /*   By: oloncle <oloncle@student.42.fr>            +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2025/02/05 15:40:57 by oloncle           #+#    #+#             */
-/*   Updated: 2025/02/06 10:34:38 by oloncle          ###   ########.fr       */
+/*   Updated: 2025/02/06 11:49:30 by oloncle          ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
 #include "../../../inc/lexing.h"
+#include "../../../inc/parsing.h"
 
 char	*handling_exit_status(char *node_str, int *e_status)
 {
@@ -33,7 +34,36 @@ char	*handling_exit_status(char *node_str, int *e_status)
 	return (new_str);
 }
 
-void	handle_env_var(t_lexer *start, t_lexer *end, int *e_status)
+// int	len_var(char *var)
+// {
+// 	int	i;
+
+// 	i = 0;
+// 	while (var[i] && var[i] != '=')
+// 		i++;
+// 	return (i);
+// }
+
+char	*ft_getenv(char *name, char **env)
+{
+	int	len;
+	char	*cur_var;
+	int	i;
+
+	i = 0;
+	cur_var = *env;
+	len = len_var(name);
+	while (cur_var)
+	{
+		if (len == len_var(cur_var) && !ft_strncmp(cur_var, name, len))
+			return(cur_var + len + 1);
+		i++;
+		cur_var = env[i];
+	}
+	return (NULL);
+}
+
+void	handle_env_var(t_lexer *start, t_lexer *end, int *e_status, char **env)
 {
 	t_lexer	*node;
 	char	*copy;
@@ -46,7 +76,7 @@ void	handle_env_var(t_lexer *start, t_lexer *end, int *e_status)
 			copy = ft_strdup((node->str) + 1);
 			node->str = handling_exit_status(node->str, e_status);
 			if (node->str == NULL)
-				node->str = ft_strdup(getenv(copy));
+				node->str = ft_strdup(ft_getenv(copy, env));
 			free(copy);
 			node->tok_type = T_SENTENCE;
 		}
