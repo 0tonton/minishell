@@ -6,7 +6,7 @@
 #    By: oloncle <oloncle@student.42.fr>            +#+  +:+       +#+         #
 #                                                 +#+#+#+#+#+   +#+            #
 #    Created: 2025/01/15 01:22:50 by oloncle           #+#    #+#              #
-#    Updated: 2025/02/04 15:06:02 by oloncle          ###   ########.fr        #
+#    Updated: 2025/02/05 15:44:32 by oloncle          ###   ########.fr        #
 #                                                                              #
 # **************************************************************************** #
 
@@ -25,6 +25,7 @@ LEX_SRCS = lexer.c\
 	    heredoc_utils_2.c\
 	    lexer_utils.c\
 	    ft_itoa.c\
+	    var_env_handler.c\
 
 PARS_SRCS = libft_utils.c\
 	    creating_ast.c\
@@ -32,6 +33,7 @@ PARS_SRCS = libft_utils.c\
 	    creating_cmd_nodes.c\
 	    creating_pipe_nodes.c\
 	    free_pars.c\
+	    creating_tab_env.c\
 
 SRC_FILES = main.c\
 

@@ -6,7 +6,7 @@
 /*   By: oloncle <oloncle@student.42.fr>            +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/11/13 14:25:16 by oloncle           #+#    #+#             */
-/*   Updated: 2025/02/06 11:45:48 by oloncle          ###   ########.fr       */
+/*   Updated: 2025/02/06 14:54:09 by oloncle          ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -129,25 +129,23 @@ int	main(int argc, char *argv[], char *env[])
 	{
 		lex_lst = NULL;
 		data->head = NULL;
-		printf("\033[0;31m");
-		printf("minishell> ");
-		printf("\033[0m");
-		line = readline(" ");
+		line = readline("\033[0;31mminishell>\033[0m ");
 		if (line == NULL || line[0] == 0)
 			write(2, "ERROR: empty line\n", 18);
 		else
 		{
-			printf("exit status: %d\n", data->exit_status);
+			add_history(line);
 			lex_lst = lexer_line(line, &data->exit_status, data->env);
 			if (lex_lst)
 			{
-				print_lexer_lst(lex_lst);
+				//print_lexer_lst(lex_lst);
 				data->head = creating_tree(lex_lst);
-				//print_ast(data->head);
+				print_ast(data->head);
 			}
 			printf("EOL\n");
 		}
 		free_parsing(lex_lst, data, line);
+		rl_on_new_line();
 	}
 	free_data(data);
 }

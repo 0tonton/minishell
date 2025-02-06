@@ -6,7 +6,7 @@
 /*   By: oloncle <oloncle@student.42.fr>            +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2025/01/15 08:52:57 by oloncle           #+#    #+#             */
-/*   Updated: 2025/02/06 11:38:25 by oloncle          ###   ########.fr       */
+/*   Updated: 2025/02/06 14:53:29 by oloncle          ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -86,7 +86,6 @@ t_lexer	**lexer_line(char *line, int *e_status, char **env)
 		if (line[i])
 			identifying_token(*lexer_lst, line, &i);
 	}
-	print_lexer_lst(lexer_lst);
 	if (check_dless(*lexer_lst))
 	{
 		
@@ -98,11 +97,6 @@ t_lexer	**lexer_line(char *line, int *e_status, char **env)
 			return (NULL);
 		}
 	}
-	//print_lexer_lst(lexer_lst);
-	//heredoc
-	//expander
-	//handle quote
-	//print_lexer_lst(lexer_lst);
 	if (!handle_quotes(lexer_lst, *e_status, env))
 	{
 		free_lexer(lexer_lst);
