@@ -6,7 +6,7 @@
 /*   By: oloncle <oloncle@student.42.fr>            +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2025/01/15 08:52:57 by oloncle           #+#    #+#             */
-/*   Updated: 2025/02/04 17:01:58 by oloncle          ###   ########.fr       */
+/*   Updated: 2025/02/06 10:10:36 by oloncle          ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -73,7 +73,7 @@ void	identifying_token(t_lexer *lexer_lst, char *line, int *i)
 	if_sentence(lexer_lst, line, i);
 }
 
-t_lexer	**lexer_line(char *line)
+t_lexer	**lexer_line(char *line, int *e_status)
 {
 	int	i;
 	t_lexer	**lexer_lst;
@@ -86,11 +86,13 @@ t_lexer	**lexer_line(char *line)
 		if (line[i])
 			identifying_token(*lexer_lst, line, &i);
 	}
+	print_lexer_lst(lexer_lst);
 	if (check_dless(*lexer_lst))
 	{
 		
 		if (!manage_hd(lexer_lst))
 		{
+			*e_status = 2;
 			free_lexer(lexer_lst);
 			write(2, "ERROR: no DELIMETER given\n", 26);
 			return (NULL);
@@ -100,12 +102,14 @@ t_lexer	**lexer_line(char *line)
 	//heredoc
 	//expander
 	//handle quote
-	//create files from redir
-	if (!handle_quotes(lexer_lst))
+	//print_lexer_lst(lexer_lst);
+	if (!handle_quotes(lexer_lst, *e_status))
 	{
 		free_lexer(lexer_lst);
+		*e_status = 2;
 		write(2, "ERROR: quotes unclosed\n", 23);
 		return (NULL);
 	}
+	handle_env_var(*lexer_lst, NULL, e_status);
 	return (lexer_lst);
 }

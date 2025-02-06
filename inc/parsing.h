@@ -6,7 +6,7 @@
 /*   By: oloncle <oloncle@student.42.fr>            +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2025/01/27 11:50:10 by oloncle           #+#    #+#             */
-/*   Updated: 2025/02/03 15:51:52 by oloncle          ###   ########.fr       */
+/*   Updated: 2025/02/06 10:37:27 by oloncle          ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -57,6 +57,7 @@ typedef	struct	s_data
 
 t_node	*creating_tree(t_lexer **head);
 void	free_ast(t_node *top_node);
+void	free_parsing(t_lexer **lex_lst, t_data *data, char *line);
 
 //LIBFT utils
 char	**ft_split(char const *s, char *c);
@@ -67,5 +68,8 @@ t_node	*create_cmd_node(t_lexer *first_lex_node);
 //pipe nodes
 t_pipe_node	*creating_n_linked_pipe_nodes(int n);
 int	count_and_check_pipes(t_lexer **head);
+
+//Env variables
+char	**tab_var_env(char **og_env);
 
 #endif

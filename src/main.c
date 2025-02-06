@@ -6,7 +6,7 @@
 /*   By: oloncle <oloncle@student.42.fr>            +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/11/13 14:25:16 by oloncle           #+#    #+#             */
-/*   Updated: 2025/02/04 17:03:40 by oloncle          ###   ########.fr       */
+/*   Updated: 2025/02/06 10:36:58 by oloncle          ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -87,6 +87,21 @@ void	print_ast(t_node *top_node)
 	}
 }
 
+void	print_var_env(char **env)
+{
+	int	i;
+	char	*var;
+
+	i = 0;
+	var = env[i];
+	while (var)
+	{
+		printf("%s\n\n", var);
+		i++;
+		var = env[i];
+	}
+}
+
 int	main(int argc, char *argv[], char *env[])
 {
 	char	*line;
@@ -94,10 +109,11 @@ int	main(int argc, char *argv[], char *env[])
 	t_data	*data;
 
 	data = malloc(sizeof(t_data));
+	data->exit_status = 0;
+	data->env = tab_var_env(env);
 	(void)(argc);
 	(void)(argv);
-	(void)(env);
-	while (1)
+	while (1) //not 'exit'
 	{
 		lex_lst = NULL;
 		data->head = NULL;
@@ -109,20 +125,19 @@ int	main(int argc, char *argv[], char *env[])
 			write(2, "ERROR: empty line\n", 18);
 		else
 		{
-			lex_lst = lexer_line(line);
+			printf("exit status: %d\n", data->exit_status);
+			lex_lst = lexer_line(line, &data->exit_status);
 			if (lex_lst)
 			{
-				//print_lexer_lst(lex_lst);
+				print_lexer_lst(lex_lst);
 				data->head = creating_tree(lex_lst);
 				//print_ast(data->head);
 			}
 			printf("EOL\n");
 		}
-		if (lex_lst)
-			free_lexer(lex_lst);
-		if (data->head)
-			free_ast(data->head);
-		if (line && line[0] != 0)
-			free(line);
+		free_parsing(lex_lst, data, line);
 	}
+	if (data->env)
+		free(data->env);
+	free(data);
 }

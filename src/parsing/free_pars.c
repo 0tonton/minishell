@@ -6,7 +6,7 @@
 /*   By: oloncle <oloncle@student.42.fr>            +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2025/01/31 11:20:25 by oloncle           #+#    #+#             */
-/*   Updated: 2025/01/31 11:21:09 by oloncle          ###   ########.fr       */
+/*   Updated: 2025/02/06 10:37:06 by oloncle          ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -55,4 +55,34 @@ void	free_ast(t_node *top_node)
 			current = next_pipe;
 		}
 	}
+}
+
+void	del_hdfiles()
+{
+	char	*pathname;
+	int	i;
+	int	ret_unlink;
+
+	i = 1;
+	pathname = create_filename(i);
+	ret_unlink = unlink(pathname);
+	while (!ret_unlink)
+	{
+		i++;
+		free(pathname);
+		pathname = create_filename(i);
+		ret_unlink = unlink(pathname);
+	}
+	free(pathname);
+}
+
+void	free_parsing(t_lexer **lex_lst, t_data *data, char *line)
+{
+	if (lex_lst)
+		free_lexer(lex_lst);
+	if (data->head)
+		free_ast(data->head);
+	if (line || line[0] != 0)
+		free(line);
+	del_hdfiles();
 }

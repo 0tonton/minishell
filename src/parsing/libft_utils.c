@@ -6,7 +6,7 @@
 /*   By: oloncle <oloncle@student.42.fr>            +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2025/01/15 10:14:27 by oloncle           #+#    #+#             */
-/*   Updated: 2025/02/03 17:19:15 by oloncle          ###   ########.fr       */
+/*   Updated: 2025/02/05 10:43:51 by oloncle          ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -18,6 +18,8 @@ char	*ft_strdup(char *s)
 	char	*dup;
 	int		i;
 
+	if (!s)
+		return (NULL);
 	dup = malloc((ft_strlen(s) + 1) * sizeof(char));
 	if (dup == NULL)
 		return (NULL);
@@ -36,7 +38,7 @@ int	ft_len_word(char *str)
 	int	i;
 
 	i = 0;
-	while (str[i] && !ft_is_space(str[i]) && !is_special(str[i]))
+	while (str && str[i] && !ft_is_space(str[i]) && !is_special(str[i]))
 		i++;
 	return (i);
 }

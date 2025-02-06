@@ -6,7 +6,7 @@
 /*   By: oloncle <oloncle@student.42.fr>            +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2025/01/30 13:45:01 by oloncle           #+#    #+#             */
-/*   Updated: 2025/01/30 14:22:32 by oloncle          ###   ########.fr       */
+/*   Updated: 2025/02/05 10:59:36 by oloncle          ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -21,13 +21,7 @@ int	len_new_str(t_lexer *first_quote)
 	len = 0;
 	while (current && current->tok_type != first_quote->tok_type)
 	{
-		if (first_quote->tok_type == T_DQUOTE && current->tok_type == T_VAR)
-		{
-			//len += len_env_var();
-			//handle env var, return la len de la var si elle existe
-		}
-		else
-			len += ft_strlen(current->str);
+		len += ft_strlen(current->str);
 		current = current->next;
 	}
 	return (len);

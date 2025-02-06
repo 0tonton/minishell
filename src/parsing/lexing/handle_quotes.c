@@ -6,7 +6,7 @@
 /*   By: oloncle <oloncle@student.42.fr>            +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2025/01/15 20:30:36 by oloncle           #+#    #+#             */
-/*   Updated: 2025/01/30 14:30:15 by oloncle          ###   ########.fr       */
+/*   Updated: 2025/02/06 10:23:23 by oloncle          ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -86,19 +86,30 @@ void	concat_sentences(t_lexer **first_node)
 	}
 }
 
-int	handle_quotes(t_lexer **first_node)
+int	handle_quotes(t_lexer **first_node, int e_status)
 {
 	t_lexer	*first_quote;
+	t_lexer	*last_quote;
 
 	if (!check_quotes_presence(*first_node, 0))
 		return (2);
 	first_quote = quote_node(*first_node);
 	if (check_quotes_presence(first_quote->next, first_quote->tok_type))
 	{
+		if (first_quote->tok_type == T_DQUOTE)
+		{
+			last_quote = first_quote->next;
+			while (last_quote && last_quote->tok_type != first_quote->tok_type)
+			{
+				last_quote = last_quote->next;
+				last_quote = quote_node(last_quote);
+			}
+			handle_env_var(first_quote, last_quote, &e_status);
+		}
 		create_and_add_new_node(first_node, first_quote);
 		concat_sentences(first_node);
 	}
 	else
 		return (0);
-	return (handle_quotes(first_node));
+	return (handle_quotes(first_node, e_status));
 }

@@ -6,7 +6,7 @@
 /*   By: oloncle <oloncle@student.42.fr>            +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2025/01/15 20:07:27 by oloncle           #+#    #+#             */
-/*   Updated: 2025/02/04 09:33:32 by oloncle          ###   ########.fr       */
+/*   Updated: 2025/02/05 15:27:20 by oloncle          ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -20,10 +20,12 @@ void	if_var(t_lexer *first_node, char *line, int *i)
 
 	if (line[*i] != '$')
 		return ;
-	j = 0;
-	len_word = ft_len_word(line + *i);
+	j = 1;
+	len_word = ft_len_word(line + *i + 1);
 	str = malloc(sizeof(char) * (len_word + 2));
-	while (line[*i] && !ft_is_space(line[*i]))
+	str[0] = line[*i];
+	(*i)++;
+	while (line[*i] && !ft_is_space(line[*i]) && !is_special(line[*i]))
 	{
 		str[j] = line[*i];
 		(*i)++;
