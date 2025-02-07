@@ -6,11 +6,13 @@
 /*   By: oloncle <oloncle@student.42.fr>            +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2025/02/07 11:35:50 by oloncle           #+#    #+#             */
-/*   Updated: 2025/02/07 11:39:35 by oloncle          ###   ########.fr       */
+/*   Updated: 2025/02/07 14:13:53 by oloncle          ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
+#include "../../inc/lexing.h"
 #include "../../inc/ms.h"
+#include "../../inc/parsing.h"
 
 int	check_lex_all_spaces(t_lexer *head)
 {
@@ -47,6 +49,7 @@ void	prompting(t_data *data)
 			lex_lst = lexer_line(line, &data->exit_status, data->env);
 			if (lex_lst && check_lex_all_spaces(*lex_lst))
 			{
+				print_lexer_lst(lex_lst);
 				add_history(line);
 				data->head = creating_tree(lex_lst);
 			}

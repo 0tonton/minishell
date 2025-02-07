@@ -6,11 +6,11 @@
 /*   By: oloncle <oloncle@student.42.fr>            +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2025/01/28 11:32:26 by oloncle           #+#    #+#             */
-/*   Updated: 2025/02/04 16:33:19 by oloncle          ###   ########.fr       */
+/*   Updated: 2025/02/07 14:43:30 by oloncle          ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
-#include "../../inc/parsing.h"
+#include "../../inc/ms.h"
 
 int	nb_cmd_arg(t_lexer *first_lex_node)
 {

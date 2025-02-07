@@ -6,11 +6,11 @@
 /*   By: oloncle <oloncle@student.42.fr>            +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2025/01/31 11:20:25 by oloncle           #+#    #+#             */
-/*   Updated: 2025/02/07 11:48:23 by oloncle          ###   ########.fr       */
+/*   Updated: 2025/02/07 14:43:20 by oloncle          ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
-#include "../../inc/parsing.h"
+#include "../../inc/ms.h"
 
 void	free_cmd_node(t_cmd_node *node)
 {

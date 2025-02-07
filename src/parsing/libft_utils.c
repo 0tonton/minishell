@@ -6,12 +6,11 @@
 /*   By: oloncle <oloncle@student.42.fr>            +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2025/01/15 10:14:27 by oloncle           #+#    #+#             */
-/*   Updated: 2025/02/06 11:04:28 by oloncle          ###   ########.fr       */
+/*   Updated: 2025/02/07 14:43:14 by oloncle          ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
 #include "../../inc/ms.h"
-#include "../../inc/lexing.h"
 
 char	*ft_strdup(char *s)
 {

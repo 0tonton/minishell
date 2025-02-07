@@ -6,11 +6,12 @@
 /*   By: oloncle <oloncle@student.42.fr>            +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2025/02/04 10:15:38 by oloncle           #+#    #+#             */
-/*   Updated: 2025/02/04 10:16:15 by oloncle          ###   ########.fr       */
+/*   Updated: 2025/02/07 14:41:26 by oloncle          ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
 #include "../../../inc/lexing.h"
+#include "../../../inc/ms.h"
 
 static int	ft_power(int nb, int power)
 {

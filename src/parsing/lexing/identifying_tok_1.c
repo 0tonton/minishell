@@ -6,11 +6,12 @@
 /*   By: oloncle <oloncle@student.42.fr>            +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2025/01/15 20:07:27 by oloncle           #+#    #+#             */
-/*   Updated: 2025/02/05 15:27:20 by oloncle          ###   ########.fr       */
+/*   Updated: 2025/02/07 14:40:51 by oloncle          ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
 #include "../../../inc/lexing.h"
+#include "../../../inc/ms.h"
 
 void	if_var(t_lexer *first_node, char *line, int *i)
 {

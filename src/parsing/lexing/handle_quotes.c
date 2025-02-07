@@ -6,11 +6,12 @@
 /*   By: oloncle <oloncle@student.42.fr>            +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2025/01/15 20:30:36 by oloncle           #+#    #+#             */
-/*   Updated: 2025/02/06 11:38:06 by oloncle          ###   ########.fr       */
+/*   Updated: 2025/02/07 14:41:20 by oloncle          ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
 #include "../../../inc/lexing.h"
+#include "../../../inc/ms.h"
 
 int	check_quotes_presence(t_lexer *first_node, t_token_type quote_type)
 {

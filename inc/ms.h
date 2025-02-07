@@ -6,7 +6,7 @@
 /*   By: oloncle <oloncle@student.42.fr>            +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/11/13 14:22:39 by oloncle           #+#    #+#             */
-/*   Updated: 2025/02/07 11:44:53 by oloncle          ###   ########.fr       */
+/*   Updated: 2025/02/07 14:31:34 by oloncle          ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -20,8 +20,8 @@
 #include <stdlib.h>
 #include <unistd.h>
 #include <signal.h>
-#include "parsing.h"
 #include "lexing.h"
+#include "parsing.h"
 
 /* // // // // Global data struct // // // */
 /*// // // // // // // // // //  // // // */
@@ -53,4 +53,6 @@ void	print_ast(t_node *top_node);
 void	print_var_env(char **env);
 void	print_lexer_lst(t_lexer **first_node);
 
+// free
+void	free_data(t_data *data);
 #endif

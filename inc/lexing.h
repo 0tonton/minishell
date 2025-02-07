@@ -6,14 +6,15 @@
 /*   By: oloncle <oloncle@student.42.fr>            +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2025/01/14 16:33:26 by oloncle           #+#    #+#             */
-/*   Updated: 2025/02/07 11:49:25 by oloncle          ###   ########.fr       */
+/*   Updated: 2025/02/07 14:40:13 by oloncle          ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
 #ifndef LEXING_H
 # define LEXING_H
 
-#include "ms.h"
+// #include "parsing.h"
+// #include "ms.h"
 
 //STRUCT
 

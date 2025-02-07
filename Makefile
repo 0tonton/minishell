@@ -6,7 +6,7 @@
 #    By: oloncle <oloncle@student.42.fr>            +#+  +:+       +#+         #
 #                                                 +#+#+#+#+#+   +#+            #
 #    Created: 2025/01/15 01:22:50 by oloncle           #+#    #+#              #
-#    Updated: 2025/02/07 11:46:21 by oloncle          ###   ########.fr        #
+#    Updated: 2025/02/07 14:45:03 by oloncle          ###   ########.fr        #
 #                                                                              #
 # **************************************************************************** #
 
@@ -61,7 +61,7 @@ $(NAME): $(patsubst %.c, %.o, $(CFILES))
 	$(CC) $(CFLAGS) $? -lreadline -o $(NAME)
 
 clean:
-	rm -f $(SRC_DIR)*.o
+	rm -f $(MAIN_DIR)*.o
 	rm -f $(PARS_DIR)*.o
 	rm -f $(LEX_DIR)*.o
 

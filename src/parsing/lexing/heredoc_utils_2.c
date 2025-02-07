@@ -6,11 +6,12 @@
 /*   By: oloncle <oloncle@student.42.fr>            +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2025/02/04 15:03:33 by oloncle           #+#    #+#             */
-/*   Updated: 2025/02/04 15:04:38 by oloncle          ###   ########.fr       */
+/*   Updated: 2025/02/07 14:40:54 by oloncle          ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
 #include "../../../inc/lexing.h"
+#include "../../../inc/ms.h"
 
 void	del_node(t_lexer **head, t_lexer *del_node)
 {

@@ -6,11 +6,13 @@
 /*   By: oloncle <oloncle@student.42.fr>            +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2025/01/15 10:45:01 by oloncle           #+#    #+#             */
-/*   Updated: 2025/01/29 09:21:55 by oloncle          ###   ########.fr       */
+/*   Updated: 2025/02/07 14:40:43 by oloncle          ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
 #include "../../../inc/lexing.h"
+#include "../../../inc/ms.h"
+
 
 int	ft_is_space(char c)
 {

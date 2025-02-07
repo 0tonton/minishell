@@ -6,12 +6,13 @@
 /*   By: oloncle <oloncle@student.42.fr>            +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2025/02/05 15:40:57 by oloncle           #+#    #+#             */
-/*   Updated: 2025/02/06 13:25:56 by oloncle          ###   ########.fr       */
+/*   Updated: 2025/02/07 14:41:34 by oloncle          ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
 #include "../../../inc/lexing.h"
 #include "../../../inc/parsing.h"
+#include "../../../inc/ms.h"
 
 char	*handling_exit_status(char *node_str, int *e_status)
 {

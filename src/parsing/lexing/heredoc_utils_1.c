@@ -6,11 +6,12 @@
 /*   By: oloncle <oloncle@student.42.fr>            +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2025/02/04 14:59:55 by oloncle           #+#    #+#             */
-/*   Updated: 2025/02/04 16:01:50 by oloncle          ###   ########.fr       */
+/*   Updated: 2025/02/07 14:40:57 by oloncle          ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
 #include "../../../inc/lexing.h"
+#include "../../../inc/ms.h"
 
 int	check_dless(t_lexer *head)
 {

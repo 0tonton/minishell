@@ -6,11 +6,12 @@
 /*   By: oloncle <oloncle@student.42.fr>            +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2025/01/30 13:45:01 by oloncle           #+#    #+#             */
-/*   Updated: 2025/02/05 10:59:36 by oloncle          ###   ########.fr       */
+/*   Updated: 2025/02/07 14:41:22 by oloncle          ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
 #include "../../../inc/lexing.h"
+#include "../../../inc/ms.h"
 
 int	len_new_str(t_lexer *first_quote)
 {

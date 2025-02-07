@@ -6,11 +6,11 @@
 /*   By: oloncle <oloncle@student.42.fr>            +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2025/02/07 11:33:19 by oloncle           #+#    #+#             */
-/*   Updated: 2025/02/07 11:33:50 by oloncle          ###   ########.fr       */
+/*   Updated: 2025/02/07 14:09:16 by oloncle          ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
-#include "../inc/ms.h"
+#include "../../inc/ms.h"
 
 void	signal_handler(int signum)
 {

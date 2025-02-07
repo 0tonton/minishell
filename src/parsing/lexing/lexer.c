@@ -6,11 +6,11 @@
 /*   By: oloncle <oloncle@student.42.fr>            +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2025/01/15 08:52:57 by oloncle           #+#    #+#             */
-/*   Updated: 2025/02/06 14:53:29 by oloncle          ###   ########.fr       */
+/*   Updated: 2025/02/07 14:40:02 by oloncle          ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
-#include "../../../inc/lexing.h"
+#include "../../../inc/ms.h"
 
 t_lexer	*init_lexer_list()
 {

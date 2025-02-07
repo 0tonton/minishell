@@ -6,11 +6,12 @@
 /*   By: oloncle <oloncle@student.42.fr>            +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2025/01/31 13:56:09 by oloncle           #+#    #+#             */
-/*   Updated: 2025/02/04 16:01:34 by oloncle          ###   ########.fr       */
+/*   Updated: 2025/02/07 14:41:01 by oloncle          ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
 #include "../../../inc/lexing.h"
+#include "../../../inc/ms.h"
 
 void	create_and_add_to_hdfile(char *buffer, int nb_hd)
 {
