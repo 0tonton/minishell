@@ -6,7 +6,7 @@
 #    By: oloncle <oloncle@student.42.fr>            +#+  +:+       +#+         #
 #                                                 +#+#+#+#+#+   +#+            #
 #    Created: 2025/01/15 01:22:50 by oloncle           #+#    #+#              #
-#    Updated: 2025/02/05 15:44:32 by oloncle          ###   ########.fr        #
+#    Updated: 2025/02/07 11:46:21 by oloncle          ###   ########.fr        #
 #                                                                              #
 # **************************************************************************** #
 
@@ -35,15 +35,18 @@ PARS_SRCS = libft_utils.c\
 	    free_pars.c\
 	    creating_tab_env.c\
 
-SRC_FILES = main.c\
+MAIN_FILES = main.c\
+	     signals_handler.c\
+	     prompting.c\
+	     debugging_print.c\
 
-SRC_DIR = ./src/
+MAIN_DIR = ./src/main/
 
 PARS_DIR = ./src/parsing/
 
 LEX_DIR = ./src/parsing/lexing/
 
-CFILES = $(addprefix $(SRC_DIR), $(SRC_FILES)) $(addprefix $(LEX_DIR), $(LEX_SRCS)) $(addprefix $(PARS_DIR), $(PARS_SRCS))
+CFILES = $(addprefix $(MAIN_DIR), $(MAIN_FILES)) $(addprefix $(LEX_DIR), $(LEX_SRCS)) $(addprefix $(PARS_DIR), $(PARS_SRCS))
 
 CFLAGS = -Wall -Werror -Wextra -g
 

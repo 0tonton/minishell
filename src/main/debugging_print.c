@@ -1,19 +1,16 @@
 /* ************************************************************************** */
 /*                                                                            */
 /*                                                        :::      ::::::::   */
-/*   main.c                                             :+:      :+:    :+:   */
+/*   debugging_print.c                                  :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
 /*   By: oloncle <oloncle@student.42.fr>            +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
-/*   Created: 2024/11/13 14:25:16 by oloncle           #+#    #+#             */
-/*   Updated: 2025/02/06 14:54:09 by oloncle          ###   ########.fr       */
+/*   Created: 2025/02/07 11:42:47 by oloncle           #+#    #+#             */
+/*   Updated: 2025/02/07 11:43:15 by oloncle          ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
-#include "../inc/ms.h"
-#include "../inc/parsing.h"
-#include "../inc/lexing.h"
-#include <stdio.h>
+#include "../../inc/ms.h"
 
 void	print_lexer_lst(t_lexer **first_node)
 {
@@ -100,52 +97,4 @@ void	print_var_env(char **env)
 		i++;
 		var = env[i];
 	}
-}
-
-void	free_data(t_data *data)
-{
-	if (data->env)
-	{
-		if (ft_getenv("SHLVL", data->env))
-			free(ft_getenv("SHLVL", data->env) - 5);
-		free(data->env);
-	}
-	free(data);
-}
-
-int	main(int argc, char *argv[], char *env[])
-{
-	char	*line;
-	t_lexer	**lex_lst;
-	t_data	*data;
-
-	data = malloc(sizeof(t_data));
-	data->exit_status = 0;
-	data->env = tab_var_env(env);
-	(void)(argc);
-	(void)(argv);
-	print_var_env(data->env);
-	while (1) //not 'exit'
-	{
-		lex_lst = NULL;
-		data->head = NULL;
-		line = readline("\033[0;31mminishell>\033[0m ");
-		if (line == NULL || line[0] == 0)
-			write(2, "ERROR: empty line\n", 18);
-		else
-		{
-			add_history(line);
-			lex_lst = lexer_line(line, &data->exit_status, data->env);
-			if (lex_lst)
-			{
-				//print_lexer_lst(lex_lst);
-				data->head = creating_tree(lex_lst);
-				print_ast(data->head);
-			}
-			printf("EOL\n");
-		}
-		free_parsing(lex_lst, data, line);
-		rl_on_new_line();
-	}
-	free_data(data);
 }

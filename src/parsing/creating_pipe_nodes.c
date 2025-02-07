@@ -6,7 +6,7 @@
 /*   By: oloncle <oloncle@student.42.fr>            +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2025/01/31 11:09:29 by oloncle           #+#    #+#             */
-/*   Updated: 2025/02/04 17:00:49 by oloncle          ###   ########.fr       */
+/*   Updated: 2025/02/07 11:50:02 by oloncle          ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -65,4 +65,3 @@ t_pipe_node	*creating_n_linked_pipe_nodes(int n)
 	}
 	return (head_pipe);
 }
-

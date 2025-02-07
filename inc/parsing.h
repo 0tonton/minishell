@@ -6,7 +6,7 @@
 /*   By: oloncle <oloncle@student.42.fr>            +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2025/01/27 11:50:10 by oloncle           #+#    #+#             */
-/*   Updated: 2025/02/06 11:48:44 by oloncle          ###   ########.fr       */
+/*   Updated: 2025/02/07 11:49:15 by oloncle          ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -14,7 +14,6 @@
 # define PARSING_H
 
 #include "ms.h"
-#include "lexing.h"
 
 enum e_type
 {

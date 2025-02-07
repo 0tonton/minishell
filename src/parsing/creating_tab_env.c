@@ -6,7 +6,7 @@
 /*   By: oloncle <oloncle@student.42.fr>            +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2025/02/05 09:58:07 by oloncle           #+#    #+#             */
-/*   Updated: 2025/02/06 11:31:16 by oloncle          ###   ########.fr       */
+/*   Updated: 2025/02/07 11:49:55 by oloncle          ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -36,6 +36,7 @@ char	*increment_shlvl(char *var)
 		new_var = ft_calloc(8 + ft_strlen(str_nb), sizeof(char));
 		ft_strlcat(new_var, "SHLVL=", 7);
 		ft_strlcat(new_var, str_nb, ft_strlen(new_var) + ft_strlen(str_nb) + 1);
+		free(str_nb);
 	}
 	return (new_var);
 }

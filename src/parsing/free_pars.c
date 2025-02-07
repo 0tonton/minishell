@@ -6,7 +6,7 @@
 /*   By: oloncle <oloncle@student.42.fr>            +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2025/01/31 11:20:25 by oloncle           #+#    #+#             */
-/*   Updated: 2025/02/06 10:37:06 by oloncle          ###   ########.fr       */
+/*   Updated: 2025/02/07 11:48:23 by oloncle          ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -82,7 +82,7 @@ void	free_parsing(t_lexer **lex_lst, t_data *data, char *line)
 		free_lexer(lex_lst);
 	if (data->head)
 		free_ast(data->head);
-	if (line || line[0] != 0)
+	if (!line || line[0] != 0 || line[0] != 4)
 		free(line);
 	del_hdfiles();
 }
