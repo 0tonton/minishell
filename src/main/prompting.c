@@ -6,7 +6,7 @@
 /*   By: oloncle <oloncle@student.42.fr>            +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2025/02/07 11:35:50 by oloncle           #+#    #+#             */
-/*   Updated: 2025/02/07 14:13:53 by oloncle          ###   ########.fr       */
+/*   Updated: 2025/02/09 12:31:50 by oloncle          ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -27,6 +27,22 @@ int	check_lex_all_spaces(t_lexer *head)
 	}
 	return (0);
 }
+
+// int	check_lex_special_char(t_lexer *lex)
+// {
+// 	t_lexer	*current;
+// 	int	doub_pipe;
+
+// 	doub_pipe = 0;
+// 	current = lex;
+// 	while (current)
+// 	{
+// 		if (lex->tok_type == T_PIPE && lex->next && lex->next->tok_type == T_PIPE)
+// 			return (0);
+// 		if (lex->tok_type == )
+// 		current = current->next;
+// 	}
+// }
 
 void	prompting(t_data *data)
 {
@@ -49,10 +65,25 @@ void	prompting(t_data *data)
 			lex_lst = lexer_line(line, &data->exit_status, data->env);
 			if (lex_lst && check_lex_all_spaces(*lex_lst))
 			{
-				print_lexer_lst(lex_lst);
+				//print_lexer_lst(lex_lst);
 				add_history(line);
 				data->head = creating_tree(lex_lst);
+				//print_ast(data->head);
 			}
+			//data->save_fd1 = -2;
+			//data->save_fd0 = -2;
+			if (exec(data, data->head) == 0)
+				printf("Y'a un problème...\n");
+			/*if (data->save_fd0 >= 0)
+			{
+				dup2(data->save_fd0, 0);
+				close(data->save_fd0);
+			}
+			if (data->save_fd1 >= 0)
+			{
+				dup2(data->save_fd1, 1);
+				close(data->save_fd1);
+			}*/
 		}
 		free_parsing(lex_lst, data, line);
 	}

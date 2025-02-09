@@ -1,39 +1,27 @@
 /* ************************************************************************** */
 /*                                                                            */
 /*                                                        :::      ::::::::   */
-/*   main.c                                             :+:      :+:    :+:   */
+/*   pwd.c                                              :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
 /*   By: oloncle <oloncle@student.42.fr>            +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
-/*   Created: 2024/11/13 14:25:16 by oloncle           #+#    #+#             */
-/*   Updated: 2025/02/09 12:09:38 by oloncle          ###   ########.fr       */
+/*   Created: 2024/08/18 17:53:01 by klabaune          #+#    #+#             */
+/*   Updated: 2025/02/09 12:13:17 by oloncle          ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
 #include "../../inc/ms.h"
-pid_t	signal_pid;
 
-void	free_data(t_data *data)
+int	ft_pwd(void)
 {
-	if (data->env)
+	char	path[PATH_MAX];
+
+	if (getcwd(path, PATH_MAX))
 	{
-		if (ft_getenv("SHLVL", data->env))
-			free(ft_getenv("SHLVL", data->env) - 6);
-		free(data->env);
+		printf("%s\n", path);
+		return (0);
 	}
-	free(data);
+	perror("pwd");
+	return (1);
 }
 
-int	main(int argc, char *argv[], char *env[])
-{
-	t_data	*data;
-
-
-	(void)(argc);
-	(void)(argv);
-	data = malloc(sizeof(t_data));
-	data->exit_status = 0;
-	data->env = tab_var_env(env);
-	set_up_signals();
-	prompting(data);
-}

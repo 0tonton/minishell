@@ -6,15 +6,12 @@
 /*   By: oloncle <oloncle@student.42.fr>            +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2025/01/14 16:33:26 by oloncle           #+#    #+#             */
-/*   Updated: 2025/02/07 14:40:13 by oloncle          ###   ########.fr       */
+/*   Updated: 2025/02/09 12:07:34 by oloncle          ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
 #ifndef LEXING_H
 # define LEXING_H
-
-// #include "parsing.h"
-// #include "ms.h"
 
 //STRUCT
 
@@ -32,7 +29,6 @@ typedef enum e_token_type
 	T_SPACE,
 }	t_token_type;
 
-//inquote to know if we're already in quote or not and waiting for la suite du prompt
 typedef struct s_lexer
 {
 	t_token_type		tok_type;

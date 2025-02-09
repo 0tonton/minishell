@@ -6,7 +6,7 @@
 /*   By: oloncle <oloncle@student.42.fr>            +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2025/01/15 08:52:57 by oloncle           #+#    #+#             */
-/*   Updated: 2025/02/07 14:40:02 by oloncle          ###   ########.fr       */
+/*   Updated: 2025/02/07 14:51:02 by oloncle          ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -86,6 +86,13 @@ t_lexer	**lexer_line(char *line, int *e_status, char **env)
 		if (line[i])
 			identifying_token(*lexer_lst, line, &i);
 	}
+	if (!handle_quotes(lexer_lst, *e_status, env))
+	{
+		free_lexer(lexer_lst);
+		*e_status = 2;
+		write(2, "ERROR: quotes unclosed\n", 23);
+		return (NULL);
+	}
 	if (check_dless(*lexer_lst))
 	{
 		
@@ -97,13 +104,13 @@ t_lexer	**lexer_line(char *line, int *e_status, char **env)
 			return (NULL);
 		}
 	}
-	if (!handle_quotes(lexer_lst, *e_status, env))
-	{
-		free_lexer(lexer_lst);
-		*e_status = 2;
-		write(2, "ERROR: quotes unclosed\n", 23);
-		return (NULL);
-	}
+	// if (!handle_quotes(lexer_lst, *e_status, env))
+	// {
+	// 	free_lexer(lexer_lst);
+	// 	*e_status = 2;
+	// 	write(2, "ERROR: quotes unclosed\n", 23);
+	// 	return (NULL);
+	// }
 	handle_env_var(*lexer_lst, NULL, e_status, env);
 	return (lexer_lst);
 }

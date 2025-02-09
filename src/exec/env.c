@@ -1,39 +1,27 @@
 /* ************************************************************************** */
 /*                                                                            */
 /*                                                        :::      ::::::::   */
-/*   main.c                                             :+:      :+:    :+:   */
+/*   env.c                                              :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
 /*   By: oloncle <oloncle@student.42.fr>            +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
-/*   Created: 2024/11/13 14:25:16 by oloncle           #+#    #+#             */
-/*   Updated: 2025/02/09 12:09:38 by oloncle          ###   ########.fr       */
+/*   Created: 2024/08/18 17:53:01 by klabaune          #+#    #+#             */
+/*   Updated: 2025/02/09 12:11:34 by oloncle          ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
 #include "../../inc/ms.h"
-pid_t	signal_pid;
 
-void	free_data(t_data *data)
+int	ft_env(char **env)
 {
-	if (data->env)
+	int	i;
+
+	i = 0;
+	while (env[i])
 	{
-		if (ft_getenv("SHLVL", data->env))
-			free(ft_getenv("SHLVL", data->env) - 6);
-		free(data->env);
+		if (ft_strchr(env[i], '='))
+			printf("%s\n", env[i]);
+		i++;
 	}
-	free(data);
-}
-
-int	main(int argc, char *argv[], char *env[])
-{
-	t_data	*data;
-
-
-	(void)(argc);
-	(void)(argv);
-	data = malloc(sizeof(t_data));
-	data->exit_status = 0;
-	data->env = tab_var_env(env);
-	set_up_signals();
-	prompting(data);
+	return (0);
 }

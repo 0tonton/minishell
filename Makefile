@@ -6,7 +6,7 @@
 #    By: oloncle <oloncle@student.42.fr>            +#+  +:+       +#+         #
 #                                                 +#+#+#+#+#+   +#+            #
 #    Created: 2025/01/15 01:22:50 by oloncle           #+#    #+#              #
-#    Updated: 2025/02/07 14:45:03 by oloncle          ###   ########.fr        #
+#    Updated: 2025/02/09 11:52:52 by oloncle          ###   ########.fr        #
 #                                                                              #
 # **************************************************************************** #
 
@@ -14,6 +14,23 @@
 
 #Directories and srcs
 NAME = minishell
+
+EXEC_SRCS = cd.c\
+	    do_cmd.c\
+	    echo.c\
+	    env.c\
+	    exec.c\
+	    exit.c\
+	    export.c\
+	    init_path.c\
+	    norme.c\
+	    path_utils.c\
+	    pwd.c\
+	    unset.c\
+	    ft_strjoin.c\
+	    ft_strchr.c\
+	    ft_isalpha.c\
+	    ft_isalnum.c\
 
 LEX_SRCS = lexer.c\
 	    handle_quotes.c\
@@ -46,7 +63,9 @@ PARS_DIR = ./src/parsing/
 
 LEX_DIR = ./src/parsing/lexing/
 
-CFILES = $(addprefix $(MAIN_DIR), $(MAIN_FILES)) $(addprefix $(LEX_DIR), $(LEX_SRCS)) $(addprefix $(PARS_DIR), $(PARS_SRCS))
+EXEC_DIR = ./src/exec/
+
+CFILES = $(addprefix $(MAIN_DIR), $(MAIN_FILES)) $(addprefix $(LEX_DIR), $(LEX_SRCS)) $(addprefix $(PARS_DIR), $(PARS_SRCS)) $(addprefix $(EXEC_DIR), $(EXEC_SRCS))
 
 CFLAGS = -Wall -Werror -Wextra -g
 
@@ -64,6 +83,7 @@ clean:
 	rm -f $(MAIN_DIR)*.o
 	rm -f $(PARS_DIR)*.o
 	rm -f $(LEX_DIR)*.o
+	rm -f $(EXEC_DIR)*.o
 
 fclean: clean
 	rm -f $(NAME)

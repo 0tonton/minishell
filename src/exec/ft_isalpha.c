@@ -1,39 +1,36 @@
 /* ************************************************************************** */
 /*                                                                            */
 /*                                                        :::      ::::::::   */
-/*   main.c                                             :+:      :+:    :+:   */
+/*   ft_isalpha.c                                       :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
 /*   By: oloncle <oloncle@student.42.fr>            +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
-/*   Created: 2024/11/13 14:25:16 by oloncle           #+#    #+#             */
-/*   Updated: 2025/02/09 12:09:38 by oloncle          ###   ########.fr       */
+/*   Created: 2023/10/02 13:32:54 by klabaune          #+#    #+#             */
+/*   Updated: 2025/02/09 12:12:38 by oloncle          ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
 #include "../../inc/ms.h"
-pid_t	signal_pid;
 
-void	free_data(t_data *data)
+int	ft_isalpha(int c)
 {
-	if (data->env)
-	{
-		if (ft_getenv("SHLVL", data->env))
-			free(ft_getenv("SHLVL", data->env) - 6);
-		free(data->env);
-	}
-	free(data);
+	if (('a' <= c && c <= 'z') || ('A' <= c && c <= 'Z'))
+		return (1);
+	return (0);
 }
 
-int	main(int argc, char *argv[], char *env[])
+/*
+#include <stdio.h>
+
+int	main(void)
 {
-	t_data	*data;
-
-
-	(void)(argc);
-	(void)(argv);
-	data = malloc(sizeof(t_data));
-	data->exit_status = 0;
-	data->env = tab_var_env(env);
-	set_up_signals();
-	prompting(data);
+	printf("%d\n", ft_isalpha('a'));
+	printf("%d\n", ft_isalpha('z'));
+	printf("%d\n", ft_isalpha('h'));
+	printf("%d\n", ft_isalpha('A'));
+	printf("%d\n", ft_isalpha('Z'));
+	printf("%d\n", ft_isalpha('L'));
+	printf("%d\n", ft_isalpha('5'));
+	return (0);
 }
+*/

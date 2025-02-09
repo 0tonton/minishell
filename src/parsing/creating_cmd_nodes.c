@@ -6,7 +6,7 @@
 /*   By: oloncle <oloncle@student.42.fr>            +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2025/01/28 11:32:26 by oloncle           #+#    #+#             */
-/*   Updated: 2025/02/07 14:43:30 by oloncle          ###   ########.fr       */
+/*   Updated: 2025/02/07 15:58:10 by oloncle          ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -62,40 +62,49 @@ int	if_chevron(t_lexer *current, t_cmd_node *cmd_node)
 	prev = current->prev;
 	while (prev && prev->tok_type == T_SPACE)
 		prev = prev->prev;
-	if (prev->tok_type == T_GREAT)
+	if (prev)
 	{
-		if (cmd_node->output)
-			free(cmd_node->output);
-		cmd_node->output = ft_strdup(current->str);
-		cmd_node->append_mode = 0;
+		if (prev->tok_type == T_GREAT)
+		{
+			if (cmd_node->output)
+				free(cmd_node->output);
+			if (!current->str)
+				return (-1);
+			cmd_node->output = ft_strdup(current->str);
+			cmd_node->append_mode = 0;
+		}
+		else if (prev->tok_type == T_DGREAT)
+		{
+			if (cmd_node->output)
+				free(cmd_node->output);
+			if (!current->str)
+				return (-1);
+			cmd_node->output = ft_strdup(current->str);
+			cmd_node->append_mode = 1;
+		}
+		else if (prev->tok_type == T_LESS)
+		{
+			if (cmd_node->heredoc)
+				unlink(cmd_node->input);
+			if (cmd_node->input)
+				free(cmd_node->input);
+			if (!current->str)
+				return (-1);
+			cmd_node->input = ft_strdup(current->str);
+			cmd_node->heredoc = 0;
+		}
+		else if (prev->tok_type == T_DLESS)
+		{
+			if (cmd_node->heredoc)
+				unlink(cmd_node->input);
+			if (cmd_node->input)
+				free(cmd_node->input);
+			cmd_node->input = ft_strdup(current->str);
+			cmd_node->heredoc = 1;
+		}
+		else
+			return (0);	
 	}
-	else if (prev->tok_type == T_DGREAT)
-	{
-		if (cmd_node->output)
-			free(cmd_node->output);
-		cmd_node->output = ft_strdup(current->str);
-		cmd_node->append_mode = 1;
-	}
-	else if (prev->tok_type == T_LESS)
-	{
-		if (cmd_node->heredoc)
-			unlink(cmd_node->input);
-		if (cmd_node->input)
-			free(cmd_node->input);
-		cmd_node->input = ft_strdup(current->str);
-		cmd_node->heredoc = 0;
-	}
-	else if (prev->tok_type == T_DLESS)
-	{
-		if (cmd_node->heredoc)
-			unlink(cmd_node->input);
-		if (cmd_node->input)
-			free(cmd_node->input);
-		cmd_node->input = ft_strdup(current->str);
-		cmd_node->heredoc = 1;
-	}
-	else
-		return (0);	
 	return (1);
 }
 
@@ -103,6 +112,7 @@ t_node	*create_cmd_node(t_lexer *first_lex_node)
 {
 	t_cmd_node	*cmd_node;
 	t_lexer		*current;
+	int		ret_chevron;
 
 	cmd_node = malloc(sizeof(t_cmd_node));
 	init_cmd_node(cmd_node, first_lex_node);
@@ -111,7 +121,14 @@ t_node	*create_cmd_node(t_lexer *first_lex_node)
 	{
 		if (current->tok_type == T_SENTENCE)
 		{
-			if (current->prev == NULL || (current->prev != NULL && !(if_chevron(current, cmd_node))))
+			ret_chevron = if_chevron(current, cmd_node);
+			if (ret_chevron == -1)
+			{
+				printf("here\n");
+				free(cmd_node);
+				return (NULL);
+			}
+			if (current->prev == NULL || (current->prev != NULL && !ret_chevron))
 				add_str_to_lst(cmd_node->cmd_name, current->str);
 		}
 		current = current->next;

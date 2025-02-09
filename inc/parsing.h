@@ -6,7 +6,7 @@
 /*   By: oloncle <oloncle@student.42.fr>            +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2025/01/27 11:50:10 by oloncle           #+#    #+#             */
-/*   Updated: 2025/02/07 14:40:16 by oloncle          ###   ########.fr       */
+/*   Updated: 2025/02/09 12:11:15 by oloncle          ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -50,6 +50,8 @@ typedef	struct	s_data
 	t_node	*head;
 	char	**env;
 	int	exit_status;
+	int	act_pipe_fd0;
+	int	prev_pipe_fd0;
 }	t_data;
 
 //FCTS

@@ -6,7 +6,7 @@
 /*   By: oloncle <oloncle@student.42.fr>            +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2025/01/31 11:20:25 by oloncle           #+#    #+#             */
-/*   Updated: 2025/02/07 14:43:20 by oloncle          ###   ########.fr       */
+/*   Updated: 2025/02/07 15:49:51 by oloncle          ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -17,17 +17,20 @@ void	free_cmd_node(t_cmd_node *node)
 	int	i;
 
 	i = 0;
-	while ((node->cmd_name)[i])
+	if (node)
 	{
-		free(node->cmd_name[i]);
-		i++;
+		while ((node->cmd_name)[i])
+		{
+			free(node->cmd_name[i]);
+			i++;
+		}
+		free(node->cmd_name);
+		if (node->input)
+			free(node->input);
+		if (node->output)
+			free(node->output);
+		free(node);
 	}
-	free(node->cmd_name);
-	if (node->input)
-		free(node->input);
-	if (node->output)
-		free(node->output);
-	free(node);
 }
 
 void	free_ast(t_node *top_node)

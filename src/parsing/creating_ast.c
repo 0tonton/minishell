@@ -6,7 +6,7 @@
 /*   By: oloncle <oloncle@student.42.fr>            +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2025/01/27 14:43:00 by oloncle           #+#    #+#             */
-/*   Updated: 2025/02/07 14:42:47 by oloncle          ###   ########.fr       */
+/*   Updated: 2025/02/07 15:51:13 by oloncle          ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -73,6 +73,11 @@ t_node	*creating_tree(t_lexer **head)
 	while (nb_pipes > 0)
 	{
 		creating_rl_cmd_nodes(current_p, &current_lex);
+		if (!current_p->left || !current_p->right)
+		{
+			free_ast((t_node *)top);
+			return (NULL);
+		}
 		current_p = (t_pipe_node *)current_p->left;
 		nb_pipes--;
 	}
