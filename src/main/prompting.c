@@ -6,7 +6,7 @@
 /*   By: oloncle <oloncle@student.42.fr>            +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2025/02/07 11:35:50 by oloncle           #+#    #+#             */
-/*   Updated: 2025/02/09 12:31:50 by oloncle          ###   ########.fr       */
+/*   Updated: 2025/02/10 14:07:32 by oloncle          ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -28,21 +28,60 @@ int	check_lex_all_spaces(t_lexer *head)
 	return (0);
 }
 
-// int	check_lex_special_char(t_lexer *lex)
-// {
-// 	t_lexer	*current;
-// 	int	doub_pipe;
+int	is_chevrons(t_lexer *node)
+{
+	if (node->tok_type == T_DGREAT)
+		return (1);
+	else if (node->tok_type == T_GREAT)
+		return (1);
+	else if (node->tok_type == T_LESS)
+		return (1);
+	else if (node->tok_type == T_DLESS)
+		return (1);
+	return (0);
+}
 
-// 	doub_pipe = 0;
-// 	current = lex;
-// 	while (current)
-// 	{
-// 		if (lex->tok_type == T_PIPE && lex->next && lex->next->tok_type == T_PIPE)
-// 			return (0);
-// 		if (lex->tok_type == )
-// 		current = current->next;
-// 	}
-// }
+int	next_tok_sentence(t_lexer *node)
+{
+	t_lexer *cur;
+
+	cur = node;
+	while (cur && cur->tok_type == T_SPACE)
+		cur = cur->next;
+	if (cur && cur->tok_type == T_SENTENCE)
+		return (1);
+	return (0);
+}
+
+int	check_lex_special_char(t_lexer *lex)
+{
+	t_lexer	*current;
+
+	current = lex;
+	while (current->next)
+	{
+		if (current->next)
+		{
+			if (current->tok_type == T_PIPE && current->next->tok_type == T_PIPE)
+			{
+				write(2, "WARNING: double PIPE\n", 21);
+				return (0);
+			}
+			if (is_chevrons(current) && (!next_tok_sentence(current->next) || is_chevrons(current->next)))
+			{
+				write(2, "ERROR: unexpected token\n", 24);
+				return (0);
+			}
+		}
+		current = current->next;
+	}
+	if (is_chevrons(current) || current->tok_type == T_PIPE)
+	{
+		write(2, "ERROR: unexpected token at EOL\n", 31);
+		return (0);
+	}
+	return (1);
+}
 
 void	prompting(t_data *data)
 {
@@ -57,7 +96,7 @@ void	prompting(t_data *data)
 		if (line == NULL)
 		{
 			free_data(data);
-			write(1, "exit...\n", 8);
+			write(2, "exit...\n", 8);
 			exit(0);
 		}
 		else if (line[0] != 0)
@@ -67,13 +106,18 @@ void	prompting(t_data *data)
 			{
 				//print_lexer_lst(lex_lst);
 				add_history(line);
-				data->head = creating_tree(lex_lst);
+				if (check_lex_special_char(*lex_lst))
+				{
+					data->head = creating_tree(lex_lst);
+					if (exec(data, data->head) == 0)
+						printf("Y'a un problème...\n");
+				}
 				//print_ast(data->head);
 			}
 			//data->save_fd1 = -2;
-			//data->save_fd0 = -2;
-			if (exec(data, data->head) == 0)
-				printf("Y'a un problème...\n");
+			// //data->save_fd0 = -2;
+			// if (exec(data, data->head) == 0)
+			// 	printf("Y'a un problème...\n");
 			/*if (data->save_fd0 >= 0)
 			{
 				dup2(data->save_fd0, 0);

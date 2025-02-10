@@ -6,7 +6,7 @@
 /*   By: oloncle <oloncle@student.42.fr>            +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2025/02/04 14:59:55 by oloncle           #+#    #+#             */
-/*   Updated: 2025/02/07 14:40:57 by oloncle          ###   ########.fr       */
+/*   Updated: 2025/02/10 12:18:22 by oloncle          ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -29,9 +29,9 @@ int	check_dless(t_lexer *head)
 
 int	check_delim_char(t_lexer *node)
 {
-	if (node->tok_type == T_SPACE || node->tok_type == T_GREAT \
+	if (node && (node->tok_type == T_SPACE || node->tok_type == T_GREAT \
 	|| node->tok_type == T_LESS || node->tok_type == T_DGREAT \
-	|| node->tok_type == T_DLESS)
+	|| node->tok_type == T_DLESS || node->tok_type == T_PIPE))
 		return (0);
 	else
 		return (1);
@@ -75,7 +75,10 @@ char	*find_delim(t_lexer *head)
 	char	*delim;
 
 	start_delim_node = dless_node(head);
-	start_delim_node = start_delim_node->next;
+	if (check_delim_char(start_delim_node->next))
+		start_delim_node = start_delim_node->next;
+	else
+		return (NULL);
 	while (start_delim_node && start_delim_node->tok_type == T_SPACE)
 		start_delim_node = start_delim_node->next;
 	delim = ft_calloc(len_delim(start_delim_node) + 1, sizeof(char));
