@@ -36,4 +36,5 @@ int	main(int argc, char *argv[], char *env[])
 	data->env = tab_var_env(env);
 	set_up_signals();
 	prompting(data);
+	printf("sqlu");
 }
