@@ -6,7 +6,7 @@
 /*   By: oloncle <oloncle@student.42.fr>            +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/11/13 14:25:16 by oloncle           #+#    #+#             */
-/*   Updated: 2025/02/10 15:17:09 by oloncle          ###   ########.fr       */
+/*   Updated: 2025/02/10 15:18:47 by oloncle          ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -31,7 +31,6 @@ int	main(int argc, char *argv[], char *env[])
 
 	(void)(argc);
 	(void)(argv);
-	printf("oui");
 	data = malloc(sizeof(t_data));
 	data->exit_status = 0;
 	data->env = tab_var_env(env);
