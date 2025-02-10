@@ -6,7 +6,7 @@
 /*   By: oloncle <oloncle@student.42.fr>            +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/11/13 14:25:16 by oloncle           #+#    #+#             */
-/*   Updated: 2025/02/10 15:18:47 by oloncle          ###   ########.fr       */
+/*   Updated: 2025/02/09 12:09:38 by oloncle          ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -36,5 +36,4 @@ int	main(int argc, char *argv[], char *env[])
 	data->env = tab_var_env(env);
 	set_up_signals();
 	prompting(data);
-	printf("sqlu");
 }

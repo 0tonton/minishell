@@ -46,18 +46,13 @@ void	child(t_data *data, t_cmd_node *cmd, int pos, int *pipe_fd)
 		dup2(data->prev_pipe_fd0, 0);
 		close(data->prev_pipe_fd0);
 	}
-	if (check_builtin(cmd->cmd_name[0]))
-		builtin(data, cmd);
-	else
-	{
-		path = NULL;
-		init_path(data, cmd->cmd_name[0], &path);
-		if (!path)
-			return ;
-		signal(SIGQUIT, SIG_DFL);
-		execve(path, cmd->cmd_name, data->env);
-		free(path);
-	}
+	path = NULL;
+	init_path(data, cmd->cmd_name[0], &path);
+	if (!path)
+		return ;
+	signal(SIGQUIT, SIG_DFL);
+	execve(path, cmd->cmd_name, data->env);
+	free(path);
 }
 
 void	parent(t_data *data, int *pipe_fd, int pos)
@@ -76,6 +71,11 @@ bool	do_cmd(t_data *data, t_cmd_node *cmd, int pos)
 
 	if (pipe(pipe_fd) == -1)
 		return (false);
+	if (check_builtin(cmd->cmd_name[0]))
+	{
+		do_builtin(data, cmd, pipe_fd, pos);
+		return (true);
+	}
 	signal_pid = fork();
 	if (signal_pid == -1)
 		return (false);

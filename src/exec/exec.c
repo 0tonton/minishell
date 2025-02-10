@@ -40,41 +40,51 @@ void	builtin(t_data *data, t_cmd_node *cmd)
 		data->exit_status = ft_unset(data, cmd->cmd_name, data->env);
 }
 
-int	only_cmd(t_data *data, t_cmd_node *cmd)
+void	do_builtin(t_data *data, t_cmd_node *cmd, int *pipe_fd, int pos)
 {
-	int		fd_in;
-	int		fd_out;
-	char	*path;
+	int	save_fd1;
+	int	save_fd0;
+	int	fd_in;
+	int	fd_out;
 
+	save_fd1 = dup(1);
+	save_fd0 = dup(0);
+	if (pos == 2 || pos == -1)
+		close(pipe_fd[0]);
+	if (cmd->output)
+	{
+		if (cmd->append_mode == 1)
+			fd_out = open(cmd->output, O_WRONLY | O_CREAT, O_APPEND, 0777);
+		else
+			fd_out = open(cmd->output, O_WRONLY | O_CREAT | O_TRUNC, 0777);
+		if (fd_out < 0)
+			return ;
+		dup2(fd_out, 1);
+		close(fd_out);
+	}
+	else if (pos != 2 && pos != -1)
+		dup2(pipe_fd[1], 1);
 	if (cmd->input)
 	{
 		fd_in = open(cmd->input, O_RDONLY);
 		if (fd_in < 0)
-			return (0);
+			return ;
 		dup2(fd_in, 0);
+		close(fd_in);
 	}
-	if (cmd->output)
+	else if (pos > 0)
 	{
-		if (cmd->append_mode == 1)
-			fd_out = open(cmd->output, O_WRONLY | O_CREAT, 0777);
-		else
-			fd_out = open(cmd->output, O_WRONLY | O_CREAT | O_TRUNC, 0777);
-		if (fd_out < 0)
-			return (0);
-		dup2(fd_out, 1);
+		dup2(data->prev_pipe_fd0, 0);
+		close(data->prev_pipe_fd0);
 	}
-	if (check_builtin(cmd->cmd_name[0]))
-		builtin(data, cmd);
-	else
-	{
-		path = NULL;
-		init_path(data, cmd->cmd_name[0], &path);
-		signal(SIGQUIT, SIG_DFL);
-		execve(path, cmd->cmd_name, data->env);
-		free(path);
-	}
-	return (0);
+	if (pos != 2)
+		data->prev_pipe_fd0 = pipe_fd[0];
+	builtin(data, cmd);
+	dup2(save_fd0, 0);
+	dup2(save_fd1, 1);
+	close(pipe_fd[1]);
 }
+
 
 int	exec(t_data *data, t_node *node)
 {

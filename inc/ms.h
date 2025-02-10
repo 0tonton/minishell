@@ -67,7 +67,7 @@ extern pid_t	signal_pid;
 
 bool	check_builtin(char *cmd);
 void	builtin(t_data *data, t_cmd_node *cmd);
-
+void	do_builtin(t_data *data, t_cmd_node *cmd, int *pipe_fd, int pos);
 int		only_cmd(t_data *data, t_cmd_node *cmd);
 int		exec(t_data *data, t_node *node);
 
