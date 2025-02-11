@@ -6,29 +6,32 @@
 /*   By: oloncle <oloncle@student.42.fr>            +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/11/13 14:25:16 by oloncle           #+#    #+#             */
-/*   Updated: 2025/02/11 10:56:23 by oloncle          ###   ########.fr       */
+/*   Updated: 2025/02/11 14:57:11 by oloncle          ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
 #include "../../inc/ms.h"
 pid_t	signal_pid;
 
-void	free_shlvl(char **env)
+void	free_tab_env(t_data *data)
 {
-	if (env)
+	int	i;
+
+	i = 0;
+	if (data->env)
 	{
-		if (ft_getenv("SHLVL", env))
-			free(ft_getenv("SHLVL", env) - 6);
+		while ((data->env)[i])
+		{
+			free((data->env)[i]);
+			i++;
+		}
+		free(data->env);
 	}
 }
 
 void	free_data(t_data *data)
 {
-	if (data->env)
-	{
-		free_shlvl(data->env);
-		free(data->env);
-	}
+	free_tab_env(data);
 	free(data);
 }
 

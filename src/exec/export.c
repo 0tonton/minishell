@@ -6,7 +6,7 @@
 /*   By: oloncle <oloncle@student.42.fr>            +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/08/18 17:53:01 by klabaune          #+#    #+#             */
-/*   Updated: 2025/02/11 11:20:08 by oloncle          ###   ########.fr       */
+/*   Updated: 2025/02/11 14:58:03 by oloncle          ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -55,7 +55,7 @@ int	do_export(t_data *data, char *arg, char **env)
 		if (!tmp[i])
 				return (-1);
 		tmp[i+1] = NULL;
-		free_shlvl(env);
+		free_tab(env);
 		data->env = tmp;
 		printf("export\n");
 	}
@@ -82,7 +82,7 @@ int	do_export(t_data *data, char *arg, char **env)
 			i++;
 		}
 		tmp[i] = NULL;
-		free_shlvl(env);
+		free_tab(env);
 		data->env = tmp;
 		printf("export\n");
 	}
