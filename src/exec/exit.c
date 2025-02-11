@@ -6,7 +6,7 @@
 /*   By: oloncle <oloncle@student.42.fr>            +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/08/18 17:53:01 by klabaune          #+#    #+#             */
-/*   Updated: 2025/02/09 12:11:47 by oloncle          ###   ########.fr       */
+/*   Updated: 2025/02/11 11:42:12 by oloncle          ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -41,6 +41,14 @@ int	simili_atoi(char *str, int *check)
 	return ((int)((result * sign) % 256));
 }
 
+void	free_and_exit(t_data	*data)
+{
+	del_hdfiles();
+	free_data(data);
+	write(2, "exit...\n", 8);
+	exit(0);
+}
+
 void	ft_exit(t_data *data, char **arg)
 {
 	int	exit_code;
@@ -49,7 +57,7 @@ void	ft_exit(t_data *data, char **arg)
 	exit_code = 0;
 	check = 0;
 	if (!arg[1])
-		return ;
+		free_and_exit(data);
 	else if (arg[1] && arg[2])
 	{
 		printf("exit have too many arguments\n");

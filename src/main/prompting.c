@@ -6,7 +6,7 @@
 /*   By: oloncle <oloncle@student.42.fr>            +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2025/02/07 11:35:50 by oloncle           #+#    #+#             */
-/*   Updated: 2025/02/11 10:27:05 by oloncle          ###   ########.fr       */
+/*   Updated: 2025/02/11 12:02:55 by oloncle          ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -53,7 +53,7 @@ int	next_tok_sentence(t_lexer *node)
 	return (0);
 }
 
-int	check_lex_special_char(t_lexer *lex)
+int	check_lex_special_char(t_lexer *lex, int *exit_s)
 {
 	t_lexer	*current;
 
@@ -65,11 +65,13 @@ int	check_lex_special_char(t_lexer *lex)
 			if (current->tok_type == T_PIPE && current->next->tok_type == T_PIPE)
 			{
 				write(2, "WARNING: double PIPE\n", 21);
+				*exit_s = 1;
 				return (0);
 			}
 			if (is_chevrons(current) && (!next_tok_sentence(current->next) || is_chevrons(current->next)))
 			{
 				write(2, "ERROR: unexpected token\n", 24);
+				*exit_s = 2;
 				return (0);
 			}
 		}
@@ -78,6 +80,7 @@ int	check_lex_special_char(t_lexer *lex)
 	if (is_chevrons(current) || current->tok_type == T_PIPE)
 	{
 		write(2, "ERROR: unexpected token at EOL\n", 31);
+		*exit_s = 2;
 		return (0);
 	}
 	return (1);
@@ -106,14 +109,17 @@ void	prompting(t_data *data)
 			{
 				//print_lexer_lst(lex_lst);
 				add_history(line);
-				if (check_lex_special_char(*lex_lst))
+				if (check_lex_special_char(*lex_lst, &(data->exit_status)))
 				{
 					data->head = creating_tree(lex_lst);
+					free_parsing(lex_lst, data, line, 1);
+					lex_lst = NULL;
+					line = NULL;
 					exec(data, data->head);
 				}
 				//print_ast(data->head);
 			}
 		}
-		free_parsing(lex_lst, data, line);
+		free_parsing(lex_lst, data, line, 0);
 	}
 }

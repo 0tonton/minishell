@@ -6,7 +6,7 @@
 /*   By: oloncle <oloncle@student.42.fr>            +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2025/01/27 11:50:10 by oloncle           #+#    #+#             */
-/*   Updated: 2025/02/09 12:11:15 by oloncle          ###   ########.fr       */
+/*   Updated: 2025/02/11 11:40:49 by oloncle          ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -58,7 +58,8 @@ typedef	struct	s_data
 
 t_node	*creating_tree(t_lexer **head);
 void	free_ast(t_node *top_node);
-void	free_parsing(t_lexer **lex_lst, t_data *data, char *line);
+void	free_parsing(t_lexer **lex_lst, t_data *data, char *line, int before_exec);
+void	del_hdfiles();
 
 //LIBFT utils
 char	**ft_split(char const *s, char *c);

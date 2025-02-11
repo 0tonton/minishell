@@ -6,7 +6,7 @@
 /*   By: oloncle <oloncle@student.42.fr>            +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2025/02/04 15:03:33 by oloncle           #+#    #+#             */
-/*   Updated: 2025/02/07 14:40:54 by oloncle          ###   ########.fr       */
+/*   Updated: 2025/02/11 11:34:16 by oloncle          ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -31,11 +31,11 @@ char	*create_filename(int nb_hd)
 	int	len;
 
 	nb = ft_itoa(nb_hd);
-	len = ft_strlen(nb) + ft_strlen("hd_.txt") + 1;
+	len = ft_strlen(nb) + ft_strlen(".hd_.tmp") + 1;
 	filename = ft_calloc(len, sizeof(char));
-	ft_strlcat(filename, "hd_", 4);
+	ft_strlcat(filename, ".hd_", 5);
 	ft_strlcat(filename, nb, ft_strlen(nb) + ft_strlen(filename) + 1);
-	ft_strlcat(filename, ".txt", ft_strlen(filename) + 5);
+	ft_strlcat(filename, ".tmp", ft_strlen(filename) + 5);
 	free(nb);
 	return (filename);
 }
