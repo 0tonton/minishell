@@ -6,7 +6,7 @@
 /*   By: oloncle <oloncle@student.42.fr>            +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/08/18 17:53:01 by klabaune          #+#    #+#             */
-/*   Updated: 2025/02/11 10:24:04 by oloncle          ###   ########.fr       */
+/*   Updated: 2025/02/11 10:29:32 by oloncle          ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -48,10 +48,8 @@ void	child(t_data *data, t_cmd_node *cmd, int pos, int *pipe_fd)
 	}
 	path = NULL;
 	init_path(data, cmd->cmd_name[0], &path);
-	printf("here1\n");
 	if (!path)
 		return ;
-	printf("here2, path: %s\n", path);
 	signal(SIGQUIT, SIG_DFL);
 	execve(path, cmd->cmd_name, data->env);
 	free(path);
