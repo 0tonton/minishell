@@ -6,7 +6,7 @@
 /*   By: oloncle <oloncle@student.42.fr>            +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/11/13 14:22:39 by oloncle           #+#    #+#             */
-/*   Updated: 2025/02/09 12:28:07 by oloncle          ###   ########.fr       */
+/*   Updated: 2025/02/11 10:56:42 by oloncle          ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -58,6 +58,7 @@ void	print_lexer_lst(t_lexer **first_node);
 /*free*/
 
 void	free_data(t_data *data);
+void	free_shlvl(char **env);
 
 /*------------------------------EXECUTION------------------------------*/
 

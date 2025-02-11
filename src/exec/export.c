@@ -6,7 +6,7 @@
 /*   By: oloncle <oloncle@student.42.fr>            +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/08/18 17:53:01 by klabaune          #+#    #+#             */
-/*   Updated: 2025/02/09 12:12:22 by oloncle          ###   ########.fr       */
+/*   Updated: 2025/02/11 11:15:51 by oloncle          ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -42,7 +42,9 @@ int	do_export(t_data *data, char *arg, char **env)
 	pos = if_exist(arg, env);
 	if (pos == -1)
 	{
-		tmp = malloc(sizeof(char *) * (len_tab(env) + 1));
+		printf("here1\n");
+		tmp = malloc(sizeof(char *) * (len_tab(env) + 2));
+		printf("len tab: %d\n", len_tab(env));
 		i = 0;
 		while (env[i])
 		{
@@ -55,13 +57,13 @@ int	do_export(t_data *data, char *arg, char **env)
 		if (!tmp[i])
 				return (-1);
 		tmp[i+1] = NULL;
-		free_tab(env);
+		free_shlvl(env);
 		data->env = tmp;
 		printf("export\n");
 	}
 	else
 	{
-		tmp = malloc(sizeof(char *) * (len_tab(env)));
+		tmp = malloc(sizeof(char *) * (len_tab(env) + 1));
 		i = 0;
 		while (i != pos)
 		{
@@ -82,7 +84,7 @@ int	do_export(t_data *data, char *arg, char **env)
 			i++;
 		}
 		tmp[i] = NULL;
-		free_tab(env);
+		free_shlvl(env);
 		data->env = tmp;
 		printf("export\n");
 	}
