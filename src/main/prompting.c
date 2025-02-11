@@ -6,7 +6,7 @@
 /*   By: oloncle <oloncle@student.42.fr>            +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2025/02/07 11:35:50 by oloncle           #+#    #+#             */
-/*   Updated: 2025/02/10 14:07:32 by oloncle          ###   ########.fr       */
+/*   Updated: 2025/02/11 10:27:05 by oloncle          ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -109,25 +109,10 @@ void	prompting(t_data *data)
 				if (check_lex_special_char(*lex_lst))
 				{
 					data->head = creating_tree(lex_lst);
-					if (exec(data, data->head) == 0)
-						printf("Y'a un problème...\n");
+					exec(data, data->head);
 				}
 				//print_ast(data->head);
 			}
-			//data->save_fd1 = -2;
-			// //data->save_fd0 = -2;
-			// if (exec(data, data->head) == 0)
-			// 	printf("Y'a un problème...\n");
-			/*if (data->save_fd0 >= 0)
-			{
-				dup2(data->save_fd0, 0);
-				close(data->save_fd0);
-			}
-			if (data->save_fd1 >= 0)
-			{
-				dup2(data->save_fd1, 1);
-				close(data->save_fd1);
-			}*/
 		}
 		free_parsing(lex_lst, data, line);
 	}

@@ -6,7 +6,7 @@
 /*   By: oloncle <oloncle@student.42.fr>            +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/08/18 17:53:01 by klabaune          #+#    #+#             */
-/*   Updated: 2025/02/09 12:06:08 by oloncle          ###   ########.fr       */
+/*   Updated: 2025/02/11 10:24:04 by oloncle          ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -48,8 +48,10 @@ void	child(t_data *data, t_cmd_node *cmd, int pos, int *pipe_fd)
 	}
 	path = NULL;
 	init_path(data, cmd->cmd_name[0], &path);
+	printf("here1\n");
 	if (!path)
 		return ;
+	printf("here2, path: %s\n", path);
 	signal(SIGQUIT, SIG_DFL);
 	execve(path, cmd->cmd_name, data->env);
 	free(path);
@@ -68,22 +70,37 @@ void	parent(t_data *data, int *pipe_fd, int pos)
 bool	do_cmd(t_data *data, t_cmd_node *cmd, int pos)
 {
 	int	pipe_fd[2];
+	char	*path;
 
+	path = NULL;
 	if (pipe(pipe_fd) == -1)
+	{
+		write(2, "ERROR: pipe not opened...\n", 26);
 		return (false);
+	}
 	if (check_builtin(cmd->cmd_name[0]))
 	{
 		do_builtin(data, cmd, pipe_fd, pos);
 		return (true);
 	}
-	signal_pid = fork();
-	if (signal_pid == -1)
-		return (false);
-	else if (signal_pid == 0)
-		child(data, cmd, pos, pipe_fd);
-	else
-		parent(data, pipe_fd, pos);
-	//wait(NULL);
-	return (true);
+	init_path(data, cmd->cmd_name[0], &path);
+	if (path)
+	{
+		signal_pid = fork();
+		if (signal_pid == -1)
+		{
+			write(2, "ERROR: fork not opened...\n", 26);
+			return (false);
+		}
+		else if (signal_pid == 0)
+			child(data, cmd, pos, pipe_fd);
+		else
+			parent(data, pipe_fd, pos);
+		//wait(NULL);
+		free(path);
+		return (true);
+	}
+	write(2, "Command not found\n", 18);
+	return (false);
 }
 
