@@ -6,7 +6,7 @@
 /*   By: oloncle <oloncle@student.42.fr>            +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/08/18 17:53:01 by klabaune          #+#    #+#             */
-/*   Updated: 2025/02/11 11:15:51 by oloncle          ###   ########.fr       */
+/*   Updated: 2025/02/11 11:20:08 by oloncle          ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -42,9 +42,7 @@ int	do_export(t_data *data, char *arg, char **env)
 	pos = if_exist(arg, env);
 	if (pos == -1)
 	{
-		printf("here1\n");
 		tmp = malloc(sizeof(char *) * (len_tab(env) + 2));
-		printf("len tab: %d\n", len_tab(env));
 		i = 0;
 		while (env[i])
 		{
