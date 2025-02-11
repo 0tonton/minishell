@@ -6,7 +6,7 @@
 /*   By: oloncle <oloncle@student.42.fr>            +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/08/18 17:53:01 by klabaune          #+#    #+#             */
-/*   Updated: 2025/02/09 12:12:51 by oloncle          ###   ########.fr       */
+/*   Updated: 2025/02/11 16:35:01 by oloncle          ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -96,13 +96,9 @@ void	init_path(t_data *data, char *cmd, char **path)
 		set_path(data, cmd, path, data->env);
 	if (!(*path))
 	{
-		if (data->exit_status == -1)
-			return ;
-		else
-		{
-			data->exit_status = 127;
-			return ;
-		}
+		printf("%s : command not found\n", cmd);
+		data->exit_status = 127;
+		return ;
 	}
 	if (access((*path), X_OK) != 0)
 	{

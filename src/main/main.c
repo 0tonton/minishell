@@ -6,7 +6,7 @@
 /*   By: oloncle <oloncle@student.42.fr>            +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/11/13 14:25:16 by oloncle           #+#    #+#             */
-/*   Updated: 2025/02/11 14:57:11 by oloncle          ###   ########.fr       */
+/*   Updated: 2025/02/11 15:33:10 by oloncle          ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -31,6 +31,7 @@ void	free_tab_env(t_data *data)
 
 void	free_data(t_data *data)
 {
+	clear_history();
 	free_tab_env(data);
 	free(data);
 }
