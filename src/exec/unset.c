@@ -15,6 +15,7 @@
 int	do_unset(t_data *data, char *arg, char **env)
 {
 	int		i;
+	int		j;
 	int		pos;
 	char	**tmp;
 
@@ -26,20 +27,23 @@ int	do_unset(t_data *data, char *arg, char **env)
 	pos = if_exist(arg, env);
 	if (pos == -1)
 		return (0);
-	tmp = malloc(sizeof(char *) * (len_tab(env) - 1));
+	tmp = malloc(sizeof(char *) * (len_tab(env)));
 	if (!tmp)
 		return (-1);
 	i = 0;
+	j = 0;
 	while (env[i])
 	{
 		if (i != pos)
-			tmp[i] = ft_strdup(env[i]);
+		{
+			tmp[j] = ft_strdup(env[i]);
+			j++;
+		}
 		i++;
 	}
-	tmp[i] = NULL;
-	free(env);
+	tmp[j] = NULL;
+	free_tab(env);
 	data->env = tmp;
-	printf("unset\n");
 	return (0);
 }
 

@@ -14,29 +14,29 @@
 
 bool	check_builtin(char *cmd)
 {
-	if (ft_strncmp("cd", cmd, 10) == 0 || ft_strncmp("echo", cmd, 10) == 0 \
-	|| ft_strncmp("env", cmd, 10) == 0 || ft_strncmp("exit", cmd, 10) == 0 \
-	|| ft_strncmp("export", cmd, 10) == 0 || ft_strncmp("pwd", cmd, 10) == 0 \
-	|| ft_strncmp("unset", cmd, 10) == 0)
+	if (ft_strncmp("cd", cmd, 20) == 0 || ft_strncmp("echo", cmd, 20) == 0 \
+	|| ft_strncmp("env", cmd, 20) == 0 || ft_strncmp("exit", cmd, 20) == 0 \
+	|| ft_strncmp("export", cmd, 20) == 0 || ft_strncmp("pwd", cmd, 20) == 0 \
+	|| ft_strncmp("unset", cmd, 20) == 0)
 		return (true);
 	return (false);
 }
 
 void	builtin(t_data *data, t_cmd_node *cmd)
 {
-	if (ft_strncmp("cd", cmd->cmd_name[0], 10) == 0)
+	if (ft_strncmp("cd", cmd->cmd_name[0], 20) == 0)
 		data->exit_status = ft_cd(data, cmd->cmd_name);
-	else if (ft_strncmp("echo", cmd->cmd_name[0], 10) == 0)
+	else if (ft_strncmp("echo", cmd->cmd_name[0], 20) == 0)
 		data->exit_status = ft_echo(cmd->cmd_name);
-	else if (ft_strncmp("env", cmd->cmd_name[0], 10) == 0)
+	else if (ft_strncmp("env", cmd->cmd_name[0], 20) == 0)
 		data->exit_status = ft_env(data->env);
-	else if (ft_strncmp("pwd", cmd->cmd_name[0], 10) == 0)
+	else if (ft_strncmp("pwd", cmd->cmd_name[0], 20) == 0)
 		data->exit_status = ft_pwd();
-	else if (ft_strncmp("exit", cmd->cmd_name[0], 10) == 0)
+	else if (ft_strncmp("exit", cmd->cmd_name[0], 20) == 0)
 		ft_exit(data, cmd->cmd_name);
-	else if (ft_strncmp("export", cmd->cmd_name[0], 10) == 0)
+	else if (ft_strncmp("export", cmd->cmd_name[0], 20) == 0)
 		data->exit_status = ft_export(data, cmd->cmd_name, data->env);
-	else if (ft_strncmp("unset", cmd->cmd_name[0], 10) == 0)
+	else if (ft_strncmp("unset", cmd->cmd_name[0], 20) == 0)
 		data->exit_status = ft_unset(data, cmd->cmd_name, data->env);
 }
 

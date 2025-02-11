@@ -122,7 +122,7 @@ void	parent(t_data *data, int *pipe_fd, int pos);
 int		count_words(char *str, char c);
 void	str_copy(char *dest, char *src, int end);
 void	set_path(t_data *data, char *cmd, char **path, char **env);
-void	simple_path(t_data *data, char *cmd, char **path);
+void	simple_path(char *cmd, char **path);
 void	init_path(t_data *data, char *cmd, char **path);
 
 /*path_utils.c*/

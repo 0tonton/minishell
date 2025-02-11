@@ -70,7 +70,10 @@ char	**tab_var_env(char **og_env)
 	{
 		temp_var = increment_shlvl(var);
 		if (temp_var)
+		{
+			free(var);
 			var = temp_var;
+		}
 		tab_var[i] = var;
 		i++;
 		var = ft_strdup(og_env[i]);

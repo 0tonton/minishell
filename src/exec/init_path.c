@@ -75,12 +75,12 @@ void	set_path(t_data *data, char *cmd, char **path, char **env)
 	free_tab(all_paths);
 }
 
-void	simple_path(t_data *data, char *cmd, char **path)
+void	simple_path(char *cmd, char **path)
 {
 	*path = ft_strdup(cmd);
 	if (!(*path))
 		return ;
-	if (access((*path), F_OK) != 0 && data)			//data sert a rien
+	if (access((*path), F_OK) != 0)
 	{
 		printf("%s : command not found\n", cmd);
 		free(*path);
@@ -91,7 +91,7 @@ void	simple_path(t_data *data, char *cmd, char **path)
 void	init_path(t_data *data, char *cmd, char **path)
 {
 	if (cmd[my_strchr(cmd, '/')] == '/')
-		simple_path(data, cmd, path);
+		simple_path(cmd, path);
 	else
 		set_path(data, cmd, path, data->env);
 	if (!(*path))

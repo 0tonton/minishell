@@ -96,7 +96,6 @@ bool	do_cmd(t_data *data, t_cmd_node *cmd, int pos)
 			child(data, cmd, pos, pipe_fd);
 		else
 			parent(data, pipe_fd, pos);
-		//wait(NULL);
 		free(path);
 		return (true);
 	}

@@ -38,10 +38,10 @@ int	simili_atoi(char *str, int *check)
 	if (str[i] || i - save > 20 || ((sign == -1 && (result - 1) > LONG_MAX) || \
 		(sign == 1 && (result > LONG_MAX))))
 		*check = -1;
-	return ((int)((result * sign) % 256));
+	return ((int)(result * sign));
 }
 
-void	free_and_exit(t_data	*data)
+void	free_and_exit(t_data *data)
 {
 	del_hdfiles();
 	free_data(data);
@@ -61,7 +61,7 @@ void	ft_exit(t_data *data, char **arg)
 	else if (arg[1] && arg[2])
 	{
 		printf("exit have too many arguments\n");
-		data->exit_status = 1;
+		data->exit_status = 128;
 		return ;
 	}
 	else if (!arg[2])
@@ -70,9 +70,12 @@ void	ft_exit(t_data *data, char **arg)
 		if (check == -1)
 		{
 			printf("exit need numeric only argument %d\n", exit_code);
+			data->exit_status = 128;
 			return ;
 		}
+		if (exit_code > 254)
+			data->exit_status = 255;
+		free_and_exit(data);
 	}
-	return ;
 }
 

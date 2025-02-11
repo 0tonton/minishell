@@ -84,7 +84,6 @@ int	do_export(t_data *data, char *arg, char **env)
 		tmp[i] = NULL;
 		free_tab(env);
 		data->env = tmp;
-		printf("export\n");
 	}
 	return (0);
 }
