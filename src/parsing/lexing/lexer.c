@@ -6,7 +6,7 @@
 /*   By: oloncle <oloncle@student.42.fr>            +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2025/01/15 08:52:57 by oloncle           #+#    #+#             */
-/*   Updated: 2025/02/11 11:59:11 by oloncle          ###   ########.fr       */
+/*   Updated: 2025/02/12 15:47:45 by oloncle          ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -112,5 +112,11 @@ t_lexer	**lexer_line(char *line, int *e_status, char **env)
 	// 	return (NULL);
 	// }
 	handle_env_var(*lexer_lst, NULL, e_status, env);
+	if (!((*lexer_lst)->str) && !((*lexer_lst)->next))
+	{
+		free(*lexer_lst);
+		free(lexer_lst);
+		return (NULL);
+	}
 	return (lexer_lst);
 }
