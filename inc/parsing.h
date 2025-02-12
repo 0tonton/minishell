@@ -6,7 +6,7 @@
 /*   By: oloncle <oloncle@student.42.fr>            +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2025/01/27 11:50:10 by oloncle           #+#    #+#             */
-/*   Updated: 2025/02/11 11:40:49 by oloncle          ###   ########.fr       */
+/*   Updated: 2025/02/12 17:14:06 by oloncle          ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -75,5 +75,8 @@ int	count_and_check_pipes(t_lexer **head);
 //Env variables
 char	**tab_var_env(char **og_env);
 int	len_var(char *var);
+
+//parsing utils
+int	count_cmd(t_node *head_node);
 
 #endif

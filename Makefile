@@ -6,7 +6,7 @@
 #    By: oloncle <oloncle@student.42.fr>            +#+  +:+       +#+         #
 #                                                 +#+#+#+#+#+   +#+            #
 #    Created: 2025/01/15 01:22:50 by oloncle           #+#    #+#              #
-#    Updated: 2025/02/09 11:52:52 by oloncle          ###   ########.fr        #
+#    Updated: 2025/02/12 17:14:20 by oloncle          ###   ########.fr        #
 #                                                                              #
 # **************************************************************************** #
 
@@ -51,6 +51,7 @@ PARS_SRCS = libft_utils.c\
 	    creating_pipe_nodes.c\
 	    free_pars.c\
 	    creating_tab_env.c\
+	    parsing_utils.c\
 
 MAIN_FILES = main.c\
 	     signals_handler.c\
