@@ -16,7 +16,6 @@ int	simili_atoi(char *str, int *check)
 {
 	unsigned long long	result;
 	int					i;
-	int					save;
 	int					sign;
 
 	i = 0;
@@ -27,7 +26,6 @@ int	simili_atoi(char *str, int *check)
 	if (str[i] == '-')
 		sign = -1;
 	i++;
-	save = i;
 	while ('0' <= str[i] && str[i] <= '9')
 	{
 		result = result * 10 + (str[i] - 48);
@@ -35,8 +33,7 @@ int	simili_atoi(char *str, int *check)
 	}
 	while ((9 <= str[i] && str[i] <= 13) || str[i] == 32)
 		i++;
-	if (str[i] || i - save > 20 || ((sign == -1 && (result - 1) > LONG_MAX) || \
-		(sign == 1 && (result > LONG_MAX))))
+	if (str[i])
 		*check = -1;
 	return ((int)(result * sign));
 }
@@ -51,30 +48,21 @@ void	free_and_exit(t_data *data)
 
 void	ft_exit(t_data *data, char **arg)
 {
-	int	exit_code;
 	int	check;
 
-	exit_code = 0;
 	check = 0;
 	if (!arg[1])
 		free_and_exit(data);
 	else if (arg[1] && arg[2])
 	{
-		printf("exit have too many arguments\n");
-		data->exit_status = 128;
+		printf("exit: too many arguments\n");
+		data->exit_status = 1;
 		return ;
 	}
 	else if (!arg[2])
 	{
-		exit_code = simili_atoi(arg[1], &check);
-		if (check == -1)
-		{
-			printf("exit need numeric only argument %d\n", exit_code);
-			data->exit_status = 128;
-			return ;
-		}
-		if (exit_code > 254)
-			data->exit_status = 255;
+		simili_atoi(arg[1], &check);
+		data->exit_status = 1;
 		free_and_exit(data);
 	}
 }

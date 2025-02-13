@@ -14,29 +14,29 @@
 
 bool	check_builtin(char *cmd)
 {
-	if (ft_strncmp("cd", cmd, 20) == 0 || ft_strncmp("echo", cmd, 20) == 0 \
-	|| ft_strncmp("env", cmd, 20) == 0 || ft_strncmp("exit", cmd, 20) == 0 \
-	|| ft_strncmp("export", cmd, 20) == 0 || ft_strncmp("pwd", cmd, 20) == 0 \
-	|| ft_strncmp("unset", cmd, 20) == 0)
+	if (ft_strncmp("cd", cmd, INT_MAX) == 0 || ft_strncmp("echo", cmd, INT_MAX) == 0 \
+	|| ft_strncmp("env", cmd, INT_MAX) == 0 || ft_strncmp("exit", cmd, INT_MAX) == 0 \
+	|| ft_strncmp("export", cmd, INT_MAX) == 0 || ft_strncmp("pwd", cmd, INT_MAX) == 0 \
+	|| ft_strncmp("unset", cmd, INT_MAX) == 0)
 		return (true);
 	return (false);
 }
 
 void	builtin(t_data *data, t_cmd_node *cmd)
 {
-	if (ft_strncmp("cd", cmd->cmd_name[0], 20) == 0)
+	if (ft_strncmp("cd", cmd->cmd_name[0], INT_MAX) == 0)
 		data->exit_status = ft_cd(data, cmd->cmd_name);
-	else if (ft_strncmp("echo", cmd->cmd_name[0], 20) == 0)
+	else if (ft_strncmp("echo", cmd->cmd_name[0], INT_MAX) == 0)
 		data->exit_status = ft_echo(cmd->cmd_name);
-	else if (ft_strncmp("env", cmd->cmd_name[0], 20) == 0)
+	else if (ft_strncmp("env", cmd->cmd_name[0], INT_MAX) == 0)
 		data->exit_status = ft_env(data->env);
-	else if (ft_strncmp("pwd", cmd->cmd_name[0], 20) == 0)
+	else if (ft_strncmp("pwd", cmd->cmd_name[0], INT_MAX) == 0)
 		data->exit_status = ft_pwd();
-	else if (ft_strncmp("exit", cmd->cmd_name[0], 20) == 0)
+	else if (ft_strncmp("exit", cmd->cmd_name[0], INT_MAX) == 0)
 		ft_exit(data, cmd->cmd_name);
-	else if (ft_strncmp("export", cmd->cmd_name[0], 20) == 0)
+	else if (ft_strncmp("export", cmd->cmd_name[0], INT_MAX) == 0)
 		data->exit_status = ft_export(data, cmd->cmd_name, data->env);
-	else if (ft_strncmp("unset", cmd->cmd_name[0], 20) == 0)
+	else if (ft_strncmp("unset", cmd->cmd_name[0], INT_MAX) == 0)
 		data->exit_status = ft_unset(data, cmd->cmd_name, data->env);
 }
 
@@ -54,11 +54,14 @@ void	do_builtin(t_data *data, t_cmd_node *cmd, int *pipe_fd, int pos)
 	if (cmd->output)
 	{
 		if (cmd->append_mode == 1)
-			fd_out = open(cmd->output, O_WRONLY | O_CREAT, O_APPEND, 0777);
+			fd_out = open(cmd->output, O_WRONLY | O_CREAT | O_APPEND, 0777);
 		else
 			fd_out = open(cmd->output, O_WRONLY | O_CREAT | O_TRUNC, 0777);
 		if (fd_out < 0)
+		{
+			printf("open: can't open output file: %s\n", cmd ->output);
 			return ;
+		}
 		dup2(fd_out, 1);
 		close(fd_out);
 	}
@@ -68,7 +71,10 @@ void	do_builtin(t_data *data, t_cmd_node *cmd, int *pipe_fd, int pos)
 	{
 		fd_in = open(cmd->input, O_RDONLY);
 		if (fd_in < 0)
+		{
+			printf("open: can't open input file: %s\n", cmd->input);
 			return ;
+		}
 		dup2(fd_in, 0);
 		close(fd_in);
 	}
@@ -88,6 +94,8 @@ void	do_builtin(t_data *data, t_cmd_node *cmd, int *pipe_fd, int pos)
 
 int	exec(t_data *data, t_node *node)
 {
+	int	i;
+	int	nbr_cmd;
 	t_pipe_node	*pipe;
 
 	if (node->type == 0)
@@ -116,6 +124,13 @@ int	exec(t_data *data, t_node *node)
 	{
 		if (!do_cmd(data, (t_cmd_node *)pipe->right, 2))
 			return (0);
+		nbr_cmd = count_cmd(data->head);
+		i = 0;
+		while (i != nbr_cmd)
+		{
+			wait(NULL);
+			i++;
+		}
 	}
 	return (1);
 }

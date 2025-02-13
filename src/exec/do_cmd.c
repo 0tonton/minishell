@@ -17,27 +17,39 @@ void	child(t_data *data, t_cmd_node *cmd, int pos, int *pipe_fd)
 	char	*path;
 	int		fd_out;
 	int		fd_in;
+	int		save_fd1;
 
 	close(pipe_fd[0]);
 	if (cmd->output)
 	{
 		if (cmd->append_mode == 1)
-			fd_out = open(cmd->output, O_WRONLY | O_CREAT, O_APPEND, 0777);
+			fd_out = open(cmd->output, O_WRONLY | O_CREAT | O_APPEND, 0777);
 		else
 			fd_out = open(cmd->output, O_WRONLY | O_CREAT | O_TRUNC, 0777);
 		if (fd_out < 0)
-			return ;
+		{
+			printf("open: can't open output file: %s\n", cmd ->output);
+			exit(1);
+		}
+		save_fd1 = dup(1);
 		dup2(fd_out, 1);
 		close(fd_out);
 	}
 	else if (pos != 2 && pos != -1)
+	{
+		save_fd1 = dup(1);
 		dup2(pipe_fd[1], 1);
+	}
 	close(pipe_fd[1]);
 	if (cmd->input)
 	{
 		fd_in = open(cmd->input, O_RDONLY);
 		if (fd_in < 0)
-			return ;
+		{
+			dup2(save_fd1, 1);
+			printf("open: can't open output file: %s\n", cmd ->output);
+			exit(0);
+		}
 		dup2(fd_in, 0);
 		close(fd_in);
 	}
@@ -60,14 +72,14 @@ void	parent(t_data *data, int *pipe_fd, int pos)
 	close(pipe_fd[1]);
 	if (pos == 2 || pos == -1)
 		close(pipe_fd[0]);
-	wait(NULL);
+	//wait(NULL);
 	if (pos != 2)
 		data->prev_pipe_fd0 = pipe_fd[0];
 }
 
 bool	do_cmd(t_data *data, t_cmd_node *cmd, int pos)
 {
-	int	pipe_fd[2];
+	int		pipe_fd[2];
 	char	*path;
 
 	path = NULL;
