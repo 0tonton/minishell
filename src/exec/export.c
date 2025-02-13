@@ -43,42 +43,66 @@ int	do_export(t_data *data, char *arg, char **env)
 	if (pos == -1)
 	{
 		tmp = malloc(sizeof(char *) * (len_tab(env) + 2));
+		if (!tmp)
+		{
+			error_malloc();
+			return (-1);
+		}
 		i = 0;
 		while (env[i])
 		{
 			tmp[i] = ft_strdup(env[i]);
 			if (!tmp[i])
+			{
+				error_malloc();
 				return (-1);
+			}
 			i++;
 		}
 		tmp[i] = ft_strdup(arg);
 		if (!tmp[i])
-				return (-1);
+		{
+			error_malloc();
+			return (-1);
+		}
 		tmp[i+1] = NULL;
 		free_tab(env);
 		data->env = tmp;
-		printf("export\n");
 	}
 	else
 	{
 		tmp = malloc(sizeof(char *) * (len_tab(env) + 1));
+		if (!tmp)
+		{
+			error_malloc();
+			return (-1);
+		}
 		i = 0;
 		while (i != pos)
 		{
 			tmp[i] = ft_strdup(env[i]);
 			if (!tmp[i])
+			{
+				error_malloc();
 				return (-1);
+			}
 			i++;
 		}
 		tmp[i] = ft_strdup(arg);
 		if (!tmp[i])
+		{
+			error_malloc();
 			return (-1);
+		}
 		i++;
 		while (env[i])
 		{
 			tmp[i] = ft_strdup(env[i]);
 			if (!tmp[i])
+			{
+				error_malloc();
 				return (-1);
+			}
 			i++;
 		}
 		tmp[i] = NULL;

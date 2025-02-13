@@ -65,7 +65,7 @@ void	set_path(t_data *data, char *cmd, char **path, char **env)
 			(*path) = ft_strdup(check);
 			if (!(*path))
 			{
-				printf("ERR_MALLOC\n");
+				error_malloc();
 				data->exit_status = -1;
 			}
 			return ;
@@ -79,7 +79,10 @@ void	simple_path(char *cmd, char **path)
 {
 	*path = ft_strdup(cmd);
 	if (!(*path))
+	{
+		error_malloc();
 		return ;
+	}
 	if (access((*path), F_OK) != 0)
 	{
 		printf("%s : command not found\n", cmd);

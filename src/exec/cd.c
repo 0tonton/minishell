@@ -41,7 +41,7 @@ void	change_oldpwd(t_data *data)
 
 void	error_malloc(void)
 {
-	printf("ERR_MALLOC");
+	printf("error malloc");
 	return ;
 }
 
@@ -66,11 +66,24 @@ void	change_pwd(t_data *data, char *path)
 int	ft_cd(t_data *data, char **arg)
 {
 	int	check;
+	int	pos;
 
 	check = 1;
-	if (arg[0] && arg[1] && !arg[2])
+	if (arg[1] && !arg[2])
 	{
-		check = chdir(arg[1]);
+		if (ft_strlen(arg[1]) == 1 && arg[1][0] == '-')
+		{
+			pos = if_exist("OLDPWD", data->env);
+			if (pos != -1)
+				check = chdir(&data->env[pos][7]);
+			else
+			{
+				printf("cd: OLDPWD is not defined\n");
+				return (1);
+			}
+		}
+		else
+			check = chdir(arg[1]);
 		if (check == -1)
 		{
 			perror(arg[1]);

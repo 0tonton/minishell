@@ -29,7 +29,10 @@ int	do_unset(t_data *data, char *arg, char **env)
 		return (0);
 	tmp = malloc(sizeof(char *) * (len_tab(env)));
 	if (!tmp)
+	{
+		error_malloc();
 		return (-1);
+	}
 	i = 0;
 	j = 0;
 	while (env[i])
@@ -37,6 +40,11 @@ int	do_unset(t_data *data, char *arg, char **env)
 		if (i != pos)
 		{
 			tmp[j] = ft_strdup(env[i]);
+			if (!tmp[j])
+			{
+				error_malloc();
+				return (-1);
+			}
 			j++;
 		}
 		i++;

@@ -77,7 +77,7 @@ void	sort_array(char **arr, int len)
 		j = i + 1;
 		while (j < len)
 		{
-			diff = ft_strncmp(arr[i], arr[j], __INT_MAX__);
+			diff = ft_strncmp(arr[i], arr[j], INT_MAX);
 			if (diff > 0)
 			{
 				ft_swap_str_tab(i, j, arr);
@@ -99,18 +99,3 @@ int	len_tab(char **tab)
 	return (i);
 }
 
-void	env_copy(char ***copy, char **env)
-{
-	int	i;
-
-	*copy = malloc(sizeof(char *) * len_tab(env));
-	if (!*copy)
-		return ;
-	i = 0;
-	while (env[i])
-	{
-		*copy[i] = ft_strdup(env[i]);
-		i++;
-	}
-	copy[i] = NULL;
-}

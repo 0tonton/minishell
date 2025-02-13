@@ -102,6 +102,7 @@ int	exec(t_data *data, t_node *node)
 	{
 		if (!do_cmd(data, (t_cmd_node *)node, -1))
 			return (0);
+		wait(NULL);
 		return (1);
 	}
 	pipe = (t_pipe_node *)node;

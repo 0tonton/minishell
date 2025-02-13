@@ -142,7 +142,6 @@ void	free_tab(char **tab);
 void	ft_swap_str_tab(int i, int j, char **tab);
 void	sort_array(char **arr, int len);
 int		len_tab(char **tab);
-void	env_copy(char ***copy, char **env);
 
 /*libft.c*/
 

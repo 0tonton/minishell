@@ -59,7 +59,10 @@ char	**my_split(char *envp, char c)
 
 	tab = malloc(sizeof(char *) * (count_words(envp, c) + 1));
 	if (!tab)
+	{
+		error_malloc();
 		return (NULL);
+	}
 	i = 0;
 	j = 0;
 	while (i < count_words(envp, c))
@@ -69,6 +72,7 @@ char	**my_split(char *envp, char c)
 		if (!tab[i])
 		{
 			free_tab(tab);
+			error_malloc();
 			return (NULL);
 		}
 		str_copy(tab[i], &envp[j], limit);
