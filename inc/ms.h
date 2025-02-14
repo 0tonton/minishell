@@ -6,7 +6,7 @@
 /*   By: oloncle <oloncle@student.42.fr>            +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/11/13 14:22:39 by oloncle           #+#    #+#             */
-/*   Updated: 2025/02/14 16:47:23 by oloncle          ###   ########.fr       */
+/*   Updated: 2025/02/14 18:33:10 by oloncle          ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -150,5 +150,6 @@ char	*ft_strjoin(char const *s1, char const *s2);
 char	*ft_strchr(const char *s, int c);
 int		ft_isalpha(int c);
 int		ft_isalnum(int c);
+char	*ft_strnstr(const char *big, const char *little, size_t len);
 
 #endif

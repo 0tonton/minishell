@@ -6,7 +6,7 @@
 /*   By: oloncle <oloncle@student.42.fr>            +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/08/18 17:52:26 by klabaune          #+#    #+#             */
-/*   Updated: 2025/02/14 17:32:33 by oloncle          ###   ########.fr       */
+/*   Updated: 2025/02/14 18:47:29 by oloncle          ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -14,29 +14,32 @@
 
 bool	check_builtin(char *cmd)
 {
-	if (ft_strncmp("cd", cmd, INT_MAX) == 0 || ft_strncmp("echo", cmd, INT_MAX) == 0 \
-	|| ft_strncmp("env", cmd, INT_MAX) == 0 || ft_strncmp("exit", cmd, INT_MAX) == 0 \
-	|| ft_strncmp("export", cmd, INT_MAX) == 0 || ft_strncmp("pwd", cmd, INT_MAX) == 0 \
-	|| ft_strncmp("unset", cmd, INT_MAX) == 0)
-		return (true);
+	if (access(cmd, F_OK) == 0)
+	{
+		if (ft_strnstr(cmd, "cd", INT_MAX) || ft_strnstr(cmd, "echo", INT_MAX) \
+		|| ft_strnstr(cmd, "env", INT_MAX) || ft_strnstr(cmd, "exit", INT_MAX) \
+		|| ft_strnstr(cmd, "export", INT_MAX) || ft_strnstr(cmd, "pwd", INT_MAX) \
+		|| ft_strnstr(cmd, "unset", INT_MAX))
+			return (true);
+	}
 	return (false);
 }
 
 void	builtin(t_data *data, t_cmd_node *cmd)
 {
-	if (ft_strncmp("cd", cmd->cmd_name[0], INT_MAX) == 0)
+	if (ft_strnstr(cmd->cmd_name[0], "cd", INT_MAX) )
 		data->exit_status = ft_cd(data, cmd->cmd_name);
-	else if (ft_strncmp("echo", cmd->cmd_name[0], INT_MAX) == 0)
+	else if (ft_strnstr(cmd->cmd_name[0], "echo", INT_MAX))
 		data->exit_status = ft_echo(cmd->cmd_name);
-	else if (ft_strncmp("env", cmd->cmd_name[0], INT_MAX) == 0)
+	else if (ft_strnstr(cmd->cmd_name[0], "env", INT_MAX))
 		data->exit_status = ft_env(data->env);
-	else if (ft_strncmp("pwd", cmd->cmd_name[0], INT_MAX) == 0)
+	else if (ft_strnstr(cmd->cmd_name[0], "pwd", INT_MAX))
 		data->exit_status = ft_pwd();
-	else if (ft_strncmp("exit", cmd->cmd_name[0], INT_MAX) == 0)
+	else if (ft_strnstr(cmd->cmd_name[0], "exit", INT_MAX))
 		ft_exit(data, cmd->cmd_name);
-	else if (ft_strncmp("export", cmd->cmd_name[0], INT_MAX) == 0)
+	else if (ft_strnstr(cmd->cmd_name[0], "export", INT_MAX))
 		data->exit_status = ft_export(data, cmd->cmd_name, data->env);
-	else if (ft_strncmp("unset", cmd->cmd_name[0], INT_MAX) == 0)
+	else if (ft_strnstr(cmd->cmd_name[0], "unset", INT_MAX))
 		data->exit_status = ft_unset(data, cmd->cmd_name, data->env);
 }
 
@@ -123,6 +126,7 @@ int	exec(t_data *data, t_node *node)
 		while (i != nbr_cmd)
 		{
 			pid = waitpid(0, &exit_s, 0);
+			printf("exit s: %d errno: %d\n", exit_s, WTERMSIG(errno));
 			if (pid == signal_pid)
 				data->exit_status = WEXITSTATUS(exit_s);
 			i++;
