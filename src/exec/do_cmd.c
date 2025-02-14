@@ -6,7 +6,7 @@
 /*   By: oloncle <oloncle@student.42.fr>            +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/08/18 17:53:01 by klabaune          #+#    #+#             */
-/*   Updated: 2025/02/11 11:11:12 by oloncle          ###   ########.fr       */
+/*   Updated: 2025/02/14 16:54:09 by oloncle          ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -28,8 +28,8 @@ void	child(t_data *data, t_cmd_node *cmd, int pos, int *pipe_fd)
 			fd_out = open(cmd->output, O_WRONLY | O_CREAT | O_TRUNC, 0777);
 		if (fd_out < 0)
 		{
-			printf("open: can't open output file: %s\n", cmd ->output);
-			exit(1);
+			printf("open: can't open output file: %s\n", cmd->output);
+			exit(errno);
 		}
 		save_fd1 = dup(1);
 		dup2(fd_out, 1);
@@ -47,8 +47,8 @@ void	child(t_data *data, t_cmd_node *cmd, int pos, int *pipe_fd)
 		if (fd_in < 0)
 		{
 			dup2(save_fd1, 1);
-			printf("open: can't open output file: %s\n", cmd ->output);
-			exit(0);
+			printf("open: can't open input file: %s\n", cmd->input);
+			exit(errno);
 		}
 		dup2(fd_in, 0);
 		close(fd_in);
@@ -72,7 +72,6 @@ void	parent(t_data *data, int *pipe_fd, int pos)
 	close(pipe_fd[1]);
 	if (pos == 2 || pos == -1)
 		close(pipe_fd[0]);
-	//wait(NULL);
 	if (pos != 2)
 		data->prev_pipe_fd0 = pipe_fd[0];
 }

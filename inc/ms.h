@@ -6,7 +6,7 @@
 /*   By: oloncle <oloncle@student.42.fr>            +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/11/13 14:22:39 by oloncle           #+#    #+#             */
-/*   Updated: 2025/02/11 14:36:12 by oloncle          ###   ########.fr       */
+/*   Updated: 2025/02/14 16:47:23 by oloncle          ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -26,6 +26,7 @@
 # include <sys/types.h>
 # include <sys/stat.h>
 # include <termios.h>
+# include <errno.h>
 # include "lexing.h"
 # include "parsing.h"
 
