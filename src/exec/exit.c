@@ -35,15 +35,18 @@ int	simili_atoi(char *str, int *check)
 		i++;
 	if (str[i])
 		*check = -1;
-	return ((int)(result * sign));
+	return ((int)((result * sign) % 256));
 }
 
 void	free_and_exit(t_data *data)
 {
+	int	exit_s;
+
+	exit_s = data->exit_status;
 	del_hdfiles();
 	free_data(data);
 	write(2, "exit...\n", 8);
-	exit(0);
+	exit(exit_s);
 }
 
 void	ft_exit(t_data *data, char **arg)
@@ -61,8 +64,12 @@ void	ft_exit(t_data *data, char **arg)
 	}
 	else if (!arg[2])
 	{
-		simili_atoi(arg[1], &check);
-		data->exit_status = 1;
+		data->exit_status = simili_atoi(arg[1], &check);
+		if (check == -1)
+		{
+			printf("exit: numeric argument required\n");
+			data->exit_status = 2;
+		}
 		free_and_exit(data);
 	}
 }
