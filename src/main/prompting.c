@@ -6,7 +6,7 @@
 /*   By: oloncle <oloncle@student.42.fr>            +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2025/02/07 11:35:50 by oloncle           #+#    #+#             */
-/*   Updated: 2025/02/14 17:25:56 by oloncle          ###   ########.fr       */
+/*   Updated: 2025/02/14 18:00:56 by oloncle          ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -90,6 +90,7 @@ void	prompting(t_data *data)
 {
 	char	*line;
 	t_lexer	**lex_lst;
+	int	exit_s;
 
 	while (1)
 	{
@@ -99,9 +100,10 @@ void	prompting(t_data *data)
 		line = readline("\033[0;31mminishell>\033[0m ");
 		if (line == NULL)
 		{
+			exit_s = data->exit_status;
 			free_data(data);
 			write(2, "exit...\n", 8);
-			exit(data->exit_status);
+			exit(exit_s);
 		}
 		else if (line[0] != 0)
 		{
