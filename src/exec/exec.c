@@ -6,7 +6,7 @@
 /*   By: oloncle <oloncle@student.42.fr>            +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/08/18 17:52:26 by klabaune          #+#    #+#             */
-/*   Updated: 2025/02/09 12:11:40 by oloncle          ###   ########.fr       */
+/*   Updated: 2025/02/14 16:11:02 by oloncle          ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -97,12 +97,15 @@ int	exec(t_data *data, t_node *node)
 	int	i;
 	int	nbr_cmd;
 	t_pipe_node	*pipe;
+	int	exit_s;
+	int	pid;
 
 	if (node->type == 0)
 	{
 		if (!do_cmd(data, (t_cmd_node *)node, -1))
 			return (0);
-		wait(NULL);
+		waitpid(0, &exit_s, 0);
+		data->exit_status = WEXITSTATUS(exit_s);
 		return (1);
 	}
 	pipe = (t_pipe_node *)node;
@@ -129,7 +132,9 @@ int	exec(t_data *data, t_node *node)
 		i = 0;
 		while (i != nbr_cmd)
 		{
-			wait(NULL);
+			pid = waitpid(0, &exit_s, 0);
+			if (pid == signal_pid)
+				data->exit_status = WEXITSTATUS(exit_s);
 			i++;
 		}
 	}
