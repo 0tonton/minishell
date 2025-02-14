@@ -6,7 +6,7 @@
 /*   By: oloncle <oloncle@student.42.fr>            +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/08/18 17:53:01 by klabaune          #+#    #+#             */
-/*   Updated: 2025/02/14 16:54:09 by oloncle          ###   ########.fr       */
+/*   Updated: 2025/02/14 17:27:30 by oloncle          ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -55,6 +55,8 @@ void	child(t_data *data, t_cmd_node *cmd, int pos, int *pipe_fd)
 	}
 	else if (pos > 0)
 	{
+		if (data->prev_pipe_fd0  == -1)
+		  	exit(1);
 		dup2(data->prev_pipe_fd0, 0);
 		close(data->prev_pipe_fd0);
 	}
@@ -110,7 +112,6 @@ bool	do_cmd(t_data *data, t_cmd_node *cmd, int pos)
 		free(path);
 		return (true);
 	}
-	write(2, "Command not found\n", 18);
 	data->exit_status = 127;
 	return (false);
 }

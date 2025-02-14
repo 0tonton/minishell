@@ -6,7 +6,7 @@
 /*   By: oloncle <oloncle@student.42.fr>            +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/08/18 17:52:26 by klabaune          #+#    #+#             */
-/*   Updated: 2025/02/14 16:11:02 by oloncle          ###   ########.fr       */
+/*   Updated: 2025/02/14 17:32:33 by oloncle          ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -110,24 +110,14 @@ int	exec(t_data *data, t_node *node)
 	}
 	pipe = (t_pipe_node *)node;
 	if (pipe->left->type == 1)
-	{
-		if (!exec(data, pipe->left))
-			return (0);
-	}
+		exec(data, pipe->left);
 	else
-	{	
-		if (!do_cmd(data, (t_cmd_node *)pipe->left, 0))
-			return (0);
-	}
+		do_cmd(data, (t_cmd_node *)pipe->left, 0);
 	if (node != data->head)
-	{
-		if (!do_cmd(data, (t_cmd_node *)pipe->right, 1))
-			return (0);
-	}
+		do_cmd(data, (t_cmd_node *)pipe->right, 1);
 	else
 	{
-		if (!do_cmd(data, (t_cmd_node *)pipe->right, 2))
-			return (0);
+		do_cmd(data, (t_cmd_node *)pipe->right, 2);
 		nbr_cmd = count_cmd(data->head);
 		i = 0;
 		while (i != nbr_cmd)

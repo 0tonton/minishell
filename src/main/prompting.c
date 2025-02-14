@@ -6,7 +6,7 @@
 /*   By: oloncle <oloncle@student.42.fr>            +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2025/02/07 11:35:50 by oloncle           #+#    #+#             */
-/*   Updated: 2025/02/11 12:02:55 by oloncle          ###   ########.fr       */
+/*   Updated: 2025/02/14 17:25:56 by oloncle          ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -95,12 +95,13 @@ void	prompting(t_data *data)
 	{
 		lex_lst = NULL;
 		data->head = NULL;
+		data->prev_pipe_fd0 = -1;
 		line = readline("\033[0;31mminishell>\033[0m ");
 		if (line == NULL)
 		{
 			free_data(data);
 			write(2, "exit...\n", 8);
-			exit(0);
+			exit(data->exit_status);
 		}
 		else if (line[0] != 0)
 		{
@@ -113,11 +114,12 @@ void	prompting(t_data *data)
 				{
 					data->head = creating_tree(lex_lst);
 					free_parsing(lex_lst, data, line, 1);
+					//print_ast(data->head);
 					lex_lst = NULL;
 					line = NULL;
 					exec(data, data->head);
+					//wait(NULL);
 				}
-				//print_ast(data->head);
 			}
 		}
 		free_parsing(lex_lst, data, line, 0);
