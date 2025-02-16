@@ -12,18 +12,36 @@
 
 #include "../../inc/ms.h"
 
+int	really_do_unset(char ***tmp, char **env, int pos)
+{
+	int	i;
+	int	j;
+
+	i = 0;
+	j = 0;
+	while (env[i])
+	{
+		if (i != pos)
+		{
+			(*tmp)[j] = ft_strdup(env[i]);
+			if (!(*tmp)[j])
+			{
+				error_malloc();
+				return (1);
+			}
+			j++;
+		}
+		i++;
+	}
+	(*tmp)[j] = NULL;
+	return (0);
+}
+
 int	do_unset(t_data *data, char *arg, char **env)
 {
-	int		i;
-	int		j;
 	int		pos;
 	char	**tmp;
 
-	if (check_name(arg) == -1)
-	{
-		printf("unset arg have invalid name\n");
-		return (-1);
-	}
 	pos = if_exist(arg, env);
 	if (pos == -1)
 		return (0);
@@ -31,43 +49,29 @@ int	do_unset(t_data *data, char *arg, char **env)
 	if (!tmp)
 	{
 		error_malloc();
-		return (-1);
+		return (1);
 	}
-	i = 0;
-	j = 0;
-	while (env[i])
-	{
-		if (i != pos)
-		{
-			tmp[j] = ft_strdup(env[i]);
-			if (!tmp[j])
-			{
-				error_malloc();
-				return (-1);
-			}
-			j++;
-		}
-		i++;
-	}
-	tmp[j] = NULL;
+	if (really_do_unset(&tmp, env, pos) == 1)
+		return (1);
 	free_tab(env);
 	data->env = tmp;
 	return (0);
 }
 
-int	ft_unset(t_data *data, char **arg, char **env)
+int	ft_unset(t_data *data, char **arg)
 {
-	int	exit_code;
-	int	i;
+	int		exit_code;
+	int		i;
+	char	**env;
 
 	i = 0;
 	exit_code = 0;
 	while (arg[i])
 	{
-		if (do_unset(data, arg[i], env) == -1)
+		env = data->env;
+		if (do_unset(data, arg[i], env) == 1)
 			exit_code = 1;
 		i++;
 	}
 	return (exit_code);
 }
-

@@ -36,10 +36,10 @@ int	ft_echo(char **arg)
 	i = 1;
 	new_line = 1;
 	while (arg[i] && check_flag_n(arg[i]) == 1)
-		{
-			i++;
-			new_line = -1;
-		}
+	{
+		i++;
+		new_line = -1;
+	}
 	while (arg[i])
 	{
 		write(1, arg[i], ft_strlen(arg[i]));

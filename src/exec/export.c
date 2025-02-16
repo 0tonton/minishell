@@ -12,62 +12,66 @@
 
 #include "../../inc/ms.h"
 
-int	if_exist(char *arg, char **env)
+int	new_export(char **env, char *arg, t_data *data)
 {
 	int		i;
-	int		j;
+	char	**tmp;
+
+	tmp = malloc(sizeof(char *) * (len_tab(env) + 2));
+	if (!tmp)
+	{
+		error_malloc();
+		return (1);
+	}
+	i = 0;
+	while (env[i])
+	{
+		if (copy_env(&tmp[i], env[i]) == 1)
+			return (1);
+		i++;
+	}
+	if (copy_env(&tmp[i], arg) == 1)
+		return (1);
+	tmp[i + 1] = NULL;
+	free_tab(env);
+	data->env = tmp;
+	return (0);
+}
+
+int	old_export(char ***tmp, char **env, char *arg, int pos)
+{
+	int	i;
 
 	i = 0;
-	j = 0;
-	while (arg[i] && arg[i] != '=')
-		i++;
-	while (env[j])
+	while (i != pos)
 	{
-		if (!ft_strncmp(env[j], arg, i))
-		{
-			if (env[j][i] == '=' || env[j][i] == '\0')
-				return (j);
-		}
-		j++;
+		if (copy_env(&((*tmp)[i]), env[i]) == 1)
+			return (1);
+		i++;
 	}
-	return (-1);
+	if (copy_env(&((*tmp)[i]), arg) == 1)
+		return (1);
+	i++;
+	while (env[i])
+	{
+		if (copy_env(&((*tmp)[i]), env[i]) == 1)
+			return (1);
+		i++;
+	}
+	(*tmp)[i] = NULL;
+	return (0);
 }
 
 int	do_export(t_data *data, char *arg, char **env)
 {
-	int		i;
 	int		pos;
 	char	**tmp;
 
 	pos = if_exist(arg, env);
 	if (pos == -1)
 	{
-		tmp = malloc(sizeof(char *) * (len_tab(env) + 2));
-		if (!tmp)
-		{
-			error_malloc();
-			return (-1);
-		}
-		i = 0;
-		while (env[i])
-		{
-			tmp[i] = ft_strdup(env[i]);
-			if (!tmp[i])
-			{
-				error_malloc();
-				return (-1);
-			}
-			i++;
-		}
-		tmp[i] = ft_strdup(arg);
-		if (!tmp[i])
-		{
-			error_malloc();
-			return (-1);
-		}
-		tmp[i+1] = NULL;
-		free_tab(env);
-		data->env = tmp;
+		if (new_export(env, arg, data) == 1)
+			return (1);
 	}
 	else
 	{
@@ -75,55 +79,12 @@ int	do_export(t_data *data, char *arg, char **env)
 		if (!tmp)
 		{
 			error_malloc();
-			return (-1);
+			return (1);
 		}
-		i = 0;
-		while (i != pos)
-		{
-			tmp[i] = ft_strdup(env[i]);
-			if (!tmp[i])
-			{
-				error_malloc();
-				return (-1);
-			}
-			i++;
-		}
-		tmp[i] = ft_strdup(arg);
-		if (!tmp[i])
-		{
-			error_malloc();
-			return (-1);
-		}
-		i++;
-		while (env[i])
-		{
-			tmp[i] = ft_strdup(env[i]);
-			if (!tmp[i])
-			{
-				error_malloc();
-				return (-1);
-			}
-			i++;
-		}
-		tmp[i] = NULL;
+		if (old_export(&tmp, env, arg, pos) == 1)
+			return (1);
 		free_tab(env);
 		data->env = tmp;
-	}
-	return (0);
-}
-
-int	check_name(char *name)
-{
-	int	i;
-
-	i = 1;
-	if (name[0] != '_' && !ft_isalpha(name[0]))
-		return (-1);
-	while (name[i] && name[i] != '=')
-	{
-		if (name[i] != '_' && !ft_isalnum(name[i]))
-			return (-1);
-		i++;
 	}
 	return (0);
 }

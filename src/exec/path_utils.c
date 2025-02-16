@@ -50,6 +50,22 @@ int	my_strchr(char *str, char c)
 	return (i);
 }
 
+int	count_words(char *str, char c)
+{
+	int	count;
+	int	i;
+
+	count = 1;
+	i = 0;
+	while (str[i])
+	{
+		if (str[i] == c)
+			count++;
+		i++;
+	}
+	return (count);
+}
+
 char	**my_split(char *envp, char c)
 {
 	char	**tab;
@@ -70,27 +86,13 @@ char	**my_split(char *envp, char c)
 		limit = my_strchr(&envp[j], ':');
 		tab[i] = malloc(sizeof(char) * (limit + 1));
 		if (!tab[i])
-		{
-			free_tab(tab);
-			error_malloc();
-			return (NULL);
-		}
+			return (clean(tab));
 		str_copy(tab[i], &envp[j], limit);
 		j = j + limit + 1;
 		i++;
 	}
 	tab[i] = NULL;
 	return (tab);
-}
-
-int	my_strlen(char *str)
-{
-	int	i;
-
-	i = 0;
-	while (str[i])
-		i++;
-	return (i);
 }
 
 void	my_strcat(char *dest, char *src)

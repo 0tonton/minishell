@@ -20,13 +20,16 @@ EXEC_SRCS = cd.c\
 	    echo.c\
 	    env.c\
 	    exec.c\
+	    exec_utils.c\
 	    exit.c\
 	    export.c\
 	    init_path.c\
-	    norme.c\
+	    utils1.c\
+	    utils2.c\
 	    path_utils.c\
 	    pwd.c\
 	    unset.c\
+	    builtin_utils.c\
 	    ft_strjoin.c\
 	    ft_strchr.c\
 	    ft_isalpha.c\

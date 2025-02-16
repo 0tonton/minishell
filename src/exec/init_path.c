@@ -12,22 +12,6 @@
 
 #include "../../inc/ms.h"
 
-int	count_words(char *str, char c)
-{
-	int	count;
-	int	i;
-
-	count = 1;
-	i = 0;
-	while (str[i])
-	{
-		if (str[i] == c)
-			count++;
-		i++;
-	}
-	return (count);
-}
-
 void	str_copy(char *dest, char *src, int end)
 {
 	int	i;
@@ -41,7 +25,14 @@ void	str_copy(char *dest, char *src, int end)
 	dest[i] = '\0';
 }
 
-void	set_path(t_data *data, char *cmd, char **path, char **env)
+void	good_path(char **path, char *check)
+{
+	(*path) = ft_strdup(check);
+	if (!(*path))
+		error_malloc();
+}
+
+void	set_path(char *cmd, char **path, char **env)
 {
 	int		i;
 	char	**all_paths;
@@ -50,7 +41,7 @@ void	set_path(t_data *data, char *cmd, char **path, char **env)
 	i = search_path(env);
 	if (i == -1)
 	{
-		printf("%s : command not found\n", cmd);
+		printf("PATH in not defined\n");
 		return ;
 	}
 	all_paths = my_split(&env[i][5], ':');
@@ -62,12 +53,7 @@ void	set_path(t_data *data, char *cmd, char **path, char **env)
 		fill_path(check, all_paths[i], cmd);
 		if (check_access(check, all_paths) == 1)
 		{
-			(*path) = ft_strdup(check);
-			if (!(*path))
-			{
-				error_malloc();
-				data->exit_status = -1;
-			}
+			good_path(path, check);
 			return ;
 		}
 		i++;
@@ -96,7 +82,7 @@ void	init_path(t_data *data, char *cmd, char **path)
 	if (cmd[my_strchr(cmd, '/')] == '/')
 		simple_path(cmd, path);
 	else
-		set_path(data, cmd, path, data->env);
+		set_path(cmd, path, data->env);
 	if (!(*path))
 	{
 		printf("%s : command not found\n", cmd);
@@ -111,4 +97,3 @@ void	init_path(t_data *data, char *cmd, char **path)
 		(*path) = NULL;
 	}
 }
-

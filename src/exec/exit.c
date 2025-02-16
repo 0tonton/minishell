@@ -73,4 +73,3 @@ void	ft_exit(t_data *data, char **arg)
 		free_and_exit(data);
 	}
 }
-
