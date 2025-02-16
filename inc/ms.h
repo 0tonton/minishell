@@ -6,7 +6,7 @@
 /*   By: oloncle <oloncle@student.42.fr>            +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/11/13 14:22:39 by oloncle           #+#    #+#             */
-/*   Updated: 2025/02/16 15:29:37 by oloncle          ###   ########.fr       */
+/*   Updated: 2025/02/16 18:28:06 by oloncle          ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -45,11 +45,11 @@ void	set_up_signals(void);
 /*libft utils*/
 
 char	*ft_strdup(char *s);
-int	ft_len_word(char *str);
-int	ft_strlen(char *s);
+int		ft_len_word(char *str);
+int		ft_strlen(char *s);
 size_t	ft_strlcat(char *dst, char *src, size_t size);
 void	*ft_calloc(size_t nmemb, size_t size);
-int	ft_strncmp(const char *s1, const char *s2, size_t n);
+int		ft_strncmp(const char *s1, const char *s2, size_t n);
 
 /*DEBUGGING PRINT*/
 
@@ -70,7 +70,6 @@ extern pid_t	g_signal_pid;
 bool	check_builtin(char *cmd);
 void	builtin(t_data *data, t_cmd_node *cmd);
 void	do_builtin(t_data *data, t_cmd_node *cmd, int *pipe_fd, int pos);
-int		only_cmd(t_data *data, t_cmd_node *cmd);
 int		exec(t_data *data, t_node *node);
 
 /* exec_utils.c */
