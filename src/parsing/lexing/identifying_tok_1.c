@@ -6,7 +6,7 @@
 /*   By: oloncle <oloncle@student.42.fr>            +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2025/01/15 20:07:27 by oloncle           #+#    #+#             */
-/*   Updated: 2025/02/07 14:40:51 by oloncle          ###   ########.fr       */
+/*   Updated: 2025/02/16 12:38:33 by oloncle          ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -15,9 +15,9 @@
 
 void	if_var(t_lexer *first_node, char *line, int *i)
 {
-	int	len_word;
+	int		len_word;
 	char	*str;
-	int	j;
+	int		j;
 
 	if (line[*i] != '$')
 		return ;
@@ -40,8 +40,8 @@ void	if_var(t_lexer *first_node, char *line, int *i)
 void	if_sentence(t_lexer *first_node, char *line, int *i)
 {
 	char	*str;
-	int	j;
-	int	len_sentence;
+	int		j;
+	int		len_sentence;
 
 	len_sentence = ft_len_word(line + *i);
 	if (len_sentence > 0)

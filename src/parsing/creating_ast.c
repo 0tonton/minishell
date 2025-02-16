@@ -6,7 +6,7 @@
 /*   By: oloncle <oloncle@student.42.fr>            +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2025/01/27 14:43:00 by oloncle           #+#    #+#             */
-/*   Updated: 2025/02/10 11:07:44 by oloncle          ###   ########.fr       */
+/*   Updated: 2025/02/16 12:42:59 by oloncle          ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -38,25 +38,26 @@ t_lexer	*last_lex(t_lexer *head)
 	return (last);
 }
 
-void	creating_rl_cmd_nodes(t_pipe_node *current_p, t_lexer **current_lex)
+int	creating_rl_cmd_nodes(t_pipe_node *current_p, t_lexer **current_lex)
 {
 	if (current_p->right == NULL)
 	{
-		//printf("Creating right CMD node...\n");
 		current_p->right = create_cmd_node(*current_lex);
 		*current_lex = prev_lex(*current_lex);
 	}
 	if (current_p->left == NULL)
 	{
-		//printf("Creating left CMD node...\n");
 		current_p->left = create_cmd_node(*current_lex);
 		*current_lex = prev_lex(*current_lex);
 	}
+	if (!current_p->left || !current_p->right)
+		return (0);
+	return (1);
 }
 
 t_node	*creating_tree(t_lexer **head)
 {
-	int	nb_pipes;
+	int			nb_pipes;
 	t_pipe_node	*top;
 	t_pipe_node	*current_p;
 	t_lexer		*current_lex;
@@ -72,8 +73,7 @@ t_node	*creating_tree(t_lexer **head)
 	current_p = top;
 	while (nb_pipes > 0)
 	{
-		creating_rl_cmd_nodes(current_p, &current_lex);
-		if (!current_p->left || !current_p->right)
+		if (!creating_rl_cmd_nodes(current_p, &current_lex))
 		{
 			free_ast((t_node *)top);
 			return (NULL);

@@ -6,7 +6,7 @@
 /*   By: oloncle <oloncle@student.42.fr>            +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2025/02/07 11:42:47 by oloncle           #+#    #+#             */
-/*   Updated: 2025/02/07 11:43:15 by oloncle          ###   ########.fr       */
+/*   Updated: 2025/02/16 15:33:11 by oloncle          ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -15,13 +15,14 @@
 void	print_lexer_lst(t_lexer **first_node)
 {
 	t_lexer	*current;
-	int	i;
+	int		i;
 
 	current = *first_node;
 	i = 0;
 	while (current != NULL)
 	{
-		printf("Node n°%d: str:%s. tok type: %d\n", i, current->str, current->tok_type);
+		printf("Node n°%d: str:%s. tok type: %d\n", i, \
+			current->str, current->tok_type);
 		current = current->next;
 		i++;
 	}
@@ -30,7 +31,7 @@ void	print_lexer_lst(t_lexer **first_node)
 void	print_cmd_name(char **cmd_name, char *in, char *out, t_cmd_node *node)
 {
 	char	*mot;
-	int	i;
+	int		i;
 
 	i = 0;
 	mot = cmd_name[0];
@@ -40,26 +41,30 @@ void	print_cmd_name(char **cmd_name, char *in, char *out, t_cmd_node *node)
 		i++;
 		mot = cmd_name[i];
 	}
-	printf("\ninput name: %s\theredoc: %d\noutput name: %s\tappend: %d\n", in, node->heredoc, out, node->append_mode);
+	printf("\ninput name: %s\theredoc: %d\noutput name: %s\tappend: \
+	%d\n", in, node->heredoc, out, node->append_mode);
 }
 
 void	print_children(t_pipe_node *parent)
 {
 	if (parent->left && parent->right)
 	{
-		printf("\t-- Left child -- Right child --\ntype:\t\t%d      --     %d\n", parent->left->type, parent->right->type);
+		printf("\t-- Left child -- Right child --\n\
+type:\t\t%d      --     %d\n", parent->left->type, parent->right->type);
 		if (parent->left->type == CMD)
 		{
 			printf("Left cmd: ");
-			print_cmd_name(((t_cmd_node *)parent->left)->cmd_name, ((t_cmd_node *)parent->left)->input, \
-			((t_cmd_node *)parent->left)->output, (t_cmd_node *)(parent->left));
+			print_cmd_name(((t_cmd_node *)parent->left)->cmd_name, \
+	((t_cmd_node *)parent->left)->input, \
+	((t_cmd_node *)parent->left)->output, (t_cmd_node *)(parent->left));
 			printf("\n");
 		}
 		if (parent->right->type == CMD)
 		{
 			printf("Right cmd: ");
-			print_cmd_name(((t_cmd_node *)(parent->right))->cmd_name, ((t_cmd_node *)(parent->right))->input, \
-			((t_cmd_node *)(parent->right))->output, (t_cmd_node *)(parent->right));
+			print_cmd_name(((t_cmd_node *)(parent->right))->cmd_name, \
+	((t_cmd_node *)(parent->right))->input, \
+	((t_cmd_node *)(parent->right))->output, (t_cmd_node *)(parent->right));
 			printf("\n\n");
 		}
 	}
@@ -73,8 +78,9 @@ void	print_ast(t_node *top_node)
 	if (current_parent->type == CMD)
 	{
 		printf("Sole node CMD: ");
-		print_cmd_name(((t_cmd_node *)current_parent)->cmd_name, ((t_cmd_node *)current_parent)->input, \
-		((t_cmd_node *)current_parent)->output, (t_cmd_node *)(current_parent));
+		print_cmd_name(((t_cmd_node *)current_parent)->cmd_name, \
+	((t_cmd_node *)current_parent)->input, \
+	((t_cmd_node *)current_parent)->output, (t_cmd_node *)(current_parent));
 		printf("\n");
 	}
 	while (current_parent && current_parent->type == PIPE)
@@ -86,7 +92,7 @@ void	print_ast(t_node *top_node)
 
 void	print_var_env(char **env)
 {
-	int	i;
+	int		i;
 	char	*var;
 
 	i = 0;

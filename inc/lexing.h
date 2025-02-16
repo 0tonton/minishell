@@ -6,7 +6,7 @@
 /*   By: oloncle <oloncle@student.42.fr>            +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2025/01/14 16:33:26 by oloncle           #+#    #+#             */
-/*   Updated: 2025/02/09 12:07:34 by oloncle          ###   ########.fr       */
+/*   Updated: 2025/02/16 13:16:10 by oloncle          ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -70,6 +70,10 @@ char	*create_filename(int nb_hd);
 	//handle env var
 void	handle_env_var(t_lexer *start, t_lexer *end, int *e_status, char **env);
 char	*ft_getenv(char *name, char **env);
+
+	//check lexer
+int	check_lex_special_char(t_lexer *lex, int *exit_s);
+int	check_lex_all_spaces(t_lexer *head);
 
 	//utils
 int	ft_is_space(char c);

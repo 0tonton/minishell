@@ -6,7 +6,7 @@
 /*   By: oloncle <oloncle@student.42.fr>            +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2025/02/04 14:59:55 by oloncle           #+#    #+#             */
-/*   Updated: 2025/02/10 12:18:22 by oloncle          ###   ########.fr       */
+/*   Updated: 2025/02/16 12:37:47 by oloncle          ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -22,7 +22,7 @@ int	check_dless(t_lexer *head)
 	{
 		if (current->tok_type == T_DLESS)
 			return (1);
-		current =  current->next;
+		current = current->next;
 	}
 	return (0);
 }
@@ -39,7 +39,7 @@ int	check_delim_char(t_lexer *node)
 
 int	len_delim(t_lexer *start_delim)
 {
-	int	len;
+	int		len;
 	t_lexer	*current;
 
 	current = start_delim;
@@ -63,15 +63,14 @@ t_lexer	*dless_node(t_lexer *head)
 	{
 		if ((current)->tok_type == T_DLESS)
 			return (current);
-		(current) =  (current)->next;
-		
+		(current) = (current)->next;
 	}
 	return (NULL);
 }
 
 char	*find_delim(t_lexer *head)
 {
-	t_lexer *start_delim_node;
+	t_lexer	*start_delim_node;
 	char	*delim;
 
 	start_delim_node = dless_node(head);
@@ -84,7 +83,8 @@ char	*find_delim(t_lexer *head)
 	delim = ft_calloc(len_delim(start_delim_node) + 1, sizeof(char));
 	while (start_delim_node && check_delim_char(start_delim_node))
 	{
-		ft_strlcat(delim, start_delim_node->str, ft_strlen(delim) + ft_strlen(start_delim_node->str) + 1);
+		ft_strlcat(delim, start_delim_node->str, \
+		ft_strlen(delim) + ft_strlen(start_delim_node->str) + 1);
 		start_delim_node = start_delim_node->next;
 	}
 	return (delim);

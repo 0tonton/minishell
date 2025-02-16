@@ -1,28 +1,64 @@
 /* ************************************************************************** */
 /*                                                                            */
 /*                                                        :::      ::::::::   */
-/*   parsing_utils.c                                    :+:      :+:    :+:   */
+/*   ft_split_mod_2.c                                   :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
 /*   By: oloncle <oloncle@student.42.fr>            +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
-/*   Created: 2025/02/12 17:10:56 by oloncle           #+#    #+#             */
-/*   Updated: 2025/02/16 13:09:05 by oloncle          ###   ########.fr       */
+/*   Created: 2025/02/16 13:03:19 by oloncle           #+#    #+#             */
+/*   Updated: 2025/02/16 14:08:24 by oloncle          ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
 #include "../../inc/ms.h"
 
-int	count_cmd(t_node *head_node)
+int	is_in_str(char c, char *str)
 {
-	t_node	*current;
-	int		i;
+	int	i;
 
 	i = 0;
-	current = head_node;
-	while (current->type == 1)
+	while (str[i])
 	{
+		if (str[i] == c)
+			return (1);
 		i++;
-		current = ((t_pipe_node *)current)->left;
 	}
-	return (i + 1);
+	return (0);
+}
+
+int	start_i(char const *s, char *c)
+{
+	int	j;
+	int	i;
+
+	j = 0;
+	i = 0;
+	while (c[j])
+	{
+		if (((char *)s)[i] == c[j])
+		{
+			j = 0;
+			i++;
+		}
+		else
+			j++;
+	}
+	return (i);
+}
+
+void	end_var(char const *s, char *c, int *end)
+{
+	int	j;
+
+	j = 0;
+	while (c[j])
+	{
+		if (((char *)s)[*end] == c[j])
+		{
+			j = 0;
+			(*end)--;
+		}
+		else
+			j++;
+	}
 }

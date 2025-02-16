@@ -6,7 +6,7 @@
 /*   By: oloncle <oloncle@student.42.fr>            +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2025/01/31 11:09:29 by oloncle           #+#    #+#             */
-/*   Updated: 2025/02/07 14:57:07 by oloncle          ###   ########.fr       */
+/*   Updated: 2025/02/16 13:01:09 by oloncle          ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -15,7 +15,7 @@
 int	count_and_check_pipes(t_lexer **head)
 {
 	t_lexer	*current;
-	int	i;
+	int		i;
 
 	current = *head;
 	i = 0;
@@ -33,7 +33,7 @@ int	count_and_check_pipes(t_lexer **head)
 	return (i);
 }
 
-t_pipe_node	*create_pipe_node()
+t_pipe_node	*create_pipe_node(void)
 {
 	t_pipe_node	*pipe_node;
 

@@ -6,7 +6,7 @@
 /*   By: oloncle <oloncle@student.42.fr>            +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2025/01/30 13:45:01 by oloncle           #+#    #+#             */
-/*   Updated: 2025/02/07 14:41:22 by oloncle          ###   ########.fr       */
+/*   Updated: 2025/02/16 12:34:47 by oloncle          ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -16,7 +16,7 @@
 int	len_new_str(t_lexer *first_quote)
 {
 	t_lexer	*current;
-	int	len;
+	int		len;
 
 	current = first_quote->next;
 	len = 0;
@@ -30,14 +30,15 @@ int	len_new_str(t_lexer *first_quote)
 
 char	*create_new_str(t_lexer *first_quote)
 {
-	char *str;
+	char	*str;
 	t_lexer	*current;
 
 	current = first_quote->next;
 	str = ft_calloc(len_new_str(first_quote) + 1, sizeof(char));
 	while (current && current->tok_type != first_quote->tok_type)
 	{
-		ft_strlcat(str, current->str, ft_strlen(str) + ft_strlen(current->str) + 1);
+		ft_strlcat(str, current->str, ft_strlen(str) \
+		+ ft_strlen(current->str) + 1);
 		current = current->next;
 	}
 	return (str);
@@ -45,9 +46,9 @@ char	*create_new_str(t_lexer *first_quote)
 
 t_lexer	*del_until_sec_quote(t_lexer *first_quote)
 {
-	t_lexer	*current;
-	t_lexer	*next;
-	t_token_type quote_type;
+	t_lexer			*current;
+	t_lexer			*next;
+	t_token_type	quote_type;
 
 	quote_type = first_quote->tok_type;
 	current = first_quote->next;

@@ -6,53 +6,11 @@
 /*   By: oloncle <oloncle@student.42.fr>            +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2025/01/15 10:14:27 by oloncle           #+#    #+#             */
-/*   Updated: 2025/02/07 14:43:14 by oloncle          ###   ########.fr       */
+/*   Updated: 2025/02/16 15:13:06 by oloncle          ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
 #include "../../inc/ms.h"
-
-char	*ft_strdup(char *s)
-{
-	char	*dup;
-	int		i;
-
-	if (!s)
-		return (NULL);
-	dup = malloc((ft_strlen(s) + 1) * sizeof(char));
-	if (dup == NULL)
-		return (NULL);
-	i = 0;
-	while (i < (int)ft_strlen(s))
-	{
-		dup[i] = ((char *)s)[i];
-		i++;
-	}
-	dup[i] = '\0';
-	return (dup);
-}
-
-int	ft_len_word(char *str)
-{
-	int	i;
-
-	i = 0;
-	while (str && str[i] && !ft_is_space(str[i]) && !is_special(str[i]))
-		i++;
-	return (i);
-}
-
-int	ft_strlen(char *s)
-{
-	int	i;
-
-	i = 0;
-	if (!s)
-		return (i);
-	while (s[i])
-		i++;
-	return (i);
-}
 
 size_t	ft_strlcat(char *dst, char *src, size_t size)
 {
@@ -60,7 +18,6 @@ size_t	ft_strlcat(char *dst, char *src, size_t size)
 	size_t	lendst;
 
 	lendst = ft_strlen(dst);
-	
 	i = 0;
 	if (size <= lendst)
 		return (ft_strlen(src) + size);
@@ -78,7 +35,7 @@ void	*ft_calloc(size_t nmemb, size_t size)
 {
 	void	*result;
 	int		n;
-	int	i;
+	int		i;
 
 	i = 0;
 	n = nmemb * size;

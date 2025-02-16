@@ -6,7 +6,7 @@
 #    By: oloncle <oloncle@student.42.fr>            +#+  +:+       +#+         #
 #                                                 +#+#+#+#+#+   +#+            #
 #    Created: 2025/01/15 01:22:50 by oloncle           #+#    #+#              #
-#    Updated: 2025/02/12 17:14:20 by oloncle          ###   ########.fr        #
+#    Updated: 2025/02/16 15:12:56 by oloncle          ###   ########.fr        #
 #                                                                              #
 # **************************************************************************** #
 
@@ -31,6 +31,7 @@ EXEC_SRCS = cd.c\
 	    ft_strchr.c\
 	    ft_isalpha.c\
 	    ft_isalnum.c\
+	    ft_strnstr.c\
 
 LEX_SRCS = lexer.c\
 	    handle_quotes.c\
@@ -43,11 +44,15 @@ LEX_SRCS = lexer.c\
 	    lexer_utils.c\
 	    ft_itoa.c\
 	    var_env_handler.c\
+	    check_lexer.c\
 
 PARS_SRCS = libft_utils.c\
+	    libft_utils_2.c\
 	    creating_ast.c\
 	    ft_split_mod.c\
+	    ft_split_mod_2.c\
 	    creating_cmd_nodes.c\
+	    creating_cmd_utils.c\
 	    creating_pipe_nodes.c\
 	    free_pars.c\
 	    creating_tab_env.c\

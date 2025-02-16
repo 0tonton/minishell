@@ -6,7 +6,7 @@
 /*   By: oloncle <oloncle@student.42.fr>            +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2025/01/31 13:56:09 by oloncle           #+#    #+#             */
-/*   Updated: 2025/02/07 14:41:01 by oloncle          ###   ########.fr       */
+/*   Updated: 2025/02/16 12:36:33 by oloncle          ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -15,9 +15,8 @@
 
 void	create_and_add_to_hdfile(char *buffer, int nb_hd)
 {
-	int	fd;
+	int		fd;
 	char	*filename;
-
 
 	if (buffer)
 	{
@@ -32,8 +31,8 @@ void	create_and_add_to_hdfile(char *buffer, int nb_hd)
 
 int	check_nb_hd(t_lexer *head)
 {
-	int	nb;
-	t_lexer *current;
+	int		nb;
+	t_lexer	*current;
 
 	current = head;
 	nb = 0;
@@ -48,8 +47,8 @@ int	check_nb_hd(t_lexer *head)
 
 int	if_more_hd(int nb_hd, t_lexer **head)
 {
-	t_lexer **pt_dless;
-	int	ret_manage;
+	t_lexer	**pt_dless;
+	int		ret_manage;
 
 	ret_manage = 1;
 	if (nb_hd > 1)
@@ -70,8 +69,8 @@ int	manage_hd(t_lexer **head)
 {
 	char	*delim;
 	char	*buffer;
-	int	nb_hd;
-	
+	int		nb_hd;
+
 	delim = find_delim(*head);
 	nb_hd = check_nb_hd(*head);
 	if (!delim || !delim[0])
@@ -80,7 +79,8 @@ int	manage_hd(t_lexer **head)
 		return (0);
 	}
 	buffer = NULL;
-	while (!buffer || ft_strncmp(delim, buffer, ft_strlen(delim)) || ft_strlen(delim) != ft_strlen(buffer))
+	while (!buffer || ft_strncmp(delim, buffer, ft_strlen(delim)) \
+	|| ft_strlen(delim) != ft_strlen(buffer))
 	{
 		create_and_add_to_hdfile(buffer, nb_hd);
 		if (buffer)

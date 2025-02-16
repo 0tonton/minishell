@@ -6,7 +6,7 @@
 /*   By: oloncle <oloncle@student.42.fr>            +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2025/01/15 20:30:36 by oloncle           #+#    #+#             */
-/*   Updated: 2025/02/07 14:41:20 by oloncle          ###   ########.fr       */
+/*   Updated: 2025/02/16 12:32:17 by oloncle          ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -15,12 +15,13 @@
 
 int	check_quotes_presence(t_lexer *first_node, t_token_type quote_type)
 {
-	t_lexer *current;
+	t_lexer	*current;
 
 	current = first_node;
 	while (current != NULL)
 	{
-		if (!quote_type && (current->tok_type == T_SQUOTE || current->tok_type == T_DQUOTE))
+		if (!quote_type && (current->tok_type == T_SQUOTE \
+		|| current->tok_type == T_DQUOTE))
 			return (1);
 		else if (current->tok_type == quote_type)
 			return (1);
@@ -31,8 +32,8 @@ int	check_quotes_presence(t_lexer *first_node, t_token_type quote_type)
 
 t_lexer	*quote_node(t_lexer *first_node)
 {
-	t_lexer *current;
-	
+	t_lexer	*current;
+
 	current = first_node;
 	while (current != NULL)
 	{
@@ -48,7 +49,8 @@ t_lexer	*replace_node(t_lexer *cating_node, t_lexer *cur_node, char *cat_str)
 	t_lexer	*new_node;
 	char	*new_str;
 
-	new_str = ft_calloc(ft_strlen(cating_node->str) + ft_strlen(cat_str) + 1, sizeof(char));
+	new_str = ft_calloc(ft_strlen(cating_node->str) \
+	+ ft_strlen(cat_str) + 1, sizeof(char));
 	new_node = malloc(sizeof(t_lexer));
 	ft_strlcat(new_str, cating_node->str, ft_strlen(cating_node->str) + 1);
 	ft_strlcat(new_str, cat_str, ft_strlen(new_str) + ft_strlen(cat_str) + 1);
@@ -67,19 +69,22 @@ t_lexer	*replace_node(t_lexer *cating_node, t_lexer *cur_node, char *cat_str)
 
 void	concat_sentences(t_lexer **first_node)
 {
-	t_lexer *current;
+	t_lexer	*current;
 	t_lexer	*next;
 
 	current = (*first_node)->next;
 	while (current != NULL)
 	{
 		next = current->next;
-		if (current->prev->tok_type == T_SENTENCE && current->tok_type == T_SENTENCE)
+		if (current->prev->tok_type == T_SENTENCE \
+			&& current->tok_type == T_SENTENCE)
 		{
 			if (current->prev->prev)
-				current->prev = replace_node(current->prev, current, current->str);
+				current->prev = replace_node(current->prev, \
+					current, current->str);
 			else
-				*first_node = replace_node(current->prev, current, current->str);
+				*first_node = replace_node(current->prev, \
+					current, current->str);
 			free(current->str);
 			free(current);
 		}

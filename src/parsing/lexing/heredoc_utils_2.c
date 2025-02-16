@@ -6,7 +6,7 @@
 /*   By: oloncle <oloncle@student.42.fr>            +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2025/02/04 15:03:33 by oloncle           #+#    #+#             */
-/*   Updated: 2025/02/11 11:34:16 by oloncle          ###   ########.fr       */
+/*   Updated: 2025/02/16 12:38:06 by oloncle          ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -28,7 +28,7 @@ char	*create_filename(int nb_hd)
 {
 	char	*filename;
 	char	*nb;
-	int	len;
+	int		len;
 
 	nb = ft_itoa(nb_hd);
 	len = ft_strlen(nb) + ft_strlen(".hd_.tmp") + 1;

@@ -6,7 +6,7 @@
 /*   By: oloncle <oloncle@student.42.fr>            +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/11/13 14:22:39 by oloncle           #+#    #+#             */
-/*   Updated: 2025/02/14 18:33:10 by oloncle          ###   ########.fr       */
+/*   Updated: 2025/02/16 15:29:37 by oloncle          ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -60,11 +60,10 @@ void	print_lexer_lst(t_lexer **first_node);
 /*free*/
 
 void	free_data(t_data *data);
-void	free_shlvl(char **env);
 
 /*------------------------------EXECUTION------------------------------*/
 
-extern pid_t	signal_pid;
+extern pid_t	g_signal_pid;
 
 /*exec.c*/
 

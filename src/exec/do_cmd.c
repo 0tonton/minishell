@@ -6,7 +6,7 @@
 /*   By: oloncle <oloncle@student.42.fr>            +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/08/18 17:53:01 by klabaune          #+#    #+#             */
-/*   Updated: 2025/02/14 17:27:30 by oloncle          ###   ########.fr       */
+/*   Updated: 2025/02/16 15:29:07 by oloncle          ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -98,14 +98,14 @@ bool	do_cmd(t_data *data, t_cmd_node *cmd, int pos)
 	init_path(data, cmd->cmd_name[0], &path);
 	if (path)
 	{
-		signal_pid = fork();
-		if (signal_pid == -1)
+		g_signal_pid = fork();
+		if (g_signal_pid == -1)
 		{
 			write(2, "ERROR: fork not opened...\n", 26);
 			data->exit_status = 1;
 			return (false);
 		}
-		else if (signal_pid == 0)
+		else if (g_signal_pid == 0)
 			child(data, cmd, pos, pipe_fd);
 		else
 			parent(data, pipe_fd, pos);

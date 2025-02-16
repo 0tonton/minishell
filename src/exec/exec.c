@@ -6,7 +6,7 @@
 /*   By: oloncle <oloncle@student.42.fr>            +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/08/18 17:52:26 by klabaune          #+#    #+#             */
-/*   Updated: 2025/02/14 18:47:29 by oloncle          ###   ########.fr       */
+/*   Updated: 2025/02/16 15:29:07 by oloncle          ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -127,7 +127,7 @@ int	exec(t_data *data, t_node *node)
 		{
 			pid = waitpid(0, &exit_s, 0);
 			printf("exit s: %d errno: %d\n", exit_s, WTERMSIG(errno));
-			if (pid == signal_pid)
+			if (pid == g_signal_pid)
 				data->exit_status = WEXITSTATUS(exit_s);
 			i++;
 		}

@@ -6,7 +6,7 @@
 /*   By: oloncle <oloncle@student.42.fr>            +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2025/02/05 09:58:07 by oloncle           #+#    #+#             */
-/*   Updated: 2025/02/11 14:54:59 by oloncle          ###   ########.fr       */
+/*   Updated: 2025/02/16 13:01:47 by oloncle          ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -24,7 +24,7 @@ int	len_var(char *var)
 
 char	*increment_shlvl(char *var)
 {
-	int	len;
+	int		len;
 	char	*new_var;
 	char	*str_nb;
 
@@ -43,7 +43,7 @@ char	*increment_shlvl(char *var)
 
 int	nb_var(char **env)
 {
-	int	i;
+	int		i;
 	char	*var;
 
 	i = 0;
@@ -61,7 +61,7 @@ char	**tab_var_env(char **og_env)
 	char	**tab_var;
 	char	*var;
 	char	*temp_var;
-	int	i;
+	int		i;
 
 	i = 0;
 	var = ft_strdup(og_env[i]);
@@ -79,5 +79,5 @@ char	**tab_var_env(char **og_env)
 		var = ft_strdup(og_env[i]);
 	}
 	tab_var[i] = NULL;
-	return(tab_var);
+	return (tab_var);
 }

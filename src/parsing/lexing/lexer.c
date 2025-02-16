@@ -6,13 +6,13 @@
 /*   By: oloncle <oloncle@student.42.fr>            +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2025/01/15 08:52:57 by oloncle           #+#    #+#             */
-/*   Updated: 2025/02/12 15:47:45 by oloncle          ###   ########.fr       */
+/*   Updated: 2025/02/16 12:27:30 by oloncle          ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
 #include "../../../inc/ms.h"
 
-t_lexer	*init_lexer_list()
+t_lexer	*init_lexer_list(void)
 {
 	t_lexer	*first_node;
 
@@ -25,8 +25,8 @@ t_lexer	*init_lexer_list()
 
 void	add_lexer_node(t_lexer *first_node, char *value, t_token_type tok_type)
 {
-	t_lexer *next_node;
-	t_lexer *current_node;
+	t_lexer	*next_node;
+	t_lexer	*current_node;
 
 	if (first_node->str == NULL)
 	{
@@ -47,23 +47,6 @@ void	add_lexer_node(t_lexer *first_node, char *value, t_token_type tok_type)
 	}
 }
 
-void	free_lexer(t_lexer **first_node)
-{
-	t_lexer	*current_node;
-	t_lexer	*next_node;
-
-	current_node = *first_node;
-	while (current_node != NULL)
-	{
-		next_node = current_node->next;
-		if (current_node->str)
-			free(current_node->str);
-		free(current_node);
-		current_node = next_node;
-	}
-	free(first_node);
-}
-
 void	identifying_token(t_lexer *lexer_lst, char *line, int *i)
 {
 	if_space(lexer_lst, line, i);
@@ -73,11 +56,33 @@ void	identifying_token(t_lexer *lexer_lst, char *line, int *i)
 	if_sentence(lexer_lst, line, i);
 }
 
+int	handle_quote_and_hd(t_lexer **lexer_lst, int *e_status, char **env)
+{
+	if (!handle_quotes(lexer_lst, *e_status, env))
+	{
+		free_lexer(lexer_lst);
+		*e_status = 2;
+		write(2, "ERROR: quotes unclosed\n", 23);
+		return (0);
+	}
+	if (check_dless(*lexer_lst))
+	{
+		if (!manage_hd(lexer_lst))
+		{
+			*e_status = 2;
+			free_lexer(lexer_lst);
+			write(2, "ERROR: no DELIMETER given\n", 26);
+			return (0);
+		}
+	}
+	return (1);
+}
+
 t_lexer	**lexer_line(char *line, int *e_status, char **env)
 {
-	int	i;
+	int		i;
 	t_lexer	**lexer_lst;
-	
+
 	i = 0;
 	lexer_lst = malloc(sizeof(t_lexer *));
 	*lexer_lst = init_lexer_list();
@@ -86,31 +91,8 @@ t_lexer	**lexer_line(char *line, int *e_status, char **env)
 		if (line[i])
 			identifying_token(*lexer_lst, line, &i);
 	}
-	if (!handle_quotes(lexer_lst, *e_status, env))
-	{
-		free_lexer(lexer_lst);
-		*e_status = 2;
-		write(2, "ERROR: quotes unclosed\n", 23);
+	if (!handle_quote_and_hd(lexer_lst, e_status, env))
 		return (NULL);
-	}
-	if (check_dless(*lexer_lst))
-	{
-		
-		if (!manage_hd(lexer_lst))
-		{
-			*e_status = 2;
-			free_lexer(lexer_lst);
-			write(2, "ERROR: no DELIMETER given\n", 26);
-			return (NULL);
-		}
-	}
-	// if (!handle_quotes(lexer_lst, *e_status, env))
-	// {
-	// 	free_lexer(lexer_lst);
-	// 	*e_status = 2;
-	// 	write(2, "ERROR: quotes unclosed\n", 23);
-	// 	return (NULL);
-	// }
 	handle_env_var(*lexer_lst, NULL, e_status, env);
 	if (!((*lexer_lst)->str) && !((*lexer_lst)->next))
 	{
