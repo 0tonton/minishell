@@ -6,7 +6,7 @@
 /*   By: oloncle <oloncle@student.42.fr>            +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2025/02/07 11:33:19 by oloncle           #+#    #+#             */
-/*   Updated: 2025/02/16 15:29:14 by oloncle          ###   ########.fr       */
+/*   Updated: 2025/02/17 11:19:39 by oloncle          ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -15,15 +15,25 @@
 void	signal_handler(int signum)
 {
 	(void)(signum);
-	write(1, "\n", 1);
-	rl_replace_line("", 0);
-	rl_on_new_line();
 	if (g_signal_pid == 0)
+	{
+		write(1, "\n", 1);
+		rl_replace_line("", 0);
+		rl_on_new_line();
 		rl_redisplay();
+	}
+}
+
+void	signal_handler_segv(int signum)
+{
+	(void)(signum);
+	write(2, "Segmentation fault\n", 19);
+	exit(11);
 }
 
 void	set_up_signals(void)
 {
 	signal(SIGQUIT, SIG_IGN);
+	signal(SIGSEGV, &signal_handler_segv);
 	signal(SIGINT, &signal_handler);
 }
