@@ -6,7 +6,7 @@
 /*   By: oloncle <oloncle@student.42.fr>            +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/08/18 17:53:01 by klabaune          #+#    #+#             */
-/*   Updated: 2025/02/11 16:35:01 by oloncle          ###   ########.fr       */
+/*   Updated: 2025/02/17 15:11:24 by oloncle          ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -71,7 +71,6 @@ void	simple_path(char *cmd, char **path)
 	}
 	if (access((*path), F_OK) != 0)
 	{
-		printf("%s : command not found\n", cmd);
 		free(*path);
 		*path = NULL;
 	}
