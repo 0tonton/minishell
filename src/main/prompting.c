@@ -6,7 +6,7 @@
 /*   By: oloncle <oloncle@student.42.fr>            +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2025/02/07 11:35:50 by oloncle           #+#    #+#             */
-/*   Updated: 2025/02/17 11:28:49 by oloncle          ###   ########.fr       */
+/*   Updated: 2025/02/17 16:13:19 by oloncle          ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -25,6 +25,7 @@ int	managing_line(t_lexer **lex_lst, char **line, t_data *data)
 			free_parsing(lex_lst, data, *line, 1);
 			*line = NULL;
 			exec(data, data->head);
+			set_up_signals();
 			g_signal_pid = 0;
 			return (1);
 		}
