@@ -6,7 +6,7 @@
 /*   By: oloncle <oloncle@student.42.fr>            +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/08/18 17:52:26 by klabaune          #+#    #+#             */
-/*   Updated: 2025/02/14 18:47:29 by oloncle          ###   ########.fr       */
+/*   Updated: 2025/02/17 16:27:06 by oloncle          ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -14,6 +14,9 @@
 
 bool	check_builtin(char *cmd)
 {
+	int	len;
+
+	len = ft_strlen(cmd);
 	if (access(cmd, F_OK) == 0)
 	{
 		if (ft_strnstr(cmd, "cd", INT_MAX) || ft_strnstr(cmd, "echo", INT_MAX) \
@@ -24,10 +27,10 @@ bool	check_builtin(char *cmd)
 	}
 	else
 	{
-		if (ft_strnstr(cmd, "cd", 2) || ft_strnstr(cmd, "echo", 4) \
-		|| ft_strnstr(cmd, "env", 3) || ft_strnstr(cmd, "exit", 4) \
-		|| ft_strnstr(cmd, "export", 6) || ft_strnstr(cmd, "pwd", 3) \
-		|| ft_strnstr(cmd, "unset", 5))
+		if (!ft_strncmp(cmd, "cd", len) || !ft_strncmp(cmd, "echo", len) \
+		|| !ft_strncmp(cmd, "env", len) || !ft_strncmp(cmd, "exit", len) \
+		|| !ft_strncmp(cmd, "export", len) || !ft_strncmp(cmd, "pwd", len) \
+		|| !ft_strncmp(cmd, "unset", len))
 			return (true);
 	}
 	return (false);
