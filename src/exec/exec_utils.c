@@ -92,7 +92,7 @@ void	open_outfile(t_cmd_node *cmd, int pos, int *pipe_fd, int save_fd1)
 		{
 			dup2(save_fd1, 1);
 			printf("open: can't open output file: %s\n", cmd->output);
-			exit(errno);
+			exit(1);
 		}
 		dup2(fd_out, 1);
 		close(fd_out);
@@ -112,7 +112,7 @@ void	open_infile(t_cmd_node *cmd, int pos, int save_fd1, t_data *data)
 		{
 			dup2(save_fd1, 1);
 			printf("open: can't open input file: %s\n", cmd->input);
-			exit(errno);
+			exit(1);
 		}
 		dup2(fd_in, 0);
 		close(fd_in);

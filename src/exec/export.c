@@ -117,7 +117,7 @@ void	print_env(char **env)
 	}
 }
 
-int	ft_export(t_data *data, char **arg, char **env)
+int	ft_export(t_data *data, char **arg)
 {
 	int	exit_code;
 	int	i;
@@ -126,7 +126,7 @@ int	ft_export(t_data *data, char **arg, char **env)
 	i = 1;
 	if (!arg[1])
 	{
-		print_env(env);
+		print_env(data->env);
 		return (0);
 	}
 	while (arg[i])
@@ -136,7 +136,7 @@ int	ft_export(t_data *data, char **arg, char **env)
 			printf("export: invalid name\n");
 			exit_code = 1;
 		}
-		else if (do_export(data, arg[i], env) == -1)
+		else if (do_export(data, arg[i], data->env) == -1)
 			return (1);
 		i++;
 	}

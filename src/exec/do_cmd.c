@@ -26,6 +26,7 @@ void	child(t_data *data, t_cmd_node *cmd, int pos, int *pipe_fd)
 	init_path(data, cmd->cmd_name[0], &path);
 	if (!path)
 		return ;
+	rl_clear_history();
 	signal(SIGQUIT, SIG_DFL);
 	execve(path, cmd->cmd_name, data->env);
 	free(path);

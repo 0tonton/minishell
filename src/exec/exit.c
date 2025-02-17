@@ -12,6 +12,13 @@
 
 #include "../../inc/ms.h"
 
+int	the_result(int result, int sign)
+{
+	if (sign == -1)
+		return (256 - result);
+	return (result);
+}
+
 int	simili_atoi(char *str, int *check)
 {
 	unsigned long long	result;
@@ -23,9 +30,12 @@ int	simili_atoi(char *str, int *check)
 	result = 0;
 	while ((9 <= str[i] && str[i] <= 13) || str[i] == 32)
 		i++;
-	if (str[i] == '-')
-		sign = -1;
-	i++;
+	if (str[i] == '-' || str[i] == '+')
+	{
+		if (str[i] == '-')
+			sign = -1;
+		i++;
+	}
 	while ('0' <= str[i] && str[i] <= '9')
 	{
 		result = result * 10 + (str[i] - 48);
@@ -35,7 +45,7 @@ int	simili_atoi(char *str, int *check)
 		i++;
 	if (str[i])
 		*check = -1;
-	return ((int)((result * sign) % 256));
+	return (the_result((int)((result % 256)), sign));
 }
 
 void	free_and_exit(t_data *data)

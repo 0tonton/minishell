@@ -107,7 +107,7 @@ int		new_export(char **env, char *arg, t_data *data);
 int		old_export(char ***tmp, char **env, char *arg, int pos);
 int		do_export(t_data *data, char *arg, char **env);
 void	print_env(char **env);
-int		ft_export(t_data *data, char **arg, char **env);
+int		ft_export(t_data *data, char **arg);
 
 /*pwd.c*/
 

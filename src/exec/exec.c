@@ -49,7 +49,7 @@ void	builtin(t_data *data, t_cmd_node *cmd)
 	else if (ft_strnstr(cmd->cmd_name[0], "exit", INT_MAX))
 		ft_exit(data, cmd->cmd_name);
 	else if (ft_strnstr(cmd->cmd_name[0], "export", INT_MAX))
-		data->exit_status = ft_export(data, cmd->cmd_name, data->env);
+		data->exit_status = ft_export(data, cmd->cmd_name);
 	else if (ft_strnstr(cmd->cmd_name[0], "unset", INT_MAX))
 		data->exit_status = ft_unset(data, cmd->cmd_name);
 }
