@@ -6,7 +6,7 @@
 /*   By: oloncle <oloncle@student.42.fr>            +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/08/18 17:53:01 by klabaune          #+#    #+#             */
-/*   Updated: 2025/02/17 16:12:02 by oloncle          ###   ########.fr       */
+/*   Updated: 2025/02/17 16:20:15 by oloncle          ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -43,10 +43,7 @@ void	parent(t_data *data, int *pipe_fd, int pos)
 bool	the_fork(t_data *data, t_cmd_node *cmd, int pos, int *pipe_fd)
 {
 	if (!ft_strncmp(cmd->cmd_name[0], "./minishell", 11))
-	{
-		printf("here\n");
 		signal(SIGINT, SIG_IGN);
-	}
 	g_signal_pid = fork();
 	if (g_signal_pid == -1)
 	{
