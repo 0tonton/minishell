@@ -3,10 +3,10 @@
 /*                                                        :::      ::::::::   */
 /*   init_path.c                                        :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
-/*   By: oloncle <oloncle@student.42.fr>            +#+  +:+       +#+        */
+/*   By: klabaune <klabaune@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/08/18 17:53:01 by klabaune          #+#    #+#             */
-/*   Updated: 2025/02/17 15:11:24 by oloncle          ###   ########.fr       */
+/*   Updated: 2025/02/18 17:07:35 by klabaune         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -41,7 +41,7 @@ void	set_path(char *cmd, char **path, char **env)
 	i = search_path(env);
 	if (i == -1)
 	{
-		printf("PATH in not defined\n");
+		printf("PATH is not defined\n");
 		return ;
 	}
 	all_paths = my_split(&env[i][5], ':');
