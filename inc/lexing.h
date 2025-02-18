@@ -6,7 +6,7 @@
 /*   By: oloncle <oloncle@student.42.fr>            +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2025/01/14 16:33:26 by oloncle           #+#    #+#             */
-/*   Updated: 2025/02/16 15:50:36 by oloncle          ###   ########.fr       */
+/*   Updated: 2025/02/18 11:41:50 by oloncle          ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -69,6 +69,7 @@ char	*create_filename(int nb_hd);
 /*handle env var*/
 void	handle_env_var(t_lexer *start, t_lexer *end, int *e_status, char **env);
 char	*ft_getenv(char *name, char **env);
+char	*assiging_new_str(char *temp, char *node_str);
 
 /*check lexer*/
 int		check_lex_special_char(t_lexer *lex, int *exit_s);

@@ -6,7 +6,7 @@
 /*   By: oloncle <oloncle@student.42.fr>            +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2025/01/15 20:07:27 by oloncle           #+#    #+#             */
-/*   Updated: 2025/02/16 12:38:33 by oloncle          ###   ########.fr       */
+/*   Updated: 2025/02/18 11:42:46 by oloncle          ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -73,12 +73,3 @@ void	if_quote(t_lexer *first_node, char *line, int *i)
 		(*i)++;
 	}
 }
-
-// void	if_nl(t_lexer *first_node, char *line, int *i)
-// {
-// 	if (line[*i] == '\n')
-// 	{
-// 		(*i)++;
-// 		add_lexer_node(first_node, "\n", T_NL);
-// 	}
-// }

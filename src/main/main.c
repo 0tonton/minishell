@@ -6,7 +6,7 @@
 /*   By: oloncle <oloncle@student.42.fr>            +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/11/13 14:25:16 by oloncle           #+#    #+#             */
-/*   Updated: 2025/02/16 15:29:53 by oloncle          ###   ########.fr       */
+/*   Updated: 2025/02/17 16:49:17 by oloncle          ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -41,8 +41,12 @@ int	main(int argc, char *argv[], char *env[])
 {
 	t_data	*data;
 
-	(void)(argc);
 	(void)(argv);
+	if (argc > 1)
+	{
+		write(2, "minishell: too many arguments...\n", 34);
+		exit(1);
+	}
 	data = malloc(sizeof(t_data));
 	data->exit_status = 0;
 	data->env = tab_var_env(env);
