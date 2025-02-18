@@ -3,10 +3,10 @@
 /*                                                        :::      ::::::::   */
 /*   do_cmd.c                                           :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
-/*   By: oloncle <oloncle@student.42.fr>            +#+  +:+       +#+        */
+/*   By: klabaune <klabaune@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/08/18 17:53:01 by klabaune          #+#    #+#             */
-/*   Updated: 2025/02/17 16:20:15 by oloncle          ###   ########.fr       */
+/*   Updated: 2025/02/18 17:41:59 by klabaune         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -27,7 +27,7 @@ void	child(t_data *data, t_cmd_node *cmd, int pos, int *pipe_fd)
 	path = NULL;
 	init_path(data, cmd->cmd_name[0], &path);
 	if (!path)
-		exit(0);
+		exit(data->exit_status);
 	rl_clear_history();
 	signal(SIGQUIT, SIG_DFL);
 	execve(path, cmd->cmd_name, data->env);
