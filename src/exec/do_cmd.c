@@ -6,7 +6,7 @@
 /*   By: klabaune <klabaune@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/08/18 17:53:01 by klabaune          #+#    #+#             */
-/*   Updated: 2025/02/18 17:41:59 by klabaune         ###   ########.fr       */
+/*   Updated: 2025/02/18 18:05:05 by klabaune         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -18,7 +18,7 @@ void	child(t_data *data, t_cmd_node *cmd, int pos, int *pipe_fd)
 	int		save_fd1;
 
 	if (cmd->del_cmd)
-		exit(1);
+		exit(data->exit_status);
 	save_fd1 = dup(1);
 	close(pipe_fd[0]);
 	open_outfile(cmd, pos, pipe_fd, save_fd1);
@@ -61,6 +61,18 @@ bool	the_fork(t_data *data, t_cmd_node *cmd, int pos, int *pipe_fd)
 	return (true);
 }
 
+void	no_path(t_cmd_node *cmd, t_data *data, char *path)
+{
+	if (cmd->del_cmd == 1)
+		data->exit_status = 1;
+	if (!path)
+	{
+		if (cmd->del_cmd == 0)
+			data->exit_status = 127;
+		cmd->del_cmd = 1;
+	}
+}
+
 bool	do_cmd(t_data *data, t_cmd_node *cmd, int pos)
 {
 	int		pipe_fd[2];
@@ -81,6 +93,7 @@ bool	do_cmd(t_data *data, t_cmd_node *cmd, int pos)
 	init_path(data, cmd->cmd_name[0], &path);
 	if (path || count_cmd(data->head) > 1)
 	{
+		no_path(cmd, data, path);
 		free(path);
 		return (the_fork(data, cmd, pos, pipe_fd));
 	}
