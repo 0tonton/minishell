@@ -40,6 +40,7 @@ void	init_cmd_node(t_cmd_node *node, t_lexer *first_lex_node)
 	node->type = CMD;
 	node->append_mode = 0;
 	node->heredoc = 0;
+	node->del_cmd = 0;
 	node->cmd_name = malloc(sizeof(char *) * (nb_cmd_arg(first_lex_node) + 1));
 	node->cmd_name[0] = NULL;
 	node->input = NULL;
@@ -73,7 +74,6 @@ t_node	*create_cmd_node(t_lexer *first_lex_node)
 			ret_chevron = if_chevron(current, cmd_node);
 			if (ret_chevron == -1)
 			{
-				printf("here\n");
 				free(cmd_node);
 				return (NULL);
 			}

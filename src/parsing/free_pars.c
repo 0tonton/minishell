@@ -3,10 +3,10 @@
 /*                                                        :::      ::::::::   */
 /*   free_pars.c                                        :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
-/*   By: oloncle <oloncle@student.42.fr>            +#+  +:+       +#+        */
+/*   By: klabaune <klabaune@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2025/01/31 11:20:25 by oloncle           #+#    #+#             */
-/*   Updated: 2025/02/16 13:02:21 by oloncle          ###   ########.fr       */
+/*   Updated: 2025/02/18 16:31:25 by klabaune         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -58,6 +58,7 @@ void	free_ast(t_node *top_node)
 			current = next_pipe;
 		}
 	}
+	top_node = NULL;
 }
 
 void	del_hdfiles(void)

@@ -3,16 +3,26 @@
 /*                                                        :::      ::::::::   */
 /*   creating_cmd_utils.c                               :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
-/*   By: oloncle <oloncle@student.42.fr>            +#+  +:+       +#+        */
+/*   By: klabaune <klabaune@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2025/02/16 12:47:20 by oloncle           #+#    #+#             */
-/*   Updated: 2025/02/16 12:57:52 by oloncle          ###   ########.fr       */
+/*   Updated: 2025/02/18 16:30:42 by klabaune         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
 #include "../../inc/ms.h"
 
-int	chevron_output(t_lexer *prev, t_lexer *current, t_cmd_node *cmd_node)
+void	assigning_del_node(t_lexer *current, t_cmd_node *cmd_node)
+{
+	if (!(cmd_node->del_cmd) && access(current->str, F_OK))
+	{
+		write(2, current->str, ft_strlen(current->str));
+		write(2, ": No such file or directory\n", 28);
+		cmd_node->del_cmd = 1;
+	}
+}
+
+int	chevron_input(t_lexer *prev, t_lexer *current, t_cmd_node *cmd_node)
 {
 	if (prev->tok_type == T_LESS)
 	{
@@ -22,6 +32,7 @@ int	chevron_output(t_lexer *prev, t_lexer *current, t_cmd_node *cmd_node)
 			free(cmd_node->input);
 		if (!current->str)
 			return (-1);
+		assigning_del_node(current, cmd_node);
 		cmd_node->input = ft_strdup(current->str);
 		cmd_node->heredoc = 0;
 	}
@@ -39,7 +50,7 @@ int	chevron_output(t_lexer *prev, t_lexer *current, t_cmd_node *cmd_node)
 	return (1);
 }
 
-int	chevron_input(t_lexer *prev, t_lexer *current, t_cmd_node *cmd_node)
+int	chevron_output(t_lexer *prev, t_lexer *current, t_cmd_node *cmd_node)
 {
 	if (prev->tok_type == T_GREAT)
 	{
@@ -74,9 +85,9 @@ int	if_chevron(t_lexer *current, t_cmd_node *cmd_node)
 		prev = prev->prev;
 	if (prev)
 	{
-		ret = chevron_input(prev, current, cmd_node);
+		ret = chevron_output(prev, current, cmd_node);
 		if (!ret)
-			return (chevron_output(prev, current, cmd_node));
+			return (chevron_input(prev, current, cmd_node));
 		return (ret);
 	}
 	return (1);

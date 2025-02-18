@@ -47,6 +47,7 @@ LEX_SRCS = lexer.c\
 	    lexer_utils.c\
 	    ft_itoa.c\
 	    var_env_handler.c\
+		var_env_handler_utils.c\
 	    check_lexer.c\
 
 PARS_SRCS = libft_utils.c\

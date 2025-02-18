@@ -17,6 +17,8 @@ void	child(t_data *data, t_cmd_node *cmd, int pos, int *pipe_fd)
 	char	*path;
 	int		save_fd1;
 
+	if (cmd->del_cmd)
+		exit(1);
 	save_fd1 = dup(1);
 	close(pipe_fd[0]);
 	open_outfile(cmd, pos, pipe_fd, save_fd1);
@@ -25,7 +27,7 @@ void	child(t_data *data, t_cmd_node *cmd, int pos, int *pipe_fd)
 	path = NULL;
 	init_path(data, cmd->cmd_name[0], &path);
 	if (!path)
-		return ;
+		exit(0);
 	rl_clear_history();
 	signal(SIGQUIT, SIG_DFL);
 	execve(path, cmd->cmd_name, data->env);
@@ -77,7 +79,7 @@ bool	do_cmd(t_data *data, t_cmd_node *cmd, int pos)
 		return (false);
 	}
 	init_path(data, cmd->cmd_name[0], &path);
-	if (path)
+	if (path || count_cmd(data->head) > 1)
 	{
 		free(path);
 		return (the_fork(data, cmd, pos, pipe_fd));

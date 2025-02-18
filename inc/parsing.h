@@ -34,6 +34,7 @@ typedef struct s_cmd_node
 	char		*output; //NULL si stdout, sinon nom du fichier
 	int			append_mode; //0 si pas d'append, sinon 1
 	int			heredoc; //0 si pas here doc, sinon 1
+	int			del_cmd;
 }	t_cmd_node;
 
 typedef struct s_pipe_node

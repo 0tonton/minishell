@@ -34,6 +34,8 @@ void	free_data(t_data *data)
 {
 	clear_history();
 	free_tab_env(data);
+	if (data->head)
+		free_ast(data->head);
 	free(data);
 }
 
