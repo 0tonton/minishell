@@ -6,7 +6,7 @@
 /*   By: oloncle <oloncle@student.42.fr>            +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2025/02/07 11:33:19 by oloncle           #+#    #+#             */
-/*   Updated: 2025/02/17 16:06:44 by oloncle          ###   ########.fr       */
+/*   Updated: 2025/02/19 11:43:23 by oloncle          ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -27,6 +27,13 @@ void	signal_handler_segv(int signum)
 	(void)(signum);
 	write(2, "Segmentation fault\n", 19);
 	exit(11);
+}
+
+void	signal_handler_sigquit(int signum)
+{
+	(void)(signum);
+	signal(SIGQUIT, SIG_DFL);
+	write(1, "\n", 1);
 }
 
 void	set_up_signals(void)

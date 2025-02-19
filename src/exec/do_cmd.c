@@ -3,10 +3,10 @@
 /*                                                        :::      ::::::::   */
 /*   do_cmd.c                                           :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
-/*   By: klabaune <klabaune@student.42.fr>          +#+  +:+       +#+        */
+/*   By: oloncle <oloncle@student.42.fr>            +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/08/18 17:53:01 by klabaune          #+#    #+#             */
-/*   Updated: 2025/02/18 18:05:05 by klabaune         ###   ########.fr       */
+/*   Updated: 2025/02/19 12:08:40 by oloncle          ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -28,8 +28,6 @@ void	child(t_data *data, t_cmd_node *cmd, int pos, int *pipe_fd)
 	init_path(data, cmd->cmd_name[0], &path);
 	if (!path)
 		exit(data->exit_status);
-	rl_clear_history();
-	signal(SIGQUIT, SIG_DFL);
 	execve(path, cmd->cmd_name, data->env);
 	free(path);
 }
@@ -47,6 +45,8 @@ bool	the_fork(t_data *data, t_cmd_node *cmd, int pos, int *pipe_fd)
 {
 	if (!ft_strncmp(cmd->cmd_name[0], "./minishell", 11))
 		signal(SIGINT, SIG_IGN);
+	else
+		signal(SIGQUIT, &signal_handler_sigquit);
 	g_signal_pid = fork();
 	if (g_signal_pid == -1)
 	{
@@ -97,6 +97,5 @@ bool	do_cmd(t_data *data, t_cmd_node *cmd, int pos)
 		free(path);
 		return (the_fork(data, cmd, pos, pipe_fd));
 	}
-	data->exit_status = 127;
 	return (false);
 }

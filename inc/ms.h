@@ -6,7 +6,7 @@
 /*   By: oloncle <oloncle@student.42.fr>            +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/11/13 14:22:39 by oloncle           #+#    #+#             */
-/*   Updated: 2025/02/16 18:28:06 by oloncle          ###   ########.fr       */
+/*   Updated: 2025/02/19 12:03:40 by oloncle          ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -27,6 +27,7 @@
 # include <sys/stat.h>
 # include <termios.h>
 # include <errno.h>
+# include <dirent.h>
 # include "lexing.h"
 # include "parsing.h"
 
@@ -39,6 +40,7 @@ void	prompting(t_data *data);
 /*signals*/
 
 void	set_up_signals(void);
+void	signal_handler_sigquit(int signum);
 
 /*------------------------------PARSING------------------------------*/
 

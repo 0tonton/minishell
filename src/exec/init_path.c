@@ -3,10 +3,10 @@
 /*                                                        :::      ::::::::   */
 /*   init_path.c                                        :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
-/*   By: klabaune <klabaune@student.42.fr>          +#+  +:+       +#+        */
+/*   By: oloncle <oloncle@student.42.fr>            +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/08/18 17:53:01 by klabaune          #+#    #+#             */
-/*   Updated: 2025/02/18 17:07:35 by klabaune         ###   ########.fr       */
+/*   Updated: 2025/02/19 12:18:39 by oloncle          ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -78,6 +78,8 @@ void	simple_path(char *cmd, char **path)
 
 void	init_path(t_data *data, char *cmd, char **path)
 {
+	DIR	*dir;
+
 	if (cmd[my_strchr(cmd, '/')] == '/')
 		simple_path(cmd, path);
 	else
@@ -88,11 +90,17 @@ void	init_path(t_data *data, char *cmd, char **path)
 		data->exit_status = 127;
 		return ;
 	}
-	if (access((*path), X_OK) != 0)
+	dir = opendir(*path);
+	if (access((*path), X_OK) != 0 || dir)
 	{
-		perror(*path);
+		if (!dir)
+			perror(*path);
+		else
+			write(2, "Permission denied\n", 18);
 		data->exit_status = 126;
 		free((*path));
 		(*path) = NULL;
 	}
+	if (dir)
+		free(dir);
 }
