@@ -1,5 +1,5 @@
 # minishell
-'minishell' team-project from 42 whose goal was to create a basic shell program, following bash as a reference.
+'minishell' team-project from 42 whose goal was to create a basic shell program in C, following bash as a reference.
 
 ## Install
 To compile, run the command in the minishell folder : 
